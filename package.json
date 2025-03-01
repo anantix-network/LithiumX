@@ -1,7 +1,7 @@
 {
   "name": "lithiumx",
   "version": "1.0.1",
-  "description": "The Best Lavalink Client",
+  "description": "LithiumX A powerful, simple, and effective stable Lavalink client developed in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
