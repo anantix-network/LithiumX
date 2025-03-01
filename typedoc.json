@@ -1,0 +1,16 @@
+{
+    "entryPoints": [
+        "src/**.ts"
+    ],
+    "out": "docs",
+    "name": "LithiumX",
+    "cleanOutputDir": false,
+    "includeVersion": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeExternals": true,
+    "plugin": [
+        "typedoc-plugin-markdown"
+    ],
+    "theme": "markdown"
+}

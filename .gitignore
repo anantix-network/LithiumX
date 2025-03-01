@@ -178,3 +178,6 @@ bun.lock
 package-lock.json
 .env
 test
+dist/
+docs/.vitepress/dist
+docs/.vitepress/cache
