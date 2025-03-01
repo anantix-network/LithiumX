@@ -3,7 +3,6 @@ import { LavalinkResponse, LithiumXManager, PlaylistRawData, SearchQuery, Search
 import { LavalinkInfo, LithiumXNode } from "./Node";
 import { LithiumXQueue } from "./Queue";
 import { Sizes, State, Structure, TrackSourceName, TrackUtils, VoiceState } from "./Utils";
-import * as _ from "lodash";
 import playerCheck from "../Utils/PlayerCheck";
 
 export class LithiumXPlayer {
@@ -507,7 +506,7 @@ export class LithiumXPlayer {
 
 			this.dynamicLoopInterval = setInterval(() => {
 				if (!this.dynamicRepeat) return;
-				const shuffled = _.shuffle(this.queue);
+				const shuffled = [...this.queue].sort(() => Math.random() - 0.5);
 				this.queue.clear();
 				shuffled.forEach((track) => {
 					this.queue.add(track);
