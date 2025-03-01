@@ -1,7 +1,7 @@
 ### LithiumX
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/anantix-network/LithiumX/main/assets/banner.svg" alt="LithiumX Banner" width="800"/>
+  <img src="https://raw.githubusercontent.com/anantix-network/LithiumX/refs/heads/main/assets/banner.svg" alt="LithiumX Banner" width="800"/>
 </p>
 
 ## Credits
