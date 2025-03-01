@@ -6,10 +6,23 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint src/**/*.ts",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "docs:generate": "typedoc --out docs/ src/ && vitepress build docs"
   },
   "author": "Anantix Network",
+  "keywords": [
+    "lavalink",
+    "lavalink-client"
+  ],
   "license": "MIT",
+  "homepage": "https://github.com/anantix-network/LithiumX",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anantix-network/LithiumX.git"
+  },
   "dependencies": {
     "@discordjs/collection": "^2.1.1",
     "axios": "^1.8.1",
@@ -25,6 +38,12 @@
     "dotenv": "^16.4.7",
     "eslint": "^9.21.0",
     "globals": "^16.0.0",
-    "typescript-eslint": "^8.25.0"
+    "tsd-jsdoc": "^2.5.0",
+    "typedoc": "^0.27.9",
+    "typedoc-plugin-markdown": "^4.4.2",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.25.0",
+    "vitepress": "^1.0.0-rc.44",
+    "vue": "^3.4.19"
   }
 }

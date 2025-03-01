@@ -3,3 +3,7 @@
 src/
 bun.lockb
 test/
+assets/
+eslint.config.mjs
+renovate.json
+docs
