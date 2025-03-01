@@ -13,7 +13,7 @@ const TRACK_SYMBOL = Symbol("track"),
 /** @hidden */
 const escapeRegExp = (str: string): string => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-export abstract class TrackUtils {
+abstract class TrackUtils {
 	static trackPartial: string[] | null = null;
 	private static manager: LithiumXManager;
 
@@ -177,7 +177,7 @@ export abstract class TrackUtils {
 }
 
 /** Gets or extends structures to extend the built in, or already extended, classes to add more functionality. */
-export abstract class Structure {
+abstract class Structure {
 	/**
 	 * Extends a class.
 	 * @param name
@@ -201,7 +201,7 @@ export abstract class Structure {
 	}
 }
 
-export class Plugin {
+class Plugin {
 	public load(manager: LithiumXManager): void { }
 	public unload(manager: LithiumXManager): void { }
 }
@@ -212,7 +212,7 @@ const structures = {
 	Node: LithiumXNode,
 };
 
-export interface UnresolvedQuery {
+interface UnresolvedQuery {
 	/** The title of the unresolved track. */
 	title: string;
 	/** The author of the unresolved track. If provided it will have a more precise search. */
@@ -221,21 +221,21 @@ export interface UnresolvedQuery {
 	duration?: number;
 }
 
-export type Sizes = "0" | "1" | "2" | "3" | "default" | "mqdefault" | "hqdefault" | "maxresdefault";
+type Sizes = "0" | "1" | "2" | "3" | "default" | "mqdefault" | "hqdefault" | "maxresdefault";
 
-export type LoadType = "track" | "playlist" | "search" | "empty" | "error";
+type LoadType = "track" | "playlist" | "search" | "empty" | "error";
 
-export type State = "CONNECTED" | "CONNECTING" | "DISCONNECTED" | "DISCONNECTING" | "DESTROYING" | "MOVING";
+type State = "CONNECTED" | "CONNECTING" | "DISCONNECTED" | "DISCONNECTING" | "DESTROYING" | "MOVING";
 
-export type PlayerEvents = TrackStartEvent | TrackEndEvent | TrackStuckEvent | TrackExceptionEvent | WebSocketClosedEvent;
+type PlayerEvents = TrackStartEvent | TrackEndEvent | TrackStuckEvent | TrackExceptionEvent | WebSocketClosedEvent;
 
-export type PlayerEventType = "TrackStartEvent" | "TrackEndEvent" | "TrackExceptionEvent" | "TrackStuckEvent" | "WebSocketClosedEvent";
+type PlayerEventType = "TrackStartEvent" | "TrackEndEvent" | "TrackExceptionEvent" | "TrackStuckEvent" | "WebSocketClosedEvent";
 
-export type TrackEndReason = "finished" | "loadFailed" | "stopped" | "replaced" | "cleanup";
+type TrackEndReason = "finished" | "loadFailed" | "stopped" | "replaced" | "cleanup";
 
-export type Severity = "common" | "suspicious" | "fault";
+type Severity = "common" | "suspicious" | "fault";
 
-export interface TrackData {
+interface TrackData {
 	/** The track information. */
 	encoded: string;
 	/** The detailed information of the track. */
@@ -244,7 +244,7 @@ export interface TrackData {
 	pluginInfo: Record<string, string>;
 }
 
-export interface TrackDataInfo {
+interface TrackDataInfo {
 	identifier: string;
 	isSeekable: boolean;
 	author: string;
@@ -257,87 +257,87 @@ export interface TrackDataInfo {
 	sourceName?: TrackSourceName;
 }
 
-export type TrackSourceName = "deezer" | "spotify" | "soundcloud" | "youtube";
+type TrackSourceName = "deezer" | "spotify" | "soundcloud" | "youtube";
 
-export interface Extendable {
+interface Extendable {
 	Player: typeof LithiumXPlayer;
 	Queue: typeof LithiumXQueue;
 	Node: typeof LithiumXNode;
 }
 
-export interface VoiceState {
+interface VoiceState {
 	op: "voiceUpdate";
 	guildId: string;
 	event: VoiceServer;
 	sessionId?: string;
 }
 
-export interface VoiceServer {
+interface VoiceServer {
 	token: string;
 	guild_id: string;
 	endpoint: string;
 }
 
-export interface VoiceState {
+interface VoiceState {
 	guild_id: string;
 	user_id: string;
 	session_id: string;
 	channel_id: string;
 }
 
-export interface VoicePacket {
+interface VoicePacket {
 	t?: "VOICE_SERVER_UPDATE" | "VOICE_STATE_UPDATE";
 	d: VoiceState | VoiceServer;
 }
 
-export interface NodeMessage extends NodeStats {
+interface NodeMessage extends NodeStats {
 	type: PlayerEventType;
 	op: "stats" | "playerUpdate" | "event";
 	guildId: string;
 }
 
-export interface PlayerEvent {
+interface PlayerEvent {
 	op: "event";
 	type: PlayerEventType;
 	guildId: string;
 }
 
-export interface Exception {
+interface Exception {
 	message: string;
 	severity: Severity;
 	cause: string;
 }
 
-export interface TrackStartEvent extends PlayerEvent {
+interface TrackStartEvent extends PlayerEvent {
 	type: "TrackStartEvent";
 	track: TrackData;
 }
 
-export interface TrackEndEvent extends PlayerEvent {
+interface TrackEndEvent extends PlayerEvent {
 	type: "TrackEndEvent";
 	track: TrackData;
 	reason: TrackEndReason;
 }
 
-export interface TrackExceptionEvent extends PlayerEvent {
+interface TrackExceptionEvent extends PlayerEvent {
 	exception?: Exception;
 	guildId: string;
 	type: "TrackExceptionEvent";
 }
 
-export interface TrackStuckEvent extends PlayerEvent {
+interface TrackStuckEvent extends PlayerEvent {
 	type: "TrackStuckEvent";
 	thresholdMs: number;
 }
 
-export interface WebSocketClosedEvent extends PlayerEvent {
+interface WebSocketClosedEvent extends PlayerEvent {
 	type: "WebSocketClosedEvent";
 	code: number;
 	reason: string;
 	byRemote: boolean;
 }
 
-export interface PlayerUpdate {
+interface PlayerUpdate {
 	op: "playerUpdate";
 	/** The guild id of the player. */
 	guildId: string;
@@ -351,4 +351,35 @@ export interface PlayerUpdate {
 		/** The ping of the node to the Discord voice server in milliseconds (-1 if not connected). */
 		ping: number;
 	};
+}
+
+
+export {
+	TrackUtils,
+	Structure,
+	Plugin,
+	UnresolvedQuery,
+	Sizes,
+	LoadType,
+	State,
+	PlayerEvents,
+	PlayerEventType,
+	TrackEndReason,
+	Severity,
+	TrackData,
+	TrackDataInfo,
+	TrackSourceName,
+	Extendable,
+	VoiceState,
+	VoiceServer,
+	VoicePacket,
+	NodeMessage,
+	PlayerEvent,
+	Exception,
+	TrackStartEvent,
+	TrackEndEvent,
+	TrackExceptionEvent,
+	TrackStuckEvent,
+	WebSocketClosedEvent,
+	PlayerUpdate
 }

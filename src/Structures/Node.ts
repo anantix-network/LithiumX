@@ -15,7 +15,7 @@ import { LithiumXRest } from "./Rest";
 import nodeCheck from "../Utils/NodeCheck";
 import WebSocket from "ws";
 
-export class LithiumXNode {
+class LithiumXNode {
 	/** The socket for the node. */
 	public socket: WebSocket | null = null;
 	/** The stats for the node. */
@@ -172,14 +172,10 @@ export class LithiumXNode {
 	protected message(d: Buffer | string): void {
 		if (Array.isArray(d)) d = Buffer.concat(d);
 		else if (d instanceof ArrayBuffer) d = Buffer.from(d);
-
 		const payload = JSON.parse(d.toString());
-
 		if (!payload.op) return;
 		this.manager.emit("NodeRaw", payload);
-
 		let player: LithiumXPlayer;
-
 		switch (payload.op) {
 			case "stats":
 				delete payload.op;
@@ -195,7 +191,6 @@ export class LithiumXNode {
 			case "ready":
 				this.rest.setSessionId(payload.sessionId);
 				this.sessionId = payload.sessionId;
-
 				if (this.options.resumeStatus) {
 					this.rest.patch(`/v4/sessions/${this.sessionId}`, {
 						resuming: this.options.resumeStatus,
@@ -211,10 +206,8 @@ export class LithiumXNode {
 
 	protected async handleEvent(payload: PlayerEvent & PlayerEvents): Promise<void> {
 		if (!payload.guildId) return;
-
 		const player = this.manager.players.get(payload.guildId);
 		if (!player) return;
-
 		const track = player.queue.current;
 		const type = payload.type;
 
@@ -223,23 +216,18 @@ export class LithiumXNode {
 			case "TrackStartEvent":
 				this.trackStart(player, track as Track, payload);
 				break;
-
 			case "TrackEndEvent":
 				this.trackEnd(player, track as Track, payload);
 				break;
-
 			case "TrackStuckEvent":
 				this.trackStuck(player, track as Track, payload);
 				break;
-
 			case "TrackExceptionEvent":
 				this.trackError(player, track, payload);
 				break;
-
 			case "WebSocketClosedEvent":
 				this.socketClosed(player, payload);
 				break;
-
 			default:
 				error = new Error(`Node#event unknown event '${type}'.`);
 				this.manager.emit("NodeError", this, error);
@@ -274,9 +262,7 @@ export class LithiumXNode {
 			this.playNextTrack(player, track, payload);
 		}
 		// If there are no more tracks in the queue
-		else {
-			await this.queueEnd(player, track, payload);
-		}
+		else await this.queueEnd(player, track, payload);
 	}
 
 	public extractSpotifyTrackID(url: string): string | null {
@@ -294,17 +280,12 @@ export class LithiumXNode {
 	// Handle autoplay
 	private async handleAutoplay(player: LithiumXPlayer, track: Track) {
 		const previousTrack = player.queue.previous;
-
 		if (!player.isAutoplay || !previousTrack) return;
-
 		const hasSpotifyURL = ["spotify.com", "open.spotify.com"].some((url) => previousTrack.uri.includes(url));
-
 		if (hasSpotifyURL) {
 			const node = this.manager.useableNodes;
-
 			const res = await node.rest.get(`/v4/info`);
 			const info = res as LavalinkInfo;
-
 			const isSpotifyPluginEnabled = info.plugins.some((plugin: { name: string }) => plugin.name === "lavasrc-plugin");
 			const isSpotifySourceManagerEnabled = info.sourceManagers.includes("spotify");
 
@@ -461,7 +442,7 @@ export class LithiumXNode {
 	}
 }
 
-export interface NodeOptions {
+interface NodeOptions {
 	/** The host for the node. */
 	host: string;
 	/** The port for the node. */
@@ -486,7 +467,7 @@ export interface NodeOptions {
 	priority?: number;
 }
 
-export interface NodeStats {
+interface NodeStats {
 	/** The amount of players on the node. */
 	players: number;
 	/** The amount of playing players on the node. */
@@ -501,7 +482,7 @@ export interface NodeStats {
 	frameStats: FrameStats;
 }
 
-export interface MemoryStats {
+interface MemoryStats {
 	/** The free memory of the allocated amount. */
 	free: number;
 	/** The used memory of the allocated amount. */
@@ -512,7 +493,7 @@ export interface MemoryStats {
 	reservable: number;
 }
 
-export interface CPUStats {
+interface CPUStats {
 	/** The core amount the host machine has. */
 	cores: number;
 	/** The system load. */
@@ -521,7 +502,7 @@ export interface CPUStats {
 	lavalinkLoad: number;
 }
 
-export interface FrameStats {
+interface FrameStats {
 	/** The amount of sent frames. */
 	sent?: number;
 	/** The amount of nulled frames. */
@@ -530,7 +511,7 @@ export interface FrameStats {
 	deficit?: number;
 }
 
-export interface LavalinkInfo {
+interface LavalinkInfo {
 	version: { semver: string; major: number; minor: number; patch: number; preRelease: string };
 	buildTime: number;
 	git: { branch: string; commit: string; commitTime: number };
@@ -539,4 +520,15 @@ export interface LavalinkInfo {
 	sourceManagers: string[];
 	filters: string[];
 	plugins: { name: string; version: string }[];
+}
+
+
+export {
+	LithiumXNode,
+	NodeOptions,
+	NodeStats,
+	MemoryStats,
+	CPUStats,
+	FrameStats,
+	LavalinkInfo
 }

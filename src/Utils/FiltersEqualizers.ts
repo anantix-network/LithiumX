@@ -1,12 +1,12 @@
 /** Represents an equalizer band. */
-export interface Band {
+interface Band {
 	/** The index of the equalizer band. */
 	band: number;
 	/** The gain value of the equalizer band. */
 	gain: number;
 }
 
-export const bassBoostEqualizer: Band[] = [
+const bassBoostEqualizer: Band[] = [
 	{ band: 0, gain: 0.2 },
 	{ band: 1, gain: 0.15 },
 	{ band: 2, gain: 0.1 },
@@ -24,7 +24,7 @@ export const bassBoostEqualizer: Band[] = [
 	{ band: 14, gain: -0.1 },
 ];
 
-export const softEqualizer: Band[] = [
+const softEqualizer: Band[] = [
 	{ band: 0, gain: 0 },
 	{ band: 1, gain: 0 },
 	{ band: 2, gain: 0 },
@@ -41,7 +41,7 @@ export const softEqualizer: Band[] = [
 	{ band: 13, gain: -0.25 },
 ];
 
-export const tvEqualizer: Band[] = [
+const tvEqualizer: Band[] = [
 	{ band: 0, gain: 0 },
 	{ band: 1, gain: 0 },
 	{ band: 2, gain: 0 },
@@ -58,7 +58,7 @@ export const tvEqualizer: Band[] = [
 	{ band: 13, gain: 0.65 },
 ];
 
-export const trebleBassEqualizer: Band[] = [
+const trebleBassEqualizer: Band[] = [
 	{ band: 0, gain: 0.6 },
 	{ band: 1, gain: 0.67 },
 	{ band: 2, gain: 0.67 },
@@ -75,7 +75,7 @@ export const trebleBassEqualizer: Band[] = [
 	{ band: 13, gain: 0 },
 ];
 
-export const vaporwaveEqualizer: Band[] = [
+const vaporwaveEqualizer: Band[] = [
 	{ band: 0, gain: 0 },
 	{ band: 1, gain: 0 },
 	{ band: 2, gain: 0 },
@@ -91,3 +91,5 @@ export const vaporwaveEqualizer: Band[] = [
 	{ band: 12, gain: 0.15 },
 	{ band: 13, gain: 0.15 },
 ];
+
+export { Band, bassBoostEqualizer, softEqualizer, tvEqualizer, trebleBassEqualizer, vaporwaveEqualizer };

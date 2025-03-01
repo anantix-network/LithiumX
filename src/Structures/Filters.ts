@@ -1,7 +1,7 @@
 import { Band, bassBoostEqualizer, softEqualizer, trebleBassEqualizer, tvEqualizer, vaporwaveEqualizer } from "../Utils/FiltersEqualizers";
 import { LithiumXPlayer } from "./Player";
 
-export class Filters {
+class Filters {
 	public distortion: DistortionOptions | null;
 	public equalizer: Band[];
 	public karaoke: KaraokeOptions | null;
@@ -297,3 +297,5 @@ interface AvailableFilters {
 	tv: boolean;
 	vaporwave: boolean;
 }
+
+export { Filters, TimescaleOptions, VibratoOptions, RotationOptions, KaraokeOptions, DistortionOptions, AvailableFilters };

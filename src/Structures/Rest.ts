@@ -1,20 +1,16 @@
 import { LithiumXNode } from "./Node";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 /** Handles the requests sent to the Lavalink REST API. */
-export class LithiumXRest {
+class LithiumXRest {
 	/** The Node that this Rest instance is connected to. */
 	private node: LithiumXNode;
 	/** The ID of the current session. */
 	private sessionId: string;
 	/** The password for the Node. */
 	private readonly password: string;
-	/** The URL of the Node. */
-	private readonly url: string;
 
 	constructor(node: LithiumXNode) {
 		this.node = node;
-		this.url = `http${node.options.secure ? "s" : ""}://${node.options.host}:${node.options.port}`;
 		this.sessionId = node.sessionId;
 		this.password = node.options.password;
 	}
@@ -45,18 +41,17 @@ export class LithiumXRest {
 
 	/* Sends a GET request to the specified endpoint and returns the response data. */
 	private async request(method: Method, endpoint: string, body?: unknown): Promise<unknown> {
-		const config: AxiosRequestConfig = {
+		const config: RequestInit = {
 			method,
-			url: this.url + endpoint,
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: this.password,
 			},
-			data: body,
+			body: body ? JSON.stringify(body) : null,
 		};
 		try {
-			const response = await axios(config) as AxiosResponse;
-			return response.data;
+			const response = await fetch(`http${this.node.options.secure ? "s" : ""}://${this.node.options.host}:${this.node.options.port}${endpoint}`, config);
+			return response.json();
 		} catch (error) {
 			if (error?.response?.status === 404) {
 				this.node.destroy();
@@ -117,4 +112,6 @@ interface playOptions {
 	};
 }
 
-export type Method = "GET" | "POST" | "PATCH" | "DELETE";
+type Method = "GET" | "POST" | "PATCH" | "DELETE";
+
+export { Method, LithiumXRest };
