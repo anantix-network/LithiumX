@@ -15,7 +15,9 @@ export default defineConfig({
         text: "Introduction",
         link: "/introduction",
         items: [
-            { text: "Globals", link: "/globals" },
+          { text: "Globals", link: "/globals" },
+          { text: "Get Started", link: "/get-started" },
+          { text: "Installation", link: "/installation" },
         ]
       },
       {
