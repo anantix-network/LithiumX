@@ -1,0 +1,29 @@
+{
+  "name": "lithiumx",
+  "version": "1.0.0",
+  "description": "The Best Lavalink Client",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src/**/*.ts"
+  },
+  "author": "Anantix Network",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/collection": "^2.1.1",
+    "axios": "^1.8.1",
+    "tiny-typed-emitter": "^2.1.0",
+    "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/axios": "^0.14.4",
+    "@types/node": "^22.13.7",
+    "@types/ws": "^8.5.14",
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
+    "typescript-eslint": "^8.25.0"
+  }
+}
