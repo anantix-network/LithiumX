@@ -25,7 +25,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm i --force
       - run: npx tsc
-      - run: npm run build:js
+      - run: npm run build
       - run: npm publish
         env:
             NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
