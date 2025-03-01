@@ -6,4 +6,5 @@ test/
 assets/
 eslint.config.mjs
 renovate.json
-docs
+docs/
+typedoc.json
