@@ -1,6 +1,6 @@
 {
   "name": "lithiumx",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "LithiumX A powerful, simple, and effective stable Lavalink client developed in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -41,7 +41,7 @@
     "tsd-jsdoc": "^2.5.0",
     "typedoc": "^0.27.9",
     "typedoc-plugin-markdown": "^4.4.2",
-    "typescript": "^5.8.0",
+    "typescript": "~5.7.0",
     "typescript-eslint": "^8.25.0",
     "vitepress": "^1.0.0-rc.44",
     "vue": "^3.4.19"
