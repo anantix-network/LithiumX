@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: EqualizerBand
 
-Defined in: [src/Structures/Player.ts:700](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L700)
+Defined in: [src/Structures/Player.ts:643](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L643)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Player.ts:700](https://github.com/anantix-network/Li
 
 > **band**: `number`
 
-Defined in: [src/Structures/Player.ts:702](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L702)
+Defined in: [src/Structures/Player.ts:645](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L645)
 
 The band number being 0 to 14.
 
@@ -24,6 +24,6 @@ The band number being 0 to 14.
 
 > **gain**: `number`
 
-Defined in: [src/Structures/Player.ts:704](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L704)
+Defined in: [src/Structures/Player.ts:647](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L647)
 
 The gain amount being -0.25 to 1.00, 0.25 being double.

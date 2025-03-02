@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: LavalinkInfo
 
-Defined in: [src/Structures/Node.ts:533](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L533)
+Defined in: [src/Structures/Node.ts:514](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L514)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Node.ts:533](https://github.com/anantix-network/Lith
 
 > **buildTime**: `number`
 
-Defined in: [src/Structures/Node.ts:535](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L535)
+Defined in: [src/Structures/Node.ts:516](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L516)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/Structures/Node.ts:535](https://github.com/anantix-network/Lith
 
 > **filters**: `string`[]
 
-Defined in: [src/Structures/Node.ts:540](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L540)
+Defined in: [src/Structures/Node.ts:521](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L521)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/Structures/Node.ts:540](https://github.com/anantix-network/Lith
 
 > **git**: `object`
 
-Defined in: [src/Structures/Node.ts:536](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L536)
+Defined in: [src/Structures/Node.ts:517](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L517)
 
 #### branch
 
@@ -50,7 +50,7 @@ Defined in: [src/Structures/Node.ts:536](https://github.com/anantix-network/Lith
 
 > **jvm**: `string`
 
-Defined in: [src/Structures/Node.ts:537](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L537)
+Defined in: [src/Structures/Node.ts:518](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L518)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [src/Structures/Node.ts:537](https://github.com/anantix-network/Lith
 
 > **lavaplayer**: `string`
 
-Defined in: [src/Structures/Node.ts:538](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L538)
+Defined in: [src/Structures/Node.ts:519](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L519)
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: [src/Structures/Node.ts:538](https://github.com/anantix-network/Lith
 
 > **plugins**: `object`[]
 
-Defined in: [src/Structures/Node.ts:541](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L541)
+Defined in: [src/Structures/Node.ts:522](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L522)
 
 #### name
 
@@ -82,7 +82,7 @@ Defined in: [src/Structures/Node.ts:541](https://github.com/anantix-network/Lith
 
 > **sourceManagers**: `string`[]
 
-Defined in: [src/Structures/Node.ts:539](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L539)
+Defined in: [src/Structures/Node.ts:520](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L520)
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: [src/Structures/Node.ts:539](https://github.com/anantix-network/Lith
 
 > **version**: `object`
 
-Defined in: [src/Structures/Node.ts:534](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L534)
+Defined in: [src/Structures/Node.ts:515](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L515)
 
 #### major
 
