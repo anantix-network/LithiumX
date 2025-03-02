@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: TrackStuckEvent
 
-Defined in: [src/Structures/Utils.ts:328](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L328)
+Defined in: [src/Structures/Utils.ts:328](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L328)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/Structures/Utils.ts:328](https://github.com/anantix-network/Lit
 
 > **guildId**: `string`
 
-Defined in: [src/Structures/Utils.ts:302](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L302)
+Defined in: [src/Structures/Utils.ts:302](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L302)
 
 #### Inherited from
 
@@ -30,7 +30,7 @@ Defined in: [src/Structures/Utils.ts:302](https://github.com/anantix-network/Lit
 
 > **op**: `"event"`
 
-Defined in: [src/Structures/Utils.ts:300](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L300)
+Defined in: [src/Structures/Utils.ts:300](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L300)
 
 #### Inherited from
 
@@ -42,7 +42,7 @@ Defined in: [src/Structures/Utils.ts:300](https://github.com/anantix-network/Lit
 
 > **thresholdMs**: `number`
 
-Defined in: [src/Structures/Utils.ts:330](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L330)
+Defined in: [src/Structures/Utils.ts:330](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L330)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [src/Structures/Utils.ts:330](https://github.com/anantix-network/Lit
 
 > **type**: `"TrackStuckEvent"`
 
-Defined in: [src/Structures/Utils.ts:329](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L329)
+Defined in: [src/Structures/Utils.ts:329](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L329)
 
 #### Overrides
 

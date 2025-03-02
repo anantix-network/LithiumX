@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: FrameStats
 
-Defined in: [src/Structures/Node.ts:524](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L524)
+Defined in: [src/Structures/Node.ts:505](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L505)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Node.ts:524](https://github.com/anantix-network/Lith
 
 > `optional` **deficit**: `number`
 
-Defined in: [src/Structures/Node.ts:530](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L530)
+Defined in: [src/Structures/Node.ts:511](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L511)
 
 The amount of deficit frames.
 
@@ -24,7 +24,7 @@ The amount of deficit frames.
 
 > `optional` **nulled**: `number`
 
-Defined in: [src/Structures/Node.ts:528](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L528)
+Defined in: [src/Structures/Node.ts:509](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L509)
 
 The amount of nulled frames.
 
@@ -34,6 +34,6 @@ The amount of nulled frames.
 
 > `optional` **sent**: `number`
 
-Defined in: [src/Structures/Node.ts:526](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L526)
+Defined in: [src/Structures/Node.ts:507](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L507)
 
 The amount of sent frames.

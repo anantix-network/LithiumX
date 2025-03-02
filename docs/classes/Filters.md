@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Class: Filters
 
-Defined in: [src/Structures/Filters.ts:4](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L4)
+Defined in: [src/Structures/Filters.ts:4](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L4)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Filters.ts:4](https://github.com/anantix-network/Lit
 
 > **new Filters**(`player`): [`Filters`](Filters.md)
 
-Defined in: [src/Structures/Filters.ts:18](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L18)
+Defined in: [src/Structures/Filters.ts:18](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L18)
 
 #### Parameters
 
@@ -30,9 +30,9 @@ Defined in: [src/Structures/Filters.ts:18](https://github.com/anantix-network/Li
 
 ### distortion
 
-> **distortion**: `DistortionOptions`
+> **distortion**: [`DistortionOptions`](../interfaces/DistortionOptions.md)
 
-Defined in: [src/Structures/Filters.ts:5](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L5)
+Defined in: [src/Structures/Filters.ts:5](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L5)
 
 ***
 
@@ -40,15 +40,15 @@ Defined in: [src/Structures/Filters.ts:5](https://github.com/anantix-network/Lit
 
 > **equalizer**: [`Band`](../interfaces/Band.md)[]
 
-Defined in: [src/Structures/Filters.ts:6](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L6)
+Defined in: [src/Structures/Filters.ts:6](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L6)
 
 ***
 
 ### karaoke
 
-> **karaoke**: `KaraokeOptions`
+> **karaoke**: [`KaraokeOptions`](../interfaces/KaraokeOptions.md)
 
-Defined in: [src/Structures/Filters.ts:7](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L7)
+Defined in: [src/Structures/Filters.ts:7](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L7)
 
 ***
 
@@ -56,31 +56,31 @@ Defined in: [src/Structures/Filters.ts:7](https://github.com/anantix-network/Lit
 
 > **player**: [`LithiumXPlayer`](LithiumXPlayer.md)
 
-Defined in: [src/Structures/Filters.ts:8](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L8)
+Defined in: [src/Structures/Filters.ts:8](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L8)
 
 ***
 
 ### rotation
 
-> **rotation**: `RotationOptions`
+> **rotation**: [`RotationOptions`](../interfaces/RotationOptions.md)
 
-Defined in: [src/Structures/Filters.ts:9](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L9)
+Defined in: [src/Structures/Filters.ts:9](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L9)
 
 ***
 
 ### timescale
 
-> **timescale**: `TimescaleOptions`
+> **timescale**: [`TimescaleOptions`](../interfaces/TimescaleOptions.md)
 
-Defined in: [src/Structures/Filters.ts:10](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L10)
+Defined in: [src/Structures/Filters.ts:10](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L10)
 
 ***
 
 ### vibrato
 
-> **vibrato**: `VibratoOptions`
+> **vibrato**: [`VibratoOptions`](../interfaces/VibratoOptions.md)
 
-Defined in: [src/Structures/Filters.ts:11](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L11)
+Defined in: [src/Structures/Filters.ts:11](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L11)
 
 ***
 
@@ -88,29 +88,15 @@ Defined in: [src/Structures/Filters.ts:11](https://github.com/anantix-network/Li
 
 > **volume**: `number`
 
-Defined in: [src/Structures/Filters.ts:12](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L12)
+Defined in: [src/Structures/Filters.ts:12](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L12)
 
 ## Methods
-
-### bassBoost()
-
-> **bassBoost**(): `this`
-
-Defined in: [src/Structures/Filters.ts:90](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L90)
-
-Applies the bass boost effect.
-
-#### Returns
-
-`this`
-
-***
 
 ### clearFilters()
 
 > **clearFilters**(): `Promise`\<[`Filters`](Filters.md)\>
 
-Defined in: [src/Structures/Filters.ts:175](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L175)
+Defined in: [src/Structures/Filters.ts:209](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L209)
 
 Removes the audio effects and resets the filter status.
 
@@ -124,23 +110,9 @@ Removes the audio effects and resets the filter status.
 
 > **distort**(): `this`
 
-Defined in: [src/Structures/Filters.ts:133](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L133)
+Defined in: [src/Structures/Filters.ts:85](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L85)
 
 Applies the distortion audio effect.
-
-#### Returns
-
-`this`
-
-***
-
-### eightD()
-
-> **eightD**(): `this`
-
-Defined in: [src/Structures/Filters.ts:85](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L85)
-
-Applies the eight dimension audio effect.
 
 #### Returns
 
@@ -152,7 +124,7 @@ Applies the eight dimension audio effect.
 
 > **getFilterStatus**(`filter`): `boolean`
 
-Defined in: [src/Structures/Filters.ts:202](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L202)
+Defined in: [src/Structures/Filters.ts:236](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L236)
 
 Returns the status of the specified filter .
 
@@ -160,7 +132,7 @@ Returns the status of the specified filter .
 
 ##### filter
 
-keyof `AvailableFilters`
+keyof [`AvailableFilters`](../interfaces/AvailableFilters.md)
 
 #### Returns
 
@@ -168,25 +140,11 @@ keyof `AvailableFilters`
 
 ***
 
-### nightcore()
-
-> **nightcore**(): `this`
-
-Defined in: [src/Structures/Filters.ts:95](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L95)
-
-Applies the nightcore effect.
-
-#### Returns
-
-`this`
-
-***
-
 ### setDistortion()
 
 > **setDistortion**(`distortion`?): `this`
 
-Defined in: [src/Structures/Filters.ts:170](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L170)
+Defined in: [src/Structures/Filters.ts:122](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L122)
 
 Applies the distortion options specified by the filter.
 
@@ -194,7 +152,29 @@ Applies the distortion options specified by the filter.
 
 ##### distortion?
 
-`DistortionOptions`
+[`DistortionOptions`](../interfaces/DistortionOptions.md)
+
+#### Returns
+
+`this`
+
+***
+
+### setEightD()
+
+> **setEightD**(`status`): `this`
+
+Defined in: [src/Structures/Filters.ts:130](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L130)
+
+Set the 8D options
+
+#### Parameters
+
+##### status
+
+`boolean`
+
+The status to set.
 
 #### Returns
 
@@ -206,7 +186,7 @@ Applies the distortion options specified by the filter.
 
 > **setEqualizer**(`bands`?): `this`
 
-Defined in: [src/Structures/Filters.ts:80](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L80)
+Defined in: [src/Structures/Filters.ts:80](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L80)
 
 Sets the equalizer bands and updates the filters.
 
@@ -226,17 +206,43 @@ The equalizer bands.
 
 ### setKaraoke()
 
-> **setKaraoke**(`karaoke`?): `this`
+> **setKaraoke**(`status`, `karaoke`?): `this`
 
-Defined in: [src/Structures/Filters.ts:147](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L147)
+Defined in: [src/Structures/Filters.ts:99](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L99)
 
 Applies the karaoke options specified by the filter.
 
 #### Parameters
 
+##### status
+
+`boolean`
+
 ##### karaoke?
 
-`KaraokeOptions`
+[`KaraokeOptions`](../interfaces/KaraokeOptions.md)
+
+#### Returns
+
+`this`
+
+***
+
+### setNightcore()
+
+> **setNightcore**(`status`): `this`
+
+Defined in: [src/Structures/Filters.ts:142](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L142)
+
+Set the nightcore options
+
+#### Parameters
+
+##### status
+
+`boolean`
+
+The status to set.
 
 #### Returns
 
@@ -248,7 +254,7 @@ Applies the karaoke options specified by the filter.
 
 > **setRotation**(`rotation`?): `this`
 
-Defined in: [src/Structures/Filters.ts:165](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L165)
+Defined in: [src/Structures/Filters.ts:117](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L117)
 
 Applies the rotation options specified by the filter.
 
@@ -256,7 +262,51 @@ Applies the rotation options specified by the filter.
 
 ##### rotation?
 
-`RotationOptions`
+[`RotationOptions`](../interfaces/RotationOptions.md)
+
+#### Returns
+
+`this`
+
+***
+
+### setSlowmo()
+
+> **setSlowmo**(`status`): `this`
+
+Defined in: [src/Structures/Filters.ts:158](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L158)
+
+Set the slowmo options
+
+#### Parameters
+
+##### status
+
+`boolean`
+
+The status to set.
+
+#### Returns
+
+`this`
+
+***
+
+### setSoft()
+
+> **setSoft**(`status`): `this`
+
+Defined in: [src/Structures/Filters.ts:174](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L174)
+
+Set the soft options
+
+#### Parameters
+
+##### status
+
+`boolean`
+
+The status to set.
 
 #### Returns
 
@@ -268,7 +318,7 @@ Applies the rotation options specified by the filter.
 
 > **setTimescale**(`timescale`?): `this`
 
-Defined in: [src/Structures/Filters.ts:155](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L155)
+Defined in: [src/Structures/Filters.ts:107](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L107)
 
 Applies the timescale options specified by the filter.
 
@@ -276,7 +326,73 @@ Applies the timescale options specified by the filter.
 
 ##### timescale?
 
-`TimescaleOptions`
+[`TimescaleOptions`](../interfaces/TimescaleOptions.md)
+
+#### Returns
+
+`this`
+
+***
+
+### setTrebleBass()
+
+> **setTrebleBass**(`status`): `this`
+
+Defined in: [src/Structures/Filters.ts:182](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L182)
+
+Set the treble bass options
+
+#### Parameters
+
+##### status
+
+`boolean`
+
+The status to set.
+
+#### Returns
+
+`this`
+
+***
+
+### setTV()
+
+> **setTV**(`status`): `this`
+
+Defined in: [src/Structures/Filters.ts:190](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L190)
+
+Set the TV options
+
+#### Parameters
+
+##### status
+
+`boolean`
+
+The status to set.
+
+#### Returns
+
+`this`
+
+***
+
+### setVaporwave()
+
+> **setVaporwave**(`status`): `this`
+
+Defined in: [src/Structures/Filters.ts:199](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L199)
+
+Set the vaporwave options
+
+#### Parameters
+
+##### status
+
+`boolean`
+
+The status to set.
 
 #### Returns
 
@@ -288,7 +404,7 @@ Applies the timescale options specified by the filter.
 
 > **setVibrato**(`vibrato`?): `this`
 
-Defined in: [src/Structures/Filters.ts:160](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L160)
+Defined in: [src/Structures/Filters.ts:112](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L112)
 
 Applies the vibrato options specified by the filter.
 
@@ -296,77 +412,7 @@ Applies the vibrato options specified by the filter.
 
 ##### vibrato?
 
-`VibratoOptions`
-
-#### Returns
-
-`this`
-
-***
-
-### slowmo()
-
-> **slowmo**(): `this`
-
-Defined in: [src/Structures/Filters.ts:104](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L104)
-
-Applies the slow motion audio effect.
-
-#### Returns
-
-`this`
-
-***
-
-### soft()
-
-> **soft**(): `this`
-
-Defined in: [src/Structures/Filters.ts:113](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L113)
-
-Applies the soft audio effect.
-
-#### Returns
-
-`this`
-
-***
-
-### trebleBass()
-
-> **trebleBass**(): `this`
-
-Defined in: [src/Structures/Filters.ts:123](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L123)
-
-Applies the treble bass effect.
-
-#### Returns
-
-`this`
-
-***
-
-### tv()
-
-> **tv**(): `this`
-
-Defined in: [src/Structures/Filters.ts:118](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L118)
-
-Applies the television audio effect.
-
-#### Returns
-
-`this`
-
-***
-
-### vaporwave()
-
-> **vaporwave**(): `this`
-
-Defined in: [src/Structures/Filters.ts:128](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Filters.ts#L128)
-
-Applies the vaporwave effect.
+[`VibratoOptions`](../interfaces/VibratoOptions.md)
 
 #### Returns
 

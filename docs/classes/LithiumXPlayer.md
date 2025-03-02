@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Class: LithiumXPlayer
 
-Defined in: [src/Structures/Player.ts:9](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L9)
+Defined in: [src/Structures/Player.ts:8](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L8)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Player.ts:9](https://github.com/anantix-network/Lith
 
 > **new LithiumXPlayer**(`options`): [`LithiumXPlayer`](LithiumXPlayer.md)
 
-Defined in: [src/Structures/Player.ts:77](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L77)
+Defined in: [src/Structures/Player.ts:76](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L76)
 
 Creates a new player, returns one if it already exists.
 
@@ -34,7 +34,7 @@ Creates a new player, returns one if it already exists.
 
 > **bands**: `number`[]
 
-Defined in: [src/Structures/Player.ts:39](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L39)
+Defined in: [src/Structures/Player.ts:38](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L38)
 
 The equalizer bands array.
 
@@ -44,7 +44,7 @@ The equalizer bands array.
 
 > **dynamicRepeat**: `boolean` = `false`
 
-Defined in: [src/Structures/Player.ts:19](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L19)
+Defined in: [src/Structures/Player.ts:18](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L18)
 
 Whether the queue repeats and shuffles after each song.
 
@@ -54,7 +54,7 @@ Whether the queue repeats and shuffles after each song.
 
 > **filters**: [`Filters`](Filters.md)
 
-Defined in: [src/Structures/Player.ts:13](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L13)
+Defined in: [src/Structures/Player.ts:12](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L12)
 
 The filters applied to the audio.
 
@@ -64,7 +64,7 @@ The filters applied to the audio.
 
 > **guild**: `string`
 
-Defined in: [src/Structures/Player.ts:31](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L31)
+Defined in: [src/Structures/Player.ts:30](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L30)
 
 The guild for the player.
 
@@ -74,7 +74,7 @@ The guild for the player.
 
 > **isAutoplay**: `boolean` = `false`
 
-Defined in: [src/Structures/Player.ts:45](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L45)
+Defined in: [src/Structures/Player.ts:44](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L44)
 
 The autoplay state of the player.
 
@@ -84,7 +84,7 @@ The autoplay state of the player.
 
 > **manager**: [`LithiumXManager`](LithiumXManager.md)
 
-Defined in: [src/Structures/Player.ts:43](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L43)
+Defined in: [src/Structures/Player.ts:42](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L42)
 
 The Manager.
 
@@ -94,7 +94,7 @@ The Manager.
 
 > **node**: [`LithiumXNode`](LithiumXNode.md)
 
-Defined in: [src/Structures/Player.ts:29](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L29)
+Defined in: [src/Structures/Player.ts:28](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L28)
 
 The Node for the Player.
 
@@ -104,7 +104,7 @@ The Node for the Player.
 
 > **options**: [`PlayerOptions`](../interfaces/PlayerOptions.md)
 
-Defined in: [src/Structures/Player.ts:77](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L77)
+Defined in: [src/Structures/Player.ts:76](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L76)
 
 ***
 
@@ -112,7 +112,7 @@ Defined in: [src/Structures/Player.ts:77](https://github.com/anantix-network/Lit
 
 > **paused**: `boolean` = `false`
 
-Defined in: [src/Structures/Player.ts:25](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L25)
+Defined in: [src/Structures/Player.ts:24](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L24)
 
 Whether the player is paused.
 
@@ -122,7 +122,7 @@ Whether the player is paused.
 
 > **playing**: `boolean` = `false`
 
-Defined in: [src/Structures/Player.ts:23](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L23)
+Defined in: [src/Structures/Player.ts:22](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L22)
 
 Whether the player is playing.
 
@@ -132,7 +132,7 @@ Whether the player is playing.
 
 > **position**: `number` = `0`
 
-Defined in: [src/Structures/Player.ts:21](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L21)
+Defined in: [src/Structures/Player.ts:20](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L20)
 
 The time the player is in the track.
 
@@ -142,7 +142,7 @@ The time the player is in the track.
 
 > `readonly` **queue**: [`LithiumXQueue`](LithiumXQueue.md)
 
-Defined in: [src/Structures/Player.ts:11](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L11)
+Defined in: [src/Structures/Player.ts:10](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L10)
 
 The Queue for the Player.
 
@@ -152,7 +152,7 @@ The Queue for the Player.
 
 > **queueRepeat**: `boolean` = `false`
 
-Defined in: [src/Structures/Player.ts:17](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L17)
+Defined in: [src/Structures/Player.ts:16](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L16)
 
 Whether the queue repeats the queue.
 
@@ -162,7 +162,7 @@ Whether the queue repeats the queue.
 
 > **state**: [`State`](../type-aliases/State.md) = `"DISCONNECTED"`
 
-Defined in: [src/Structures/Player.ts:37](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L37)
+Defined in: [src/Structures/Player.ts:36](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L36)
 
 The current state of the player.
 
@@ -172,7 +172,7 @@ The current state of the player.
 
 > **textChannel**: `string` = `null`
 
-Defined in: [src/Structures/Player.ts:35](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L35)
+Defined in: [src/Structures/Player.ts:34](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L34)
 
 The text channel for the player.
 
@@ -182,7 +182,7 @@ The text channel for the player.
 
 > **trackRepeat**: `boolean` = `false`
 
-Defined in: [src/Structures/Player.ts:15](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L15)
+Defined in: [src/Structures/Player.ts:14](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L14)
 
 Whether the queue repeats the track.
 
@@ -192,7 +192,7 @@ Whether the queue repeats the track.
 
 > **voiceChannel**: `string` = `null`
 
-Defined in: [src/Structures/Player.ts:33](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L33)
+Defined in: [src/Structures/Player.ts:32](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L32)
 
 The voice channel for the player.
 
@@ -202,7 +202,7 @@ The voice channel for the player.
 
 > **voiceState**: [`VoiceState`](../interfaces/VoiceState.md)
 
-Defined in: [src/Structures/Player.ts:41](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L41)
+Defined in: [src/Structures/Player.ts:40](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L40)
 
 The voice state object from Discord.
 
@@ -212,7 +212,7 @@ The voice state object from Discord.
 
 > **volume**: `number`
 
-Defined in: [src/Structures/Player.ts:27](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L27)
+Defined in: [src/Structures/Player.ts:26](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L26)
 
 The volume for the player
 
@@ -222,7 +222,7 @@ The volume for the player
 
 > **connect**(): `this`
 
-Defined in: [src/Structures/Player.ts:117](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L117)
+Defined in: [src/Structures/Player.ts:110](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L110)
 
 Connect to the voice channel.
 
@@ -236,7 +236,7 @@ Connect to the voice channel.
 
 > **destroy**(`disconnect`): `void`
 
-Defined in: [src/Structures/Player.ts:221](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L221)
+Defined in: [src/Structures/Player.ts:209](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L209)
 
 Destroys the player.
 
@@ -256,7 +256,7 @@ Destroys the player.
 
 > **disconnect**(): `this`
 
-Defined in: [src/Structures/Player.ts:200](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L200)
+Defined in: [src/Structures/Player.ts:188](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L188)
 
 Disconnect from the voice channel.
 
@@ -270,7 +270,7 @@ Disconnect from the voice channel.
 
 > **get**\<`T`\>(`key`): `T`
 
-Defined in: [src/Structures/Player.ts:64](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L64)
+Defined in: [src/Structures/Player.ts:63](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L63)
 
 Get custom data.
 
@@ -294,7 +294,7 @@ Get custom data.
 
 > **getRecommended**(`track`, `requester`?): `Promise`\<[`Track`](../interfaces/Track.md)[]\>
 
-Defined in: [src/Structures/Player.ts:337](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L337)
+Defined in: [src/Structures/Player.ts:307](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L307)
 
 Gets recommended tracks and returns an array of tracks.
 
@@ -318,7 +318,7 @@ Gets recommended tracks and returns an array of tracks.
 
 > **moveNode**(`node`?): `Promise`\<[`LithiumXPlayer`](LithiumXPlayer.md)\>
 
-Defined in: [src/Structures/Player.ts:141](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L141)
+Defined in: [src/Structures/Player.ts:133](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L133)
 
 Moves the player to a different node.
 
@@ -342,7 +342,7 @@ The ID of the node to move to.
 
 > **pause**(`pause`): `this`
 
-Defined in: [src/Structures/Player.ts:564](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L564)
+Defined in: [src/Structures/Player.ts:507](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L507)
 
 Pauses the current track.
 
@@ -364,7 +364,7 @@ Pauses the current track.
 
 > **play**(): `Promise`\<`void`\>
 
-Defined in: [src/Structures/Player.ts:257](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L257)
+Defined in: [src/Structures/Player.ts:239](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L239)
 
 Plays the next track.
 
@@ -376,7 +376,7 @@ Plays the next track.
 
 > **play**(`track`): `Promise`\<`void`\>
 
-Defined in: [src/Structures/Player.ts:263](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L263)
+Defined in: [src/Structures/Player.ts:245](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L245)
 
 Plays the specified track.
 
@@ -394,7 +394,7 @@ Plays the specified track.
 
 > **play**(`options`): `Promise`\<`void`\>
 
-Defined in: [src/Structures/Player.ts:269](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L269)
+Defined in: [src/Structures/Player.ts:251](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L251)
 
 Plays the next track with some options.
 
@@ -412,7 +412,7 @@ Plays the next track with some options.
 
 > **play**(`track`, `options`): `Promise`\<`void`\>
 
-Defined in: [src/Structures/Player.ts:276](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L276)
+Defined in: [src/Structures/Player.ts:258](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L258)
 
 Plays the specified track with some options.
 
@@ -436,7 +436,7 @@ Plays the specified track with some options.
 
 > **previous**(): `this`
 
-Defined in: [src/Structures/Player.ts:586](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L586)
+Defined in: [src/Structures/Player.ts:529](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L529)
 
 Go back to the previous song.
 
@@ -450,7 +450,7 @@ Go back to the previous song.
 
 > **restart**(): `void`
 
-Defined in: [src/Structures/Player.ts:528](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L528)
+Defined in: [src/Structures/Player.ts:471](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L471)
 
 Restarts the current track to the start.
 
@@ -464,7 +464,7 @@ Restarts the current track to the start.
 
 > **search**(`query`, `requester`?): `Promise`\<[`SearchResult`](../interfaces/SearchResult.md)\>
 
-Defined in: [src/Structures/Player.ts:112](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L112)
+Defined in: [src/Structures/Player.ts:105](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L105)
 
 Same as Manager#search() but a shortcut on the player itself.
 
@@ -492,7 +492,7 @@ The user who requested the search.
 
 > **seek**(`position`): `this`
 
-Defined in: [src/Structures/Player.ts:597](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L597)
+Defined in: [src/Structures/Player.ts:540](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L540)
 
 Seeks to the position in the current track.
 
@@ -512,7 +512,7 @@ Seeks to the position in the current track.
 
 > **set**(`key`, `value`): `void`
 
-Defined in: [src/Structures/Player.ts:56](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L56)
+Defined in: [src/Structures/Player.ts:55](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L55)
 
 Set custom data.
 
@@ -536,7 +536,7 @@ Set custom data.
 
 > **setAutoplay**(`autoplayState`, `botUser`): [`LithiumXPlayer`](LithiumXPlayer.md)
 
-Defined in: [src/Structures/Player.ts:317](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L317)
+Defined in: [src/Structures/Player.ts:294](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L294)
 
 Sets the autoplay-state of the player.
 
@@ -560,7 +560,7 @@ Sets the autoplay-state of the player.
 
 > **setDynamicRepeat**(`repeat`, `ms`): `this`
 
-Defined in: [src/Structures/Player.ts:492](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L492)
+Defined in: [src/Structures/Player.ts:435](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L435)
 
 Sets the queue to repeat and shuffles the queue after each song.
 
@@ -588,7 +588,7 @@ After how many milliseconds to trigger dynamic repeat.
 
 > **setQueueRepeat**(`repeat`): `this`
 
-Defined in: [src/Structures/Player.ts:468](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L468)
+Defined in: [src/Structures/Player.ts:411](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L411)
 
 Sets the queue repeat.
 
@@ -608,7 +608,7 @@ Sets the queue repeat.
 
 > **setTextChannel**(`channel`): `this`
 
-Defined in: [src/Structures/Player.ts:249](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L249)
+Defined in: [src/Structures/Player.ts:232](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L232)
 
 Sets the player text channel.
 
@@ -628,7 +628,7 @@ Sets the player text channel.
 
 > **setTrackRepeat**(`repeat`): `this`
 
-Defined in: [src/Structures/Player.ts:445](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L445)
+Defined in: [src/Structures/Player.ts:391](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L391)
 
 Sets the track repeat.
 
@@ -648,7 +648,7 @@ Sets the track repeat.
 
 > **setVoiceChannel**(`channel`): `this`
 
-Defined in: [src/Structures/Player.ts:237](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L237)
+Defined in: [src/Structures/Player.ts:221](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L221)
 
 Sets the player voice channel.
 
@@ -668,7 +668,7 @@ Sets the player voice channel.
 
 > **setVolume**(`volume`): `this`
 
-Defined in: [src/Structures/Player.ts:426](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L426)
+Defined in: [src/Structures/Player.ts:375](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L375)
 
 Sets the player volume.
 
@@ -688,7 +688,7 @@ Sets the player volume.
 
 > **stop**(`amount`?): `this`
 
-Defined in: [src/Structures/Player.ts:544](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L544)
+Defined in: [src/Structures/Player.ts:487](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L487)
 
 Stops the current track, optionally give an amount to skip to, e.g 5 would play the 5th song.
 

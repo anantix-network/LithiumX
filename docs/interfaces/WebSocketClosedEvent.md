@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: WebSocketClosedEvent
 
-Defined in: [src/Structures/Utils.ts:333](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L333)
+Defined in: [src/Structures/Utils.ts:333](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L333)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/Structures/Utils.ts:333](https://github.com/anantix-network/Lit
 
 > **byRemote**: `boolean`
 
-Defined in: [src/Structures/Utils.ts:337](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L337)
+Defined in: [src/Structures/Utils.ts:337](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L337)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [src/Structures/Utils.ts:337](https://github.com/anantix-network/Lit
 
 > **code**: `number`
 
-Defined in: [src/Structures/Utils.ts:335](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L335)
+Defined in: [src/Structures/Utils.ts:335](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L335)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [src/Structures/Utils.ts:335](https://github.com/anantix-network/Lit
 
 > **guildId**: `string`
 
-Defined in: [src/Structures/Utils.ts:302](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L302)
+Defined in: [src/Structures/Utils.ts:302](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L302)
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: [src/Structures/Utils.ts:302](https://github.com/anantix-network/Lit
 
 > **op**: `"event"`
 
-Defined in: [src/Structures/Utils.ts:300](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L300)
+Defined in: [src/Structures/Utils.ts:300](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L300)
 
 #### Inherited from
 
@@ -58,7 +58,7 @@ Defined in: [src/Structures/Utils.ts:300](https://github.com/anantix-network/Lit
 
 > **reason**: `string`
 
-Defined in: [src/Structures/Utils.ts:336](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L336)
+Defined in: [src/Structures/Utils.ts:336](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L336)
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: [src/Structures/Utils.ts:336](https://github.com/anantix-network/Lit
 
 > **type**: `"WebSocketClosedEvent"`
 
-Defined in: [src/Structures/Utils.ts:334](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L334)
+Defined in: [src/Structures/Utils.ts:334](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L334)
 
 #### Overrides
 

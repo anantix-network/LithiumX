@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: PlayOptions
 
-Defined in: [src/Structures/Player.ts:691](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L691)
+Defined in: [src/Structures/Player.ts:634](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L634)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Player.ts:691](https://github.com/anantix-network/Li
 
 > `readonly` `optional` **endTime**: `number`
 
-Defined in: [src/Structures/Player.ts:695](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L695)
+Defined in: [src/Structures/Player.ts:638](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L638)
 
 The position to end the track.
 
@@ -24,7 +24,7 @@ The position to end the track.
 
 > `readonly` `optional` **noReplace**: `boolean`
 
-Defined in: [src/Structures/Player.ts:697](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L697)
+Defined in: [src/Structures/Player.ts:640](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L640)
 
 Whether to not replace the track if a play payload is sent.
 
@@ -34,6 +34,6 @@ Whether to not replace the track if a play payload is sent.
 
 > `readonly` `optional` **startTime**: `number`
 
-Defined in: [src/Structures/Player.ts:693](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Player.ts#L693)
+Defined in: [src/Structures/Player.ts:636](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L636)
 
 The position to start the track.

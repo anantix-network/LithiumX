@@ -1,8 +1,8 @@
-[**LithiumX v1.0.2**](README.md)
+[**LithiumX v1.0.4**](README.md)
 
 ***
 
-# LithiumX v1.0.2
+# LithiumX v1.0.4
 
 ## Classes
 
@@ -18,12 +18,15 @@
 
 ## Interfaces
 
+- [AvailableFilters](interfaces/AvailableFilters.md)
 - [Band](interfaces/Band.md)
 - [CPUStats](interfaces/CPUStats.md)
+- [DistortionOptions](interfaces/DistortionOptions.md)
 - [EqualizerBand](interfaces/EqualizerBand.md)
 - [Exception](interfaces/Exception.md)
 - [Extendable](interfaces/Extendable.md)
 - [FrameStats](interfaces/FrameStats.md)
+- [KaraokeOptions](interfaces/KaraokeOptions.md)
 - [LavalinkInfo](interfaces/LavalinkInfo.md)
 - [LavalinkResponse](interfaces/LavalinkResponse.md)
 - [ManagerEvents](interfaces/ManagerEvents.md)
@@ -39,8 +42,10 @@
 - [PlaylistData](interfaces/PlaylistData.md)
 - [PlaylistRawData](interfaces/PlaylistRawData.md)
 - [PlayOptions](interfaces/PlayOptions.md)
+- [RotationOptions](interfaces/RotationOptions.md)
 - [SearchQuery](interfaces/SearchQuery.md)
 - [SearchResult](interfaces/SearchResult.md)
+- [TimescaleOptions](interfaces/TimescaleOptions.md)
 - [Track](interfaces/Track.md)
 - [TrackData](interfaces/TrackData.md)
 - [TrackDataInfo](interfaces/TrackDataInfo.md)
@@ -51,6 +56,7 @@
 - [TrackStuckEvent](interfaces/TrackStuckEvent.md)
 - [UnresolvedQuery](interfaces/UnresolvedQuery.md)
 - [UnresolvedTrack](interfaces/UnresolvedTrack.md)
+- [VibratoOptions](interfaces/VibratoOptions.md)
 - [VoicePacket](interfaces/VoicePacket.md)
 - [VoiceServer](interfaces/VoiceServer.md)
 - [VoiceState](interfaces/VoiceState.md)

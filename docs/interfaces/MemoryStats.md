@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: MemoryStats
 
-Defined in: [src/Structures/Node.ts:504](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L504)
+Defined in: [src/Structures/Node.ts:485](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L485)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Node.ts:504](https://github.com/anantix-network/Lith
 
 > **allocated**: `number`
 
-Defined in: [src/Structures/Node.ts:510](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L510)
+Defined in: [src/Structures/Node.ts:491](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L491)
 
 The total allocated memory.
 
@@ -24,7 +24,7 @@ The total allocated memory.
 
 > **free**: `number`
 
-Defined in: [src/Structures/Node.ts:506](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L506)
+Defined in: [src/Structures/Node.ts:487](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L487)
 
 The free memory of the allocated amount.
 
@@ -34,7 +34,7 @@ The free memory of the allocated amount.
 
 > **reservable**: `number`
 
-Defined in: [src/Structures/Node.ts:512](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L512)
+Defined in: [src/Structures/Node.ts:493](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L493)
 
 The reservable memory.
 
@@ -44,6 +44,6 @@ The reservable memory.
 
 > **used**: `number`
 
-Defined in: [src/Structures/Node.ts:508](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L508)
+Defined in: [src/Structures/Node.ts:489](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L489)
 
 The used memory of the allocated amount.

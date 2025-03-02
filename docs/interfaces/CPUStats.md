@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: CPUStats
 
-Defined in: [src/Structures/Node.ts:515](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L515)
+Defined in: [src/Structures/Node.ts:496](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L496)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Node.ts:515](https://github.com/anantix-network/Lith
 
 > **cores**: `number`
 
-Defined in: [src/Structures/Node.ts:517](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L517)
+Defined in: [src/Structures/Node.ts:498](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L498)
 
 The core amount the host machine has.
 
@@ -24,7 +24,7 @@ The core amount the host machine has.
 
 > **lavalinkLoad**: `number`
 
-Defined in: [src/Structures/Node.ts:521](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L521)
+Defined in: [src/Structures/Node.ts:502](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L502)
 
 The lavalink load.
 
@@ -34,6 +34,6 @@ The lavalink load.
 
 > **systemLoad**: `number`
 
-Defined in: [src/Structures/Node.ts:519](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Node.ts#L519)
+Defined in: [src/Structures/Node.ts:500](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L500)
 
 The system load.

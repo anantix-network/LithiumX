@@ -33,9 +33,7 @@ export class LithiumXQueue extends Array<Track | UnresolvedTrack> {
 	 * @param [offset=null]
 	 */
 	public add(track: (Track | UnresolvedTrack) | (Track | UnresolvedTrack)[], offset?: number): void {
-		if (!TrackUtils.validate(track)) {
-			throw new RangeError('Track must be a "Track" or "Track[]".');
-		}
+		if (!TrackUtils.validate(track)) throw new RangeError('Track must be a "Track" or "Track[]".');
 
 		if (!this.current) {
 			if (Array.isArray(track)) {
@@ -46,14 +44,9 @@ export class LithiumXQueue extends Array<Track | UnresolvedTrack> {
 			}
 		} else {
 			if (typeof offset !== "undefined" && typeof offset === "number") {
-				if (isNaN(offset)) {
-					throw new RangeError("Offset must be a number.");
-				}
+				if (isNaN(offset)) throw new RangeError("Offset must be a number.");
 
-				if (offset < 0 || offset > this.length) {
-					throw new RangeError(`Offset must be between 0 and ${this.length}.`);
-				}
-
+				if (offset < 0 || offset > this.length) throw new RangeError(`Offset must be between 0 and ${this.length}.`);
 				if (Array.isArray(track)) {
 					this.splice(offset, 0, ...track);
 				} else {
@@ -84,17 +77,10 @@ export class LithiumXQueue extends Array<Track | UnresolvedTrack> {
 
 	public remove(startOrPosition = 0, end?: number): (Track | UnresolvedTrack)[] {
 		if (typeof end !== "undefined") {
-			if (isNaN(Number(startOrPosition)) || isNaN(Number(end))) {
-				throw new RangeError(`Missing "start" or "end" parameter.`);
-			}
-
-			if (startOrPosition >= end || startOrPosition >= this.length) {
-				throw new RangeError("Invalid start or end values.");
-			}
-
+			if (isNaN(Number(startOrPosition)) || isNaN(Number(end))) throw new RangeError(`Missing "start" or "end" parameter.`);
+			if (startOrPosition >= end || startOrPosition >= this.length) throw new RangeError("Invalid start or end values.");
 			return this.splice(startOrPosition, end - startOrPosition);
 		}
-
 		return this.splice(startOrPosition, 1);
 	}
 
@@ -113,30 +99,21 @@ export class LithiumXQueue extends Array<Track | UnresolvedTrack> {
 
 	public equalizedShuffle() {
 		const userTracks = new Map<string, Array<Track | UnresolvedTrack>>();
-
 		this.forEach((track) => {
 			const user = track.requester;
-
-			if (!userTracks.has(user)) {
-				userTracks.set(user, []);
-			}
-
+			if (!userTracks.has(user)) userTracks.set(user, []);
 			userTracks.get(user).push(track);
 		});
 
 		const shuffledQueue: Array<Track | UnresolvedTrack> = [];
-
 		while (shuffledQueue.length < this.length) {
 			userTracks.forEach((tracks) => {
 				const track = tracks.shift();
-				if (track) {
-					shuffledQueue.push(track);
-				}
+				if (track) shuffledQueue.push(track);
 			});
 		}
 
 		this.clear();
 		this.add(shuffledQueue);
-		console.log(this);
 	}
 }

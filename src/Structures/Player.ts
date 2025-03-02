@@ -77,24 +77,18 @@ export class LithiumXPlayer {
 		if (!this.manager) this.manager = Structure.get("Player")._manager;
 		if (!this.manager) throw new RangeError("Manager has not been initiated.");
 
-		if (this.manager.players.has(options.guild)) {
-			return this.manager.players.get(options.guild);
-		}
-
+		if (this.manager.players.has(options.guild)) return this.manager.players.get(options.guild);
 		playerCheck(options);
-
 		this.guild = options.guild;
 		this.voiceState = Object.assign({
 			op: "voiceUpdate",
 			guild_id: options.guild,
 		});
-
 		if (options.voiceChannel) this.voiceChannel = options.voiceChannel;
 		if (options.textChannel) this.textChannel = options.textChannel;
-
 		const node = this.manager.nodes.get(options.node);
 		this.node = node || this.manager.useableNodes;
-
+		
 		if (!this.node) throw new RangeError("No available nodes.");
 
 		this.manager.players.set(options.guild, this);
@@ -116,7 +110,6 @@ export class LithiumXPlayer {
 	public connect(): this {
 		if (!this.voiceChannel) throw new RangeError("No voice channel has been set.");
 		this.state = "CONNECTING";
-
 		this.manager.options.send(this.guild, {
 			op: 4,
 			d: {
@@ -144,16 +137,12 @@ export class LithiumXPlayer {
 
 		const destroyOldNode = async (node: LithiumXNode) => {
 			this.state = "MOVING";
-
 			if (this.manager.nodes.get(node.options.identifier) && this.manager.nodes.get(node.options.identifier).connected) await node.rest.destroyPlayer(this.guild);
-
 			setTimeout(() => (this.state = "CONNECTED"), 5000);
 		};
-
 		const currentNode = this.node;
 		const destinationNode = this.manager.nodes.get(node);
 		let position = this.position;
-
 		if (currentNode.connected) {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const fetchedPlayer: any = await currentNode.rest.get(`/v4/sessions/${currentNode.sessionId}/players/${this.guild}`);
@@ -219,11 +208,7 @@ export class LithiumXPlayer {
 	/** Destroys the player. */
 	public destroy(disconnect = true): void {
 		this.state = "DESTROYING";
-
-		if (disconnect) {
-			this.disconnect();
-		}
-
+		if (disconnect) this.disconnect();
 		this.node.rest.destroyPlayer(this.guild);
 		this.manager.emit("PlayerDestroy", this);
 		this.manager.players.delete(this.guild);
@@ -235,7 +220,6 @@ export class LithiumXPlayer {
 	 */
 	public setVoiceChannel(channel: string): this {
 		if (typeof channel !== "string") throw new TypeError("Channel must be a non-empty string.");
-
 		this.voiceChannel = channel;
 		this.connect();
 		return this;
@@ -247,7 +231,6 @@ export class LithiumXPlayer {
 	 */
 	public setTextChannel(channel: string): this {
 		if (typeof channel !== "string") throw new TypeError("Channel must be a non-empty string.");
-
 		this.textChannel = channel;
 		return this;
 	}
@@ -278,15 +261,12 @@ export class LithiumXPlayer {
 			if (this.queue.current) this.queue.previous = this.queue.current;
 			this.queue.current = optionsOrTrack as Track;
 		}
-
 		if (!this.queue.current) throw new RangeError("No current track.");
-
 		const finalOptions = playOptions
 			? playOptions
 			: ["startTime", "endTime", "noReplace"].every((v) => Object.keys(optionsOrTrack || {}).includes(v))
 				? (optionsOrTrack as PlayOptions)
 				: {};
-
 		if (TrackUtils.isUnresolvedTrack(this.queue.current)) {
 			try {
 				this.queue.current = await TrackUtils.getClosestTrack(this.queue.current as UnresolvedTrack);
@@ -296,7 +276,6 @@ export class LithiumXPlayer {
 				return;
 			}
 		}
-
 		await this.node.rest.updatePlayer({
 			guildId: this.guild,
 			data: {
@@ -304,7 +283,6 @@ export class LithiumXPlayer {
 				...finalOptions,
 			},
 		});
-
 		Object.assign(this, { position: 0, playing: true });
 	}
 
@@ -314,17 +292,10 @@ export class LithiumXPlayer {
 	 * @param botUser
 	 */
 	public setAutoplay(autoplayState: boolean, botUser: object) {
-		if (typeof autoplayState !== "boolean") {
-			throw new TypeError("autoplayState must be a boolean.");
-		}
-
-		if (typeof botUser !== "object") {
-			throw new TypeError("botUser must be a user-object.");
-		}
-
+		if (typeof autoplayState !== "boolean") throw new TypeError("autoplayState must be a boolean.");
+		if (typeof botUser !== "object") throw new TypeError("botUser must be a user-object.");
 		this.isAutoplay = autoplayState;
 		this.set("Internal_BotUser", botUser);
-
 		return this;
 	}
 
@@ -336,9 +307,7 @@ export class LithiumXPlayer {
 	public async getRecommended(track: Track, requester?: string) {
 		const node = this.manager.useableNodes;
 
-		if (!node) {
-			throw new Error("No available nodes.");
-		}
+		if (!node) throw new Error("No available nodes.");
 
 		const hasSpotifyURL = ["spotify.com", "open.spotify.com"].some((url) => track.uri.includes(url));
 		const hasYouTubeURL = ["youtube.com", "youtu.be"].some((url) => track.uri.includes(url));
@@ -365,48 +334,30 @@ export class LithiumXPlayer {
 
 				if (identifier) {
 					const recommendedResult = (await node.rest.get(`/v4/loadtracks?identifier=${encodeURIComponent(identifier)}`)) as LavalinkResponse;
-
 					if (recommendedResult.loadType === "playlist") {
 						const playlistData = recommendedResult.data as PlaylistRawData;
 						const recommendedTracks = playlistData.tracks;
-
-						if (recommendedTracks) {
-							const tracks = recommendedTracks.map((track) => TrackUtils.build(track, requester));
-
-							return tracks;
-						}
+						if (recommendedTracks) return recommendedTracks.map((track) => TrackUtils.build(track, requester));
 					}
 				}
 			}
 		}
 
 		let videoID = track.uri.substring(track.uri.indexOf("=") + 1);
-
 		if (!hasYouTubeURL) {
 			const res = await this.manager.search(`${track.author} - ${track.title}`);
-
 			videoID = res.tracks[0].uri.substring(res.tracks[0].uri.indexOf("=") + 1);
 		}
-
 		const searchURI = `https://www.youtube.com/watch?v=${videoID}&list=RD${videoID}`;
-
 		const res = await this.manager.search(searchURI);
-
 		if (res.loadType === "empty" || res.loadType === "error") return;
-
 		let tracks = res.tracks;
-
-		if (res.loadType === "playlist") {
-			tracks = res.playlist.tracks;
-		}
-
+		if (res.loadType === "playlist") tracks = res.playlist.tracks;
 		const filteredTracks = tracks.filter((track) => track.uri !== `https://www.youtube.com/watch?v=${videoID}`);
-
 		if (this.manager.options.replaceYouTubeCredentials) {
 			for (const track of filteredTracks) {
 				track.author = track.author.replace("- Topic", "");
 				track.title = track.title.replace("Topic -", "");
-
 				if (track.title.includes("-")) {
 					const [author, title] = track.title.split("-").map((str: string) => str.trim());
 					track.author = author;
@@ -414,7 +365,6 @@ export class LithiumXPlayer {
 				}
 			}
 		}
-
 		return filteredTracks;
 	}
 
@@ -424,16 +374,13 @@ export class LithiumXPlayer {
 	 */
 	public setVolume(volume: number): this {
 		if (isNaN(volume)) throw new TypeError("Volume must be a number.");
-
 		this.node.rest.updatePlayer({
 			guildId: this.options.guild,
 			data: {
 				volume,
 			},
 		});
-
 		this.volume = volume;
-
 		return this;
 	}
 
@@ -443,9 +390,7 @@ export class LithiumXPlayer {
 	 */
 	public setTrackRepeat(repeat: boolean): this {
 		if (typeof repeat !== "boolean") throw new TypeError('Repeat can only be "true" or "false".');
-
 		const oldPlayer = { ...this };
-
 		if (repeat) {
 			this.trackRepeat = true;
 			this.queueRepeat = false;
@@ -455,7 +400,6 @@ export class LithiumXPlayer {
 			this.queueRepeat = false;
 			this.dynamicRepeat = false;
 		}
-
 		this.manager.emit("PlayerStateUpdate", oldPlayer, this);
 		return this;
 	}

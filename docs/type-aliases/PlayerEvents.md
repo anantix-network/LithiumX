@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -8,4 +8,4 @@
 
 > **PlayerEvents**: [`TrackStartEvent`](../interfaces/TrackStartEvent.md) \| [`TrackEndEvent`](../interfaces/TrackEndEvent.md) \| [`TrackStuckEvent`](../interfaces/TrackStuckEvent.md) \| [`TrackExceptionEvent`](../interfaces/TrackExceptionEvent.md) \| [`WebSocketClosedEvent`](../interfaces/WebSocketClosedEvent.md)
 
-Defined in: [src/Structures/Utils.ts:230](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L230)
+Defined in: [src/Structures/Utils.ts:230](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L230)

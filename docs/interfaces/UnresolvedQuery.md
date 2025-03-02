@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: UnresolvedQuery
 
-Defined in: [src/Structures/Utils.ts:215](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L215)
+Defined in: [src/Structures/Utils.ts:215](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L215)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Utils.ts:215](https://github.com/anantix-network/Lit
 
 > `optional` **author**: `string`
 
-Defined in: [src/Structures/Utils.ts:219](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L219)
+Defined in: [src/Structures/Utils.ts:219](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L219)
 
 The author of the unresolved track. If provided it will have a more precise search.
 
@@ -24,7 +24,7 @@ The author of the unresolved track. If provided it will have a more precise sear
 
 > `optional` **duration**: `number`
 
-Defined in: [src/Structures/Utils.ts:221](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L221)
+Defined in: [src/Structures/Utils.ts:221](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L221)
 
 The duration of the unresolved track. If provided it will have a more precise search.
 
@@ -34,6 +34,6 @@ The duration of the unresolved track. If provided it will have a more precise se
 
 > **title**: `string`
 
-Defined in: [src/Structures/Utils.ts:217](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Structures/Utils.ts#L217)
+Defined in: [src/Structures/Utils.ts:217](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L217)
 
 The title of the unresolved track.

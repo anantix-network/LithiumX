@@ -1,4 +1,4 @@
-[**LithiumX v1.0.2**](../README.md)
+[**LithiumX v1.0.4**](../README.md)
 
 ***
 
@@ -8,4 +8,4 @@
 
 > `const` **tvEqualizer**: [`Band`](../interfaces/Band.md)[]
 
-Defined in: [src/Utils/FiltersEqualizers.ts:44](https://github.com/anantix-network/LithiumX/blob/791eed01fbe9f7030525ce976bc687f47cb06e89/src/Utils/FiltersEqualizers.ts#L44)
+Defined in: [src/Utils/FiltersEqualizers.ts:44](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Utils/FiltersEqualizers.ts#L44)

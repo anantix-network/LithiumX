@@ -23,7 +23,7 @@ import { TypedEmitter } from "tiny-typed-emitter";
 /**
  * The main hub for interacting with Lavalink and using Magmastream,
  */
-export class LithiumXManager extends TypedEmitter<ManagerEvents> {
+class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	public static readonly DEFAULT_SOURCES: Record<SearchPlatform, string> = {
 		"youtube music": "ytmsearch",
 		youtube: "ytsearch",
@@ -149,11 +149,8 @@ export class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	public init(clientId?: string): this {
 		if (this.initiated) return this;
 		if (typeof clientId !== "undefined") this.options.clientId = clientId;
-
 		if (typeof this.options.clientId !== "string") throw new Error('"clientId" set is not type of "string"');
-
 		if (!this.options.clientId) throw new Error('"clientId" is not set. Pass it in Manager#init() or as a option in the constructor.');
-
 		for (const node of this.nodes.values()) {
 			try {
 				node.connect();
@@ -201,11 +198,9 @@ export class LithiumXManager extends TypedEmitter<ManagerEvents> {
 				case "search":
 					searchData = res.data as TrackData[];
 					break;
-
 				case "track":
 					searchData = [res.data as TrackData[]];
 					break;
-
 				case "playlist":
 					playlistData = res.data as PlaylistRawData;
 					break;
@@ -388,7 +383,7 @@ export class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	}
 }
 
-export interface Payload {
+interface Payload {
 	/** The OP code */
 	op: number;
 	d: {
@@ -399,7 +394,7 @@ export interface Payload {
 	};
 }
 
-export interface ManagerOptions {
+interface ManagerOptions {
 	/** Use priority mode over least amount of player or load? */
 	usePriority?: boolean;
 	/** Use the least amount of players or least load? */
@@ -436,21 +431,21 @@ export interface ManagerOptions {
 	send(id: string, payload: Payload): void;
 }
 
-export type SearchPlatform = "deezer" | "soundcloud" | "youtube music" | "youtube" | "spotify" | "jiosaavn" | "tidal" | "applemusic" | "bandcamp";
+type SearchPlatform = "deezer" | "soundcloud" | "youtube music" | "youtube" | "spotify" | "jiosaavn" | "tidal" | "applemusic" | "bandcamp";
 
-export interface SearchQuery {
+interface SearchQuery {
 	/** The source to search from. */
 	source?: SearchPlatform | string;
 	/** The query to search for. */
 	query: string;
 }
 
-export interface LavalinkResponse {
+interface LavalinkResponse {
 	loadType: LoadType;
 	data: TrackData[] | PlaylistRawData;
 }
 
-export interface SearchResult {
+interface SearchResult {
 	/** The load type of the result. */
 	loadType: LoadType;
 	/** The array of tracks from the result. */
@@ -459,7 +454,7 @@ export interface SearchResult {
 	playlist?: PlaylistData;
 }
 
-export interface PlaylistRawData {
+interface PlaylistRawData {
 	info: {
 		/** The playlist name. */
 		name: string;
@@ -470,7 +465,7 @@ export interface PlaylistRawData {
 	tracks: TrackData[];
 }
 
-export interface PlaylistData {
+interface PlaylistData {
 	/** The playlist name. */
 	name: string;
 	/** The length of the playlist. */
@@ -479,7 +474,7 @@ export interface PlaylistData {
 	tracks: Track[];
 }
 
-export interface ManagerEvents {
+interface ManagerEvents {
 	NodeCreate: (node: LithiumXNode) => void;
 	NodeDestroy: (node: LithiumXNode) => void;
 	NodeConnect: (node: LithiumXNode) => void;
@@ -498,4 +493,18 @@ export interface ManagerEvents {
 	TrackEnd: (player: LithiumXPlayer, track: Track, payload: TrackEndEvent) => void;
 	TrackStuck: (player: LithiumXPlayer, track: Track, payload: TrackStuckEvent) => void;
 	TrackError: (player: LithiumXPlayer, track: Track | UnresolvedTrack, payload: TrackExceptionEvent) => void;
+}
+
+
+export {
+	LithiumXManager,
+	ManagerOptions,
+	SearchPlatform,
+	SearchQuery,
+	LavalinkResponse,
+	SearchResult,
+	PlaylistRawData,
+	PlaylistData,
+	ManagerEvents,
+	Payload
 }

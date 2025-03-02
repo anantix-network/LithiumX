@@ -1,6 +1,6 @@
 {
   "name": "lithiumx",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "LithiumX A powerful, simple, and effective stable Lavalink client developed in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,13 +25,11 @@
   },
   "dependencies": {
     "@discordjs/collection": "^2.1.1",
-    "axios": "^1.8.1",
     "tiny-typed-emitter": "^2.1.0",
     "ws": "^8.18.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
-    "@types/axios": "^0.14.4",
     "@types/node": "^22.13.7",
     "@types/ws": "^8.5.14",
     "discord.js": "^14.18.0",
