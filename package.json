@@ -12,7 +12,7 @@
     "docs:preview": "vitepress preview docs",
     "docs:generate": "typedoc --out docs/ src/ && vitepress build docs"
   },
-  "author": "Anantix Network",
+  "author": "Anantix Network[RDNAx]",
   "keywords": [
     "lavalink",
     "lavalink-client"
