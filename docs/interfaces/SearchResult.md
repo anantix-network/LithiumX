@@ -1,4 +1,4 @@
-[**LithiumX v1.0.4**](../README.md)
+[**LithiumX v1.0.6**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: SearchResult
 
-Defined in: [src/Structures/Manager.ts:448](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Manager.ts#L448)
+Defined in: [src/Structures/Manager.ts:448](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L448)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Manager.ts:448](https://github.com/anantix-network/L
 
 > **loadType**: [`LoadType`](../type-aliases/LoadType.md)
 
-Defined in: [src/Structures/Manager.ts:450](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Manager.ts#L450)
+Defined in: [src/Structures/Manager.ts:450](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L450)
 
 The load type of the result.
 
@@ -24,7 +24,7 @@ The load type of the result.
 
 > `optional` **playlist**: [`PlaylistData`](PlaylistData.md)
 
-Defined in: [src/Structures/Manager.ts:454](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Manager.ts#L454)
+Defined in: [src/Structures/Manager.ts:454](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L454)
 
 The playlist info if the load type is 'playlist'.
 
@@ -34,6 +34,6 @@ The playlist info if the load type is 'playlist'.
 
 > **tracks**: [`Track`](Track.md)[]
 
-Defined in: [src/Structures/Manager.ts:452](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Manager.ts#L452)
+Defined in: [src/Structures/Manager.ts:452](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L452)
 
 The array of tracks from the result.

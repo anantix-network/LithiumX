@@ -1,4 +1,4 @@
-[**LithiumX v1.0.4**](../README.md)
+[**LithiumX v1.0.6**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: NodeMessage
 
-Defined in: [src/Structures/Utils.ts:293](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L293)
+Defined in: [src/Structures/Utils.ts:293](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L293)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/Structures/Utils.ts:293](https://github.com/anantix-network/Lit
 
 > **cpu**: [`CPUStats`](CPUStats.md)
 
-Defined in: [src/Structures/Node.ts:480](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L480)
+Defined in: [src/Structures/Node.ts:480](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L480)
 
 The cpu stats for the node.
 
@@ -32,7 +32,7 @@ The cpu stats for the node.
 
 > **frameStats**: [`FrameStats`](FrameStats.md)
 
-Defined in: [src/Structures/Node.ts:482](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L482)
+Defined in: [src/Structures/Node.ts:482](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L482)
 
 The frame stats for the node.
 
@@ -46,7 +46,7 @@ The frame stats for the node.
 
 > **guildId**: `string`
 
-Defined in: [src/Structures/Utils.ts:296](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L296)
+Defined in: [src/Structures/Utils.ts:296](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L296)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/Structures/Utils.ts:296](https://github.com/anantix-network/Lit
 
 > **memory**: [`MemoryStats`](MemoryStats.md)
 
-Defined in: [src/Structures/Node.ts:478](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L478)
+Defined in: [src/Structures/Node.ts:478](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L478)
 
 The memory stats for the node.
 
@@ -68,7 +68,7 @@ The memory stats for the node.
 
 > **op**: `"stats"` \| `"playerUpdate"` \| `"event"`
 
-Defined in: [src/Structures/Utils.ts:295](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L295)
+Defined in: [src/Structures/Utils.ts:295](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L295)
 
 ***
 
@@ -76,7 +76,7 @@ Defined in: [src/Structures/Utils.ts:295](https://github.com/anantix-network/Lit
 
 > **players**: `number`
 
-Defined in: [src/Structures/Node.ts:472](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L472)
+Defined in: [src/Structures/Node.ts:472](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L472)
 
 The amount of players on the node.
 
@@ -90,7 +90,7 @@ The amount of players on the node.
 
 > **playingPlayers**: `number`
 
-Defined in: [src/Structures/Node.ts:474](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L474)
+Defined in: [src/Structures/Node.ts:474](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L474)
 
 The amount of playing players on the node.
 
@@ -104,7 +104,7 @@ The amount of playing players on the node.
 
 > **type**: [`PlayerEventType`](../type-aliases/PlayerEventType.md)
 
-Defined in: [src/Structures/Utils.ts:294](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L294)
+Defined in: [src/Structures/Utils.ts:294](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L294)
 
 ***
 
@@ -112,7 +112,7 @@ Defined in: [src/Structures/Utils.ts:294](https://github.com/anantix-network/Lit
 
 > **uptime**: `number`
 
-Defined in: [src/Structures/Node.ts:476](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Node.ts#L476)
+Defined in: [src/Structures/Node.ts:476](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L476)
 
 The uptime for the node.
 

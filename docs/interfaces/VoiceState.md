@@ -1,4 +1,4 @@
-[**LithiumX v1.0.4**](../README.md)
+[**LithiumX v1.0.6**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: VoiceState
 
-Defined in: [src/Structures/Utils.ts:268](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L268)
+Defined in: [src/Structures/Utils.ts:268](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L268)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Utils.ts:268](https://github.com/anantix-network/Lit
 
 > **channel\_id**: `string`
 
-Defined in: [src/Structures/Utils.ts:285](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L285)
+Defined in: [src/Structures/Utils.ts:285](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L285)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/Structures/Utils.ts:285](https://github.com/anantix-network/Lit
 
 > **event**: [`VoiceServer`](VoiceServer.md)
 
-Defined in: [src/Structures/Utils.ts:271](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L271)
+Defined in: [src/Structures/Utils.ts:271](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L271)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/Structures/Utils.ts:271](https://github.com/anantix-network/Lit
 
 > **guild\_id**: `string`
 
-Defined in: [src/Structures/Utils.ts:282](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L282)
+Defined in: [src/Structures/Utils.ts:282](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L282)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/Structures/Utils.ts:282](https://github.com/anantix-network/Lit
 
 > **guildId**: `string`
 
-Defined in: [src/Structures/Utils.ts:270](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L270)
+Defined in: [src/Structures/Utils.ts:270](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L270)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/Structures/Utils.ts:270](https://github.com/anantix-network/Lit
 
 > **op**: `"voiceUpdate"`
 
-Defined in: [src/Structures/Utils.ts:269](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L269)
+Defined in: [src/Structures/Utils.ts:269](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L269)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/Structures/Utils.ts:269](https://github.com/anantix-network/Lit
 
 > **session\_id**: `string`
 
-Defined in: [src/Structures/Utils.ts:284](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L284)
+Defined in: [src/Structures/Utils.ts:284](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L284)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/Structures/Utils.ts:284](https://github.com/anantix-network/Lit
 
 > `optional` **sessionId**: `string`
 
-Defined in: [src/Structures/Utils.ts:272](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L272)
+Defined in: [src/Structures/Utils.ts:272](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L272)
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: [src/Structures/Utils.ts:272](https://github.com/anantix-network/Lit
 
 > **user\_id**: `string`
 
-Defined in: [src/Structures/Utils.ts:283](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L283)
+Defined in: [src/Structures/Utils.ts:283](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L283)

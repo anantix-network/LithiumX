@@ -1,4 +1,4 @@
-[**LithiumX v1.0.4**](../README.md)
+[**LithiumX v1.0.6**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: TimescaleOptions
 
-Defined in: [src/Structures/Filters.ts:242](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L242)
+Defined in: [src/Structures/Filters.ts:315](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L315)
 
 Options for adjusting the timescale of audio.
 
@@ -16,7 +16,7 @@ Options for adjusting the timescale of audio.
 
 > `optional` **pitch**: `number`
 
-Defined in: [src/Structures/Filters.ts:246](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L246)
+Defined in: [src/Structures/Filters.ts:319](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L319)
 
 The pitch factor for the timescale.
 
@@ -26,7 +26,7 @@ The pitch factor for the timescale.
 
 > `optional` **rate**: `number`
 
-Defined in: [src/Structures/Filters.ts:248](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L248)
+Defined in: [src/Structures/Filters.ts:321](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L321)
 
 The rate factor for the timescale.
 
@@ -36,6 +36,6 @@ The rate factor for the timescale.
 
 > `optional` **speed**: `number`
 
-Defined in: [src/Structures/Filters.ts:244](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L244)
+Defined in: [src/Structures/Filters.ts:317](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L317)
 
 The speed factor for the timescale.

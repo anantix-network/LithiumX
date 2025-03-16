@@ -1,8 +1,8 @@
-[**LithiumX v1.0.4**](README.md)
+[**LithiumX v1.0.6**](README.md)
 
 ***
 
-# LithiumX v1.0.4
+# LithiumX v1.0.6
 
 ## Classes
 
