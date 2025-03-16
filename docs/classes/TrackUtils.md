@@ -1,4 +1,4 @@
-[**LithiumX v1.0.4**](../README.md)
+[**LithiumX v1.0.6**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Class: `abstract` TrackUtils
 
-Defined in: [src/Structures/Utils.ts:16](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L16)
+Defined in: [src/Structures/Utils.ts:16](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L16)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/Structures/Utils.ts:16](https://github.com/anantix-network/Lith
 
 > `static` **trackPartial**: `string`[] = `null`
 
-Defined in: [src/Structures/Utils.ts:17](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L17)
+Defined in: [src/Structures/Utils.ts:17](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L17)
 
 ## Methods
 
@@ -32,7 +32,7 @@ Defined in: [src/Structures/Utils.ts:17](https://github.com/anantix-network/Lith
 
 > `static` **build**(`data`, `requester`?): [`Track`](../interfaces/Track.md)
 
-Defined in: [src/Structures/Utils.ts:72](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L72)
+Defined in: [src/Structures/Utils.ts:72](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L72)
 
 Builds a Track from the raw data from Lavalink and a optional requester.
 
@@ -60,7 +60,7 @@ The user who requested the track.
 
 > `static` **buildUnresolved**(`query`, `requester`?): [`UnresolvedTrack`](../interfaces/UnresolvedTrack.md)
 
-Defined in: [src/Structures/Utils.ts:123](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L123)
+Defined in: [src/Structures/Utils.ts:123](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L123)
 
 Builds a UnresolvedTrack to be resolved before being played  .
 
@@ -88,7 +88,7 @@ The user who requested the track.
 
 > `static` **getClosestTrack**(`unresolvedTrack`): `Promise`\<[`Track`](../interfaces/Track.md)\>
 
-Defined in: [src/Structures/Utils.ts:146](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L146)
+Defined in: [src/Structures/Utils.ts:146](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L146)
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: [src/Structures/Utils.ts:146](https://github.com/anantix-network/Lit
 
 > `static` **isTrack**(`track`): `boolean`
 
-Defined in: [src/Structures/Utils.ts:62](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L62)
+Defined in: [src/Structures/Utils.ts:62](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L62)
 
 Checks if the provided argument is a valid Track.
 
@@ -126,7 +126,7 @@ Checks if the provided argument is a valid Track.
 
 > `static` **isUnresolvedTrack**(`track`): `boolean`
 
-Defined in: [src/Structures/Utils.ts:53](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L53)
+Defined in: [src/Structures/Utils.ts:53](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L53)
 
 Checks if the provided argument is a valid UnresolvedTrack.
 
@@ -146,7 +146,7 @@ Checks if the provided argument is a valid UnresolvedTrack.
 
 > `static` **setTrackPartial**(`partial`): `void`
 
-Defined in: [src/Structures/Utils.ts:25](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L25)
+Defined in: [src/Structures/Utils.ts:25](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L25)
 
 #### Parameters
 
@@ -164,7 +164,7 @@ Defined in: [src/Structures/Utils.ts:25](https://github.com/anantix-network/Lith
 
 > `static` **validate**(`trackOrTracks`): `boolean`
 
-Defined in: [src/Structures/Utils.ts:36](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L36)
+Defined in: [src/Structures/Utils.ts:36](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L36)
 
 Checks if the provided argument is a valid Track or UnresolvedTrack, if provided an array then every element will be checked.
 

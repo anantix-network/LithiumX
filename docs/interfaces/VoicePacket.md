@@ -1,4 +1,4 @@
-[**LithiumX v1.0.4**](../README.md)
+[**LithiumX v1.0.6**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: VoicePacket
 
-Defined in: [src/Structures/Utils.ts:288](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L288)
+Defined in: [src/Structures/Utils.ts:288](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L288)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Utils.ts:288](https://github.com/anantix-network/Lit
 
 > **d**: [`VoiceState`](VoiceState.md) \| [`VoiceServer`](VoiceServer.md)
 
-Defined in: [src/Structures/Utils.ts:290](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L290)
+Defined in: [src/Structures/Utils.ts:290](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L290)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [src/Structures/Utils.ts:290](https://github.com/anantix-network/Lit
 
 > `optional` **t**: `"VOICE_SERVER_UPDATE"` \| `"VOICE_STATE_UPDATE"`
 
-Defined in: [src/Structures/Utils.ts:289](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L289)
+Defined in: [src/Structures/Utils.ts:289](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L289)

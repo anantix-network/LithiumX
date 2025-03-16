@@ -1,4 +1,4 @@
-[**LithiumX v1.0.4**](../README.md)
+[**LithiumX v1.0.6**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: VibratoOptions
 
-Defined in: [src/Structures/Filters.ts:252](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L252)
+Defined in: [src/Structures/Filters.ts:325](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L325)
 
 Options for applying vibrato effect to audio.
 
@@ -16,7 +16,7 @@ Options for applying vibrato effect to audio.
 
 > **depth**: `number`
 
-Defined in: [src/Structures/Filters.ts:256](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L256)
+Defined in: [src/Structures/Filters.ts:329](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L329)
 
 * The depth of the vibrato effect.
 
@@ -26,6 +26,6 @@ Defined in: [src/Structures/Filters.ts:256](https://github.com/anantix-network/L
 
 > **frequency**: `number`
 
-Defined in: [src/Structures/Filters.ts:254](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Filters.ts#L254)
+Defined in: [src/Structures/Filters.ts:327](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L327)
 
 The frequency of the vibrato effect.

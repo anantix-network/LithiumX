@@ -1,6 +1,6 @@
 {
   "name": "lithiumx",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "LithiumX A powerful, simple, and effective stable Lavalink client developed in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
     "docs:preview": "vitepress preview docs",
     "docs:generate": "typedoc --out docs/ src/ && vitepress build docs"
   },
-  "author": "Anantix Network",
+  "author": "Anantix Network[RDNAx]",
   "keywords": [
     "lavalink",
     "lavalink-client"
@@ -37,7 +37,7 @@
     "eslint": "^9.21.0",
     "globals": "^16.0.0",
     "tsd-jsdoc": "^2.5.0",
-    "typedoc": "^0.27.9",
+    "typedoc": "^0.28.0",
     "typedoc-plugin-markdown": "^4.4.2",
     "typescript": "~5.7.0",
     "typescript-eslint": "^8.25.0",

@@ -1,4 +1,4 @@
-[**LithiumX v1.0.4**](../README.md)
+[**LithiumX v1.0.6**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Class: Plugin
 
-Defined in: [src/Structures/Utils.ts:204](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L204)
+Defined in: [src/Structures/Utils.ts:204](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L204)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/Structures/Utils.ts:204](https://github.com/anantix-network/Lit
 
 > **load**(`manager`): `void`
 
-Defined in: [src/Structures/Utils.ts:205](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L205)
+Defined in: [src/Structures/Utils.ts:205](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L205)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [src/Structures/Utils.ts:205](https://github.com/anantix-network/Lit
 
 > **unload**(`manager`): `void`
 
-Defined in: [src/Structures/Utils.ts:206](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Utils.ts#L206)
+Defined in: [src/Structures/Utils.ts:206](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L206)
 
 #### Parameters
 

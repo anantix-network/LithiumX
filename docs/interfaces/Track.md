@@ -1,4 +1,4 @@
-[**LithiumX v1.0.4**](../README.md)
+[**LithiumX v1.0.6**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: Track
 
-Defined in: [src/Structures/Player.ts:578](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L578)
+Defined in: [src/Structures/Player.ts:578](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L578)
 
 If track partials are set some of these will be `undefined` as they were removed.
 
@@ -16,7 +16,7 @@ If track partials are set some of these will be `undefined` as they were removed
 
 > `readonly` **artworkUrl**: `string`
 
-Defined in: [src/Structures/Player.ts:582](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L582)
+Defined in: [src/Structures/Player.ts:582](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L582)
 
 The artwork url of the track.
 
@@ -26,7 +26,7 @@ The artwork url of the track.
 
 > **author**: `string`
 
-Defined in: [src/Structures/Player.ts:590](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L590)
+Defined in: [src/Structures/Player.ts:590](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L590)
 
 The author of the track.
 
@@ -36,7 +36,7 @@ The author of the track.
 
 > **customData**: `Record`\<`string`, `unknown`\>
 
-Defined in: [src/Structures/Player.ts:610](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L610)
+Defined in: [src/Structures/Player.ts:610](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L610)
 
 Add your own data to the track.
 
@@ -46,7 +46,7 @@ Add your own data to the track.
 
 > `readonly` **duration**: `number`
 
-Defined in: [src/Structures/Player.ts:592](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L592)
+Defined in: [src/Structures/Player.ts:592](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L592)
 
 The duration of the track.
 
@@ -56,7 +56,7 @@ The duration of the track.
 
 > `readonly` **identifier**: `string`
 
-Defined in: [src/Structures/Player.ts:588](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L588)
+Defined in: [src/Structures/Player.ts:588](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L588)
 
 The identifier of the track.
 
@@ -66,7 +66,7 @@ The identifier of the track.
 
 > `readonly` **isrc**: `string`
 
-Defined in: [src/Structures/Player.ts:594](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L594)
+Defined in: [src/Structures/Player.ts:594](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L594)
 
 The ISRC of the track.
 
@@ -76,7 +76,7 @@ The ISRC of the track.
 
 > `readonly` **isSeekable**: `boolean`
 
-Defined in: [src/Structures/Player.ts:596](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L596)
+Defined in: [src/Structures/Player.ts:596](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L596)
 
 If the track is seekable.
 
@@ -86,7 +86,7 @@ If the track is seekable.
 
 > `readonly` **isStream**: `boolean`
 
-Defined in: [src/Structures/Player.ts:598](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L598)
+Defined in: [src/Structures/Player.ts:598](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L598)
 
 If the track is a stream..
 
@@ -96,7 +96,7 @@ If the track is a stream..
 
 > **pluginInfo**: [`TrackPluginInfo`](TrackPluginInfo.md)
 
-Defined in: [src/Structures/Player.ts:608](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L608)
+Defined in: [src/Structures/Player.ts:608](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L608)
 
 Additional track info provided by plugins.
 
@@ -106,7 +106,7 @@ Additional track info provided by plugins.
 
 > `readonly` **requester**: `string`
 
-Defined in: [src/Structures/Player.ts:604](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L604)
+Defined in: [src/Structures/Player.ts:604](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L604)
 
 The user that requested the track.
 
@@ -116,7 +116,7 @@ The user that requested the track.
 
 > `readonly` **sourceName**: [`TrackSourceName`](../type-aliases/TrackSourceName.md)
 
-Defined in: [src/Structures/Player.ts:584](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L584)
+Defined in: [src/Structures/Player.ts:584](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L584)
 
 The track source name.
 
@@ -126,7 +126,7 @@ The track source name.
 
 > `readonly` **thumbnail**: `string`
 
-Defined in: [src/Structures/Player.ts:602](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L602)
+Defined in: [src/Structures/Player.ts:602](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L602)
 
 The thumbnail of the track or null if it's a unsupported source.
 
@@ -136,7 +136,7 @@ The thumbnail of the track or null if it's a unsupported source.
 
 > **title**: `string`
 
-Defined in: [src/Structures/Player.ts:586](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L586)
+Defined in: [src/Structures/Player.ts:586](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L586)
 
 The title of the track.
 
@@ -146,7 +146,7 @@ The title of the track.
 
 > `readonly` **track**: `string`
 
-Defined in: [src/Structures/Player.ts:580](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L580)
+Defined in: [src/Structures/Player.ts:580](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L580)
 
 The base64 encoded track.
 
@@ -156,7 +156,7 @@ The base64 encoded track.
 
 > `readonly` **uri**: `string`
 
-Defined in: [src/Structures/Player.ts:600](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L600)
+Defined in: [src/Structures/Player.ts:600](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L600)
 
 The uri of the track.
 
@@ -166,7 +166,7 @@ The uri of the track.
 
 > **displayThumbnail**(`size`?): `string`
 
-Defined in: [src/Structures/Player.ts:606](https://github.com/anantix-network/LithiumX/blob/1ee801f60507a40b0e1da1b728c5a61e34ba8699/src/Structures/Player.ts#L606)
+Defined in: [src/Structures/Player.ts:606](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L606)
 
 Displays the track thumbnail with optional size or null if it's a unsupported source.
 
