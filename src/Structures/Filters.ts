@@ -204,6 +204,79 @@ class Filters {
 		}
 	}
 
+	/**
+	 * Set the treble bass options
+	 * @param {boolean} status - The status to set.
+	 * @returns {this}
+	*/
+	public setBassBoost(status: boolean): this {
+		return this.setEqualizer(bassBoostEqualizer).setFilterStatus("bassboost", status);
+	}
+
+	/**
+	 * Set the distort options
+	 * @param {boolean} status - The status to set.
+	 * @returns {this}
+	 */
+	public setDistort(status: boolean): this {
+		if (status) {
+			return this.setDistortion({
+				sinOffset: 0,
+				sinScale: 0.2,
+				cosOffset: 0,
+				cosScale: 0.2,
+				tanOffset: 0,
+				tanScale: 0.2,
+				offset: 0,
+				scale: 1.2,
+			}).setFilterStatus("distort", status);
+		} else {
+			return this.setDistortion(null).setFilterStatus("distort", status);
+		}
+	}
+
+	/**
+	 * Set filter 
+	 * @param {keyof AvailableFilters} filter
+	 * @param {boolean} status 
+	 * @returns {this}
+	 */
+	public async setFilter(filter: keyof AvailableFilters | string, status: boolean) {
+		if (!status && typeof status !== "boolean") throw new Error("Status must be a boolean");
+		switch (filter) {
+			case "bassboost":
+				this.setBassBoost(status);
+				break;
+			case "distort":
+				this.setDistort(status);
+				break;
+			case "eightD":
+				this.setEightD(status);
+				break;
+			case "nightcore":
+				this.setNightcore(status);
+				break;
+			case "slowmo":
+				this.setSlowmo(status);
+				break;
+			case "soft":
+				this.setSoft(status);
+				break;
+			case "trebleBass":
+				this.setTrebleBass(status);
+				break;
+			case "tv":
+				this.setTV(status);
+				break;
+			case "vaporwave":
+				this.setVaporwave(status);
+				break;
+			default:
+				throw new Error("Invalid filter provided");
+		}
+		await this.updateFilters().then(() => this).catch((e) => { throw new Error(e) });
+		return this;
+	}
 
 	/** Removes the audio effects and resets the filter status. */
 	public async clearFilters(): Promise<this> {
