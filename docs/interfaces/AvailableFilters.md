@@ -1,12 +1,12 @@
-[**LithiumX v1.0.6**](../README.md)
+[**LithiumX v1.0.7**](README.md)
 
 ***
 
-[LithiumX](../globals.md) / AvailableFilters
+[LithiumX](globals.md) / AvailableFilters
 
 # Interface: AvailableFilters
 
-Defined in: [src/Structures/Filters.ts:361](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L361)
+Defined in: [src/Structures/Filters.ts:361](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L361)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Filters.ts:361](https://github.com/anantix-network/L
 
 > **bassboost**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:362](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L362)
+Defined in: [src/Structures/Filters.ts:362](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L362)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/Structures/Filters.ts:362](https://github.com/anantix-network/L
 
 > **distort**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:363](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L363)
+Defined in: [src/Structures/Filters.ts:363](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L363)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/Structures/Filters.ts:363](https://github.com/anantix-network/L
 
 > **eightD**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:364](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L364)
+Defined in: [src/Structures/Filters.ts:364](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L364)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/Structures/Filters.ts:364](https://github.com/anantix-network/L
 
 > **karaoke**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:365](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L365)
+Defined in: [src/Structures/Filters.ts:365](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L365)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/Structures/Filters.ts:365](https://github.com/anantix-network/L
 
 > **nightcore**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:366](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L366)
+Defined in: [src/Structures/Filters.ts:366](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L366)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/Structures/Filters.ts:366](https://github.com/anantix-network/L
 
 > **slowmo**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:367](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L367)
+Defined in: [src/Structures/Filters.ts:367](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L367)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/Structures/Filters.ts:367](https://github.com/anantix-network/L
 
 > **soft**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:368](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L368)
+Defined in: [src/Structures/Filters.ts:368](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L368)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [src/Structures/Filters.ts:368](https://github.com/anantix-network/L
 
 > **trebleBass**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:369](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L369)
+Defined in: [src/Structures/Filters.ts:369](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L369)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [src/Structures/Filters.ts:369](https://github.com/anantix-network/L
 
 > **tv**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:370](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L370)
+Defined in: [src/Structures/Filters.ts:370](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L370)
 
 ***
 
@@ -86,4 +86,4 @@ Defined in: [src/Structures/Filters.ts:370](https://github.com/anantix-network/L
 
 > **vaporwave**: `boolean`
 
-Defined in: [src/Structures/Filters.ts:371](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Filters.ts#L371)
+Defined in: [src/Structures/Filters.ts:371](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L371)

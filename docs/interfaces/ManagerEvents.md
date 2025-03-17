@@ -1,12 +1,12 @@
-[**LithiumX v1.0.6**](../README.md)
+[**LithiumX v1.0.7**](README.md)
 
 ***
 
-[LithiumX](../globals.md) / ManagerEvents
+[LithiumX](globals.md) / ManagerEvents
 
 # Interface: ManagerEvents
 
-Defined in: [src/Structures/Manager.ts:477](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L477)
+Defined in: [src/Structures/Manager.ts:479](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L479)
 
 ## Properties
 
@@ -14,13 +14,13 @@ Defined in: [src/Structures/Manager.ts:477](https://github.com/anantix-network/L
 
 > **NodeConnect**: (`node`) => `void`
 
-Defined in: [src/Structures/Manager.ts:480](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L480)
+Defined in: [src/Structures/Manager.ts:482](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L482)
 
 #### Parameters
 
 ##### node
 
-[`LithiumXNode`](../classes/LithiumXNode.md)
+[`LithiumXNode`](classes\LithiumXNode.md)
 
 #### Returns
 
@@ -32,13 +32,13 @@ Defined in: [src/Structures/Manager.ts:480](https://github.com/anantix-network/L
 
 > **NodeCreate**: (`node`) => `void`
 
-Defined in: [src/Structures/Manager.ts:478](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L478)
+Defined in: [src/Structures/Manager.ts:480](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L480)
 
 #### Parameters
 
 ##### node
 
-[`LithiumXNode`](../classes/LithiumXNode.md)
+[`LithiumXNode`](classes\LithiumXNode.md)
 
 #### Returns
 
@@ -50,13 +50,13 @@ Defined in: [src/Structures/Manager.ts:478](https://github.com/anantix-network/L
 
 > **NodeDestroy**: (`node`) => `void`
 
-Defined in: [src/Structures/Manager.ts:479](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L479)
+Defined in: [src/Structures/Manager.ts:481](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L481)
 
 #### Parameters
 
 ##### node
 
-[`LithiumXNode`](../classes/LithiumXNode.md)
+[`LithiumXNode`](classes\LithiumXNode.md)
 
 #### Returns
 
@@ -68,13 +68,13 @@ Defined in: [src/Structures/Manager.ts:479](https://github.com/anantix-network/L
 
 > **NodeDisconnect**: (`node`, `reason`) => `void`
 
-Defined in: [src/Structures/Manager.ts:482](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L482)
+Defined in: [src/Structures/Manager.ts:484](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L484)
 
 #### Parameters
 
 ##### node
 
-[`LithiumXNode`](../classes/LithiumXNode.md)
+[`LithiumXNode`](classes\LithiumXNode.md)
 
 ##### reason
 
@@ -96,13 +96,13 @@ Defined in: [src/Structures/Manager.ts:482](https://github.com/anantix-network/L
 
 > **NodeError**: (`node`, `error`) => `void`
 
-Defined in: [src/Structures/Manager.ts:483](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L483)
+Defined in: [src/Structures/Manager.ts:485](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L485)
 
 #### Parameters
 
 ##### node
 
-[`LithiumXNode`](../classes/LithiumXNode.md)
+[`LithiumXNode`](classes\LithiumXNode.md)
 
 ##### error
 
@@ -118,7 +118,7 @@ Defined in: [src/Structures/Manager.ts:483](https://github.com/anantix-network/L
 
 > **NodeRaw**: (`payload`) => `void`
 
-Defined in: [src/Structures/Manager.ts:484](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L484)
+Defined in: [src/Structures/Manager.ts:486](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L486)
 
 #### Parameters
 
@@ -136,13 +136,13 @@ Defined in: [src/Structures/Manager.ts:484](https://github.com/anantix-network/L
 
 > **NodeReconnect**: (`node`) => `void`
 
-Defined in: [src/Structures/Manager.ts:481](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L481)
+Defined in: [src/Structures/Manager.ts:483](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L483)
 
 #### Parameters
 
 ##### node
 
-[`LithiumXNode`](../classes/LithiumXNode.md)
+[`LithiumXNode`](classes\LithiumXNode.md)
 
 #### Returns
 
@@ -154,13 +154,13 @@ Defined in: [src/Structures/Manager.ts:481](https://github.com/anantix-network/L
 
 > **PlayerCreate**: (`player`) => `void`
 
-Defined in: [src/Structures/Manager.ts:485](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L485)
+Defined in: [src/Structures/Manager.ts:487](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L487)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 #### Returns
 
@@ -172,13 +172,13 @@ Defined in: [src/Structures/Manager.ts:485](https://github.com/anantix-network/L
 
 > **PlayerDestroy**: (`player`) => `void`
 
-Defined in: [src/Structures/Manager.ts:486](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L486)
+Defined in: [src/Structures/Manager.ts:488](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L488)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 #### Returns
 
@@ -190,13 +190,13 @@ Defined in: [src/Structures/Manager.ts:486](https://github.com/anantix-network/L
 
 > **PlayerDisconnect**: (`player`, `oldChannel`) => `void`
 
-Defined in: [src/Structures/Manager.ts:489](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L489)
+Defined in: [src/Structures/Manager.ts:491](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L491)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 ##### oldChannel
 
@@ -212,13 +212,13 @@ Defined in: [src/Structures/Manager.ts:489](https://github.com/anantix-network/L
 
 > **PlayerMove**: (`player`, `initChannel`, `newChannel`) => `void`
 
-Defined in: [src/Structures/Manager.ts:488](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L488)
+Defined in: [src/Structures/Manager.ts:490](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L490)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 ##### initChannel
 
@@ -238,17 +238,17 @@ Defined in: [src/Structures/Manager.ts:488](https://github.com/anantix-network/L
 
 > **PlayerStateUpdate**: (`oldPlayer`, `newPlayer`) => `void`
 
-Defined in: [src/Structures/Manager.ts:487](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L487)
+Defined in: [src/Structures/Manager.ts:489](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L489)
 
 #### Parameters
 
 ##### oldPlayer
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 ##### newPlayer
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 #### Returns
 
@@ -260,21 +260,21 @@ Defined in: [src/Structures/Manager.ts:487](https://github.com/anantix-network/L
 
 > **QueueEnd**: (`player`, `track`, `payload`) => `void`
 
-Defined in: [src/Structures/Manager.ts:490](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L490)
+Defined in: [src/Structures/Manager.ts:492](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L492)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 ##### track
 
-[`Track`](Track.md) | [`UnresolvedTrack`](UnresolvedTrack.md)
+[`Track`](interfaces\Track.md) | [`UnresolvedTrack`](interfaces\UnresolvedTrack.md)
 
 ##### payload
 
-[`TrackEndEvent`](TrackEndEvent.md)
+[`TrackEndEvent`](interfaces\TrackEndEvent.md)
 
 #### Returns
 
@@ -286,17 +286,17 @@ Defined in: [src/Structures/Manager.ts:490](https://github.com/anantix-network/L
 
 > **SocketClosed**: (`player`, `payload`) => `void`
 
-Defined in: [src/Structures/Manager.ts:491](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L491)
+Defined in: [src/Structures/Manager.ts:493](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L493)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 ##### payload
 
-[`WebSocketClosedEvent`](WebSocketClosedEvent.md)
+[`WebSocketClosedEvent`](interfaces\WebSocketClosedEvent.md)
 
 #### Returns
 
@@ -308,21 +308,21 @@ Defined in: [src/Structures/Manager.ts:491](https://github.com/anantix-network/L
 
 > **TrackEnd**: (`player`, `track`, `payload`) => `void`
 
-Defined in: [src/Structures/Manager.ts:493](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L493)
+Defined in: [src/Structures/Manager.ts:495](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L495)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 ##### track
 
-[`Track`](Track.md)
+[`Track`](interfaces\Track.md)
 
 ##### payload
 
-[`TrackEndEvent`](TrackEndEvent.md)
+[`TrackEndEvent`](interfaces\TrackEndEvent.md)
 
 #### Returns
 
@@ -334,21 +334,21 @@ Defined in: [src/Structures/Manager.ts:493](https://github.com/anantix-network/L
 
 > **TrackError**: (`player`, `track`, `payload`) => `void`
 
-Defined in: [src/Structures/Manager.ts:495](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L495)
+Defined in: [src/Structures/Manager.ts:497](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L497)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 ##### track
 
-[`Track`](Track.md) | [`UnresolvedTrack`](UnresolvedTrack.md)
+[`Track`](interfaces\Track.md) | [`UnresolvedTrack`](interfaces\UnresolvedTrack.md)
 
 ##### payload
 
-[`TrackExceptionEvent`](TrackExceptionEvent.md)
+[`TrackExceptionEvent`](interfaces\TrackExceptionEvent.md)
 
 #### Returns
 
@@ -360,21 +360,21 @@ Defined in: [src/Structures/Manager.ts:495](https://github.com/anantix-network/L
 
 > **TrackStart**: (`player`, `track`, `payload`) => `void`
 
-Defined in: [src/Structures/Manager.ts:492](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L492)
+Defined in: [src/Structures/Manager.ts:494](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L494)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 ##### track
 
-[`Track`](Track.md)
+[`Track`](interfaces\Track.md)
 
 ##### payload
 
-[`TrackStartEvent`](TrackStartEvent.md)
+[`TrackStartEvent`](interfaces\TrackStartEvent.md)
 
 #### Returns
 
@@ -386,21 +386,21 @@ Defined in: [src/Structures/Manager.ts:492](https://github.com/anantix-network/L
 
 > **TrackStuck**: (`player`, `track`, `payload`) => `void`
 
-Defined in: [src/Structures/Manager.ts:494](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L494)
+Defined in: [src/Structures/Manager.ts:496](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L496)
 
 #### Parameters
 
 ##### player
 
-[`LithiumXPlayer`](../classes/LithiumXPlayer.md)
+[`LithiumXPlayer`](classes\LithiumXPlayer.md)
 
 ##### track
 
-[`Track`](Track.md)
+[`Track`](interfaces\Track.md)
 
 ##### payload
 
-[`TrackStuckEvent`](TrackStuckEvent.md)
+[`TrackStuckEvent`](interfaces\TrackStuckEvent.md)
 
 #### Returns
 

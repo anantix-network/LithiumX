@@ -1,12 +1,12 @@
-[**LithiumX v1.0.6**](../README.md)
+[**LithiumX v1.0.7**](README.md)
 
 ***
 
-[LithiumX](../globals.md) / UnresolvedQuery
+[LithiumX](globals.md) / UnresolvedQuery
 
 # Interface: UnresolvedQuery
 
-Defined in: [src/Structures/Utils.ts:215](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L215)
+Defined in: [src/Structures/Utils.ts:215](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L215)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Utils.ts:215](https://github.com/anantix-network/Lit
 
 > `optional` **author**: `string`
 
-Defined in: [src/Structures/Utils.ts:219](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L219)
+Defined in: [src/Structures/Utils.ts:219](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L219)
 
 The author of the unresolved track. If provided it will have a more precise search.
 
@@ -24,7 +24,7 @@ The author of the unresolved track. If provided it will have a more precise sear
 
 > `optional` **duration**: `number`
 
-Defined in: [src/Structures/Utils.ts:221](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L221)
+Defined in: [src/Structures/Utils.ts:221](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L221)
 
 The duration of the unresolved track. If provided it will have a more precise search.
 
@@ -34,6 +34,6 @@ The duration of the unresolved track. If provided it will have a more precise se
 
 > **title**: `string`
 
-Defined in: [src/Structures/Utils.ts:217](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L217)
+Defined in: [src/Structures/Utils.ts:217](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L217)
 
 The title of the unresolved track.

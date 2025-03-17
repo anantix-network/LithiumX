@@ -1,44 +1,44 @@
-[**LithiumX v1.0.6**](../README.md)
+[**LithiumX v1.0.7**](README.md)
 
 ***
 
-[LithiumX](../globals.md) / NodeMessage
+[LithiumX](globals.md) / NodeMessage
 
 # Interface: NodeMessage
 
-Defined in: [src/Structures/Utils.ts:293](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L293)
+Defined in: [src/Structures/Utils.ts:293](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L293)
 
 ## Extends
 
-- [`NodeStats`](NodeStats.md)
+- [`NodeStats`](interfaces\NodeStats.md)
 
 ## Properties
 
 ### cpu
 
-> **cpu**: [`CPUStats`](CPUStats.md)
+> **cpu**: [`CPUStats`](interfaces\CPUStats.md)
 
-Defined in: [src/Structures/Node.ts:480](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L480)
+Defined in: [src/Structures/Node.ts:480](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L480)
 
 The cpu stats for the node.
 
 #### Inherited from
 
-[`NodeStats`](NodeStats.md).[`cpu`](NodeStats.md#cpu)
+[`NodeStats`](interfaces\NodeStats.md).[`cpu`](interfaces\NodeStats.md#cpu)
 
 ***
 
 ### frameStats
 
-> **frameStats**: [`FrameStats`](FrameStats.md)
+> **frameStats**: [`FrameStats`](interfaces\FrameStats.md)
 
-Defined in: [src/Structures/Node.ts:482](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L482)
+Defined in: [src/Structures/Node.ts:482](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L482)
 
 The frame stats for the node.
 
 #### Inherited from
 
-[`NodeStats`](NodeStats.md).[`frameStats`](NodeStats.md#framestats)
+[`NodeStats`](interfaces\NodeStats.md).[`frameStats`](interfaces\NodeStats.md#framestats)
 
 ***
 
@@ -46,21 +46,21 @@ The frame stats for the node.
 
 > **guildId**: `string`
 
-Defined in: [src/Structures/Utils.ts:296](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L296)
+Defined in: [src/Structures/Utils.ts:296](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L296)
 
 ***
 
 ### memory
 
-> **memory**: [`MemoryStats`](MemoryStats.md)
+> **memory**: [`MemoryStats`](interfaces\MemoryStats.md)
 
-Defined in: [src/Structures/Node.ts:478](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L478)
+Defined in: [src/Structures/Node.ts:478](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L478)
 
 The memory stats for the node.
 
 #### Inherited from
 
-[`NodeStats`](NodeStats.md).[`memory`](NodeStats.md#memory)
+[`NodeStats`](interfaces\NodeStats.md).[`memory`](interfaces\NodeStats.md#memory)
 
 ***
 
@@ -68,7 +68,7 @@ The memory stats for the node.
 
 > **op**: `"stats"` \| `"playerUpdate"` \| `"event"`
 
-Defined in: [src/Structures/Utils.ts:295](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L295)
+Defined in: [src/Structures/Utils.ts:295](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L295)
 
 ***
 
@@ -76,13 +76,13 @@ Defined in: [src/Structures/Utils.ts:295](https://github.com/anantix-network/Lit
 
 > **players**: `number`
 
-Defined in: [src/Structures/Node.ts:472](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L472)
+Defined in: [src/Structures/Node.ts:472](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L472)
 
 The amount of players on the node.
 
 #### Inherited from
 
-[`NodeStats`](NodeStats.md).[`players`](NodeStats.md#players)
+[`NodeStats`](interfaces\NodeStats.md).[`players`](interfaces\NodeStats.md#players)
 
 ***
 
@@ -90,21 +90,21 @@ The amount of players on the node.
 
 > **playingPlayers**: `number`
 
-Defined in: [src/Structures/Node.ts:474](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L474)
+Defined in: [src/Structures/Node.ts:474](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L474)
 
 The amount of playing players on the node.
 
 #### Inherited from
 
-[`NodeStats`](NodeStats.md).[`playingPlayers`](NodeStats.md#playingplayers)
+[`NodeStats`](interfaces\NodeStats.md).[`playingPlayers`](interfaces\NodeStats.md#playingplayers)
 
 ***
 
 ### type
 
-> **type**: [`PlayerEventType`](../type-aliases/PlayerEventType.md)
+> **type**: [`PlayerEventType`](type-aliases\PlayerEventType.md)
 
-Defined in: [src/Structures/Utils.ts:294](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Utils.ts#L294)
+Defined in: [src/Structures/Utils.ts:294](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L294)
 
 ***
 
@@ -112,10 +112,10 @@ Defined in: [src/Structures/Utils.ts:294](https://github.com/anantix-network/Lit
 
 > **uptime**: `number`
 
-Defined in: [src/Structures/Node.ts:476](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Node.ts#L476)
+Defined in: [src/Structures/Node.ts:476](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L476)
 
 The uptime for the node.
 
 #### Inherited from
 
-[`NodeStats`](NodeStats.md).[`uptime`](NodeStats.md#uptime)
+[`NodeStats`](interfaces\NodeStats.md).[`uptime`](interfaces\NodeStats.md#uptime)

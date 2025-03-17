@@ -1,12 +1,12 @@
-[**LithiumX v1.0.6**](../README.md)
+[**LithiumX v1.0.7**](README.md)
 
 ***
 
-[LithiumX](../globals.md) / PlayerOptions
+[LithiumX](globals.md) / PlayerOptions
 
 # Interface: PlayerOptions
 
-Defined in: [src/Structures/Player.ts:560](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L560)
+Defined in: [src/Structures/Player.ts:560](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Player.ts#L560)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Player.ts:560](https://github.com/anantix-network/Li
 
 > **guild**: `string`
 
-Defined in: [src/Structures/Player.ts:562](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L562)
+Defined in: [src/Structures/Player.ts:562](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Player.ts#L562)
 
 The guild the Player belongs to.
 
@@ -24,7 +24,7 @@ The guild the Player belongs to.
 
 > `optional` **node**: `string`
 
-Defined in: [src/Structures/Player.ts:568](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L568)
+Defined in: [src/Structures/Player.ts:568](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Player.ts#L568)
 
 The node the Player uses.
 
@@ -34,7 +34,7 @@ The node the Player uses.
 
 > `optional` **selfDeafen**: `boolean`
 
-Defined in: [src/Structures/Player.ts:574](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L574)
+Defined in: [src/Structures/Player.ts:574](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Player.ts#L574)
 
 If the player should deaf itself.
 
@@ -44,7 +44,7 @@ If the player should deaf itself.
 
 > `optional` **selfMute**: `boolean`
 
-Defined in: [src/Structures/Player.ts:572](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L572)
+Defined in: [src/Structures/Player.ts:572](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Player.ts#L572)
 
 If the player should mute itself.
 
@@ -54,7 +54,7 @@ If the player should mute itself.
 
 > **textChannel**: `string`
 
-Defined in: [src/Structures/Player.ts:564](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L564)
+Defined in: [src/Structures/Player.ts:564](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Player.ts#L564)
 
 The text channel the Player belongs to.
 
@@ -64,7 +64,7 @@ The text channel the Player belongs to.
 
 > `optional` **voiceChannel**: `string`
 
-Defined in: [src/Structures/Player.ts:566](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L566)
+Defined in: [src/Structures/Player.ts:566](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Player.ts#L566)
 
 The voice channel the Player belongs to.
 
@@ -74,6 +74,6 @@ The voice channel the Player belongs to.
 
 > `optional` **volume**: `number`
 
-Defined in: [src/Structures/Player.ts:570](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Player.ts#L570)
+Defined in: [src/Structures/Player.ts:570](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Player.ts#L570)
 
 The initial volume the Player will use.
