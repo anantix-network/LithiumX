@@ -1,12 +1,12 @@
-[**LithiumX v1.0.6**](../README.md)
+[**LithiumX v1.0.7**](README.md)
 
 ***
 
-[LithiumX](../globals.md) / PlaylistData
+[LithiumX](globals.md) / PlaylistData
 
 # Interface: PlaylistData
 
-Defined in: [src/Structures/Manager.ts:468](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L468)
+Defined in: [src/Structures/Manager.ts:470](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L470)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Manager.ts:468](https://github.com/anantix-network/L
 
 > **duration**: `number`
 
-Defined in: [src/Structures/Manager.ts:472](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L472)
+Defined in: [src/Structures/Manager.ts:474](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L474)
 
 The length of the playlist.
 
@@ -24,7 +24,7 @@ The length of the playlist.
 
 > **name**: `string`
 
-Defined in: [src/Structures/Manager.ts:470](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L470)
+Defined in: [src/Structures/Manager.ts:472](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L472)
 
 The playlist name.
 
@@ -32,8 +32,8 @@ The playlist name.
 
 ### tracks
 
-> **tracks**: [`Track`](Track.md)[]
+> **tracks**: [`Track`](interfaces\Track.md)[]
 
-Defined in: [src/Structures/Manager.ts:474](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L474)
+Defined in: [src/Structures/Manager.ts:476](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L476)
 
 The songs of the playlist.

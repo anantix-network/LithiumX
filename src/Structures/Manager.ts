@@ -137,9 +137,11 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 				this.nodes.set(node.options.identifier, node);
 			}
 		}
-		setInterval(() => {
-			this.caches.clear();
-		}, this.options.caches.time);
+		if (this.options.caches || typeof this.options.caches.enabled === "boolean" || typeof this.options.caches.time === "number") {
+			setInterval(() => {
+				this.caches.clear();
+			}, this.options.caches.time);
+		}
 	}
 
 	/**

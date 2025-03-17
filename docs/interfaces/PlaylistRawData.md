@@ -1,12 +1,12 @@
-[**LithiumX v1.0.6**](../README.md)
+[**LithiumX v1.0.7**](README.md)
 
 ***
 
-[LithiumX](../globals.md) / PlaylistRawData
+[LithiumX](globals.md) / PlaylistRawData
 
 # Interface: PlaylistRawData
 
-Defined in: [src/Structures/Manager.ts:457](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L457)
+Defined in: [src/Structures/Manager.ts:459](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L459)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Manager.ts:457](https://github.com/anantix-network/L
 
 > **info**: `object`
 
-Defined in: [src/Structures/Manager.ts:458](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L458)
+Defined in: [src/Structures/Manager.ts:460](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L460)
 
 #### name
 
@@ -28,7 +28,7 @@ The playlist name.
 
 > **pluginInfo**: `object`
 
-Defined in: [src/Structures/Manager.ts:463](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L463)
+Defined in: [src/Structures/Manager.ts:465](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L465)
 
 Addition info provided by plugins.
 
@@ -36,8 +36,8 @@ Addition info provided by plugins.
 
 ### tracks
 
-> **tracks**: [`TrackData`](TrackData.md)[]
+> **tracks**: [`TrackData`](interfaces\TrackData.md)[]
 
-Defined in: [src/Structures/Manager.ts:465](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Structures/Manager.ts#L465)
+Defined in: [src/Structures/Manager.ts:467](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L467)
 
 The tracks of the playlist

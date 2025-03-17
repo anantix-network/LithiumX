@@ -1,12 +1,12 @@
-[**LithiumX v1.0.6**](../README.md)
+[**LithiumX v1.0.7**](README.md)
 
 ***
 
-[LithiumX](../globals.md) / Band
+[LithiumX](globals.md) / Band
 
 # Interface: Band
 
-Defined in: [src/Utils/FiltersEqualizers.ts:2](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Utils/FiltersEqualizers.ts#L2)
+Defined in: [src/Utils/FiltersEqualizers.ts:2](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Utils/FiltersEqualizers.ts#L2)
 
 Represents an equalizer band.
 
@@ -16,7 +16,7 @@ Represents an equalizer band.
 
 > **band**: `number`
 
-Defined in: [src/Utils/FiltersEqualizers.ts:4](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Utils/FiltersEqualizers.ts#L4)
+Defined in: [src/Utils/FiltersEqualizers.ts:4](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Utils/FiltersEqualizers.ts#L4)
 
 The index of the equalizer band.
 
@@ -26,6 +26,6 @@ The index of the equalizer band.
 
 > **gain**: `number`
 
-Defined in: [src/Utils/FiltersEqualizers.ts:6](https://github.com/anantix-network/LithiumX/blob/50b399548f48d78c1c57a0dfe99d487d3da44bc6/src/Utils/FiltersEqualizers.ts#L6)
+Defined in: [src/Utils/FiltersEqualizers.ts:6](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Utils/FiltersEqualizers.ts#L6)
 
 The gain value of the equalizer band.
