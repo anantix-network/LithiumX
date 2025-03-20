@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / PlayerUpdate
+[LithiumX](../globals.md) / PlayerUpdate
 
 # Interface: PlayerUpdate
 
-Defined in: [src/Structures/Utils.ts:340](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L340)
+Defined in: [src/Structures/Utils.ts:340](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L340)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Utils.ts:340](https://github.com/anantix-network/Lit
 
 > **guildId**: `string`
 
-Defined in: [src/Structures/Utils.ts:343](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L343)
+Defined in: [src/Structures/Utils.ts:343](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L343)
 
 The guild id of the player.
 
@@ -24,7 +24,7 @@ The guild id of the player.
 
 > **op**: `"playerUpdate"`
 
-Defined in: [src/Structures/Utils.ts:341](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L341)
+Defined in: [src/Structures/Utils.ts:341](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L341)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/Structures/Utils.ts:341](https://github.com/anantix-network/Lit
 
 > **state**: `object`
 
-Defined in: [src/Structures/Utils.ts:344](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L344)
+Defined in: [src/Structures/Utils.ts:344](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L344)
 
 #### connected
 

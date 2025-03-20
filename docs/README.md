@@ -1,4 +1,4 @@
-**LithiumX v1.0.7**
+**LithiumX v1.0.8**
 
 ***
 

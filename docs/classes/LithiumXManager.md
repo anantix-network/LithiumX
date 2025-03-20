@@ -1,18 +1,18 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / LithiumXManager
+[LithiumX](../globals.md) / LithiumXManager
 
 # Class: LithiumXManager
 
-Defined in: [src/Structures/Manager.ts:26](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L26)
+Defined in: [src/Structures/Manager.ts:26](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L26)
 
 The main hub for interacting with Lavalink and using Magmastream,
 
 ## Extends
 
-- `TypedEmitter`\<[`ManagerEvents`](interfaces\ManagerEvents.md)\>
+- `TypedEmitter`\<[`ManagerEvents`](../interfaces/ManagerEvents.md)\>
 
 ## Constructors
 
@@ -20,7 +20,7 @@ The main hub for interacting with Lavalink and using Magmastream,
 
 > **new LithiumXManager**(`options`): `LithiumXManager`
 
-Defined in: [src/Structures/Manager.ts:95](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L95)
+Defined in: [src/Structures/Manager.ts:95](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L95)
 
 Initiates the Manager class.
 
@@ -28,7 +28,7 @@ Initiates the Manager class.
 
 ##### options
 
-[`ManagerOptions`](interfaces\ManagerOptions.md)
+[`ManagerOptions`](../interfaces/ManagerOptions.md)
 
 #### Returns
 
@@ -42,17 +42,17 @@ Initiates the Manager class.
 
 ### caches
 
-> **caches**: `Collection`\<`string`, [`SearchResult`](interfaces\SearchResult.md)\>
+> **caches**: `Collection`\<`string`, [`SearchResult`](../interfaces/SearchResult.md)\>
 
-Defined in: [src/Structures/Manager.ts:46](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L46)
+Defined in: [src/Structures/Manager.ts:46](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L46)
 
 ***
 
 ### nodes
 
-> `readonly` **nodes**: `Collection`\<`string`, [`LithiumXNode`](classes\LithiumXNode.md)\>
+> `readonly` **nodes**: `Collection`\<`string`, [`LithiumXNode`](LithiumXNode.md)\>
 
-Defined in: [src/Structures/Manager.ts:42](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L42)
+Defined in: [src/Structures/Manager.ts:42](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L42)
 
 The map of nodes.
 
@@ -60,9 +60,9 @@ The map of nodes.
 
 ### options
 
-> `readonly` **options**: [`ManagerOptions`](interfaces\ManagerOptions.md)
+> `readonly` **options**: [`ManagerOptions`](../interfaces/ManagerOptions.md)
 
-Defined in: [src/Structures/Manager.ts:44](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L44)
+Defined in: [src/Structures/Manager.ts:44](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L44)
 
 The options that were set.
 
@@ -70,9 +70,9 @@ The options that were set.
 
 ### players
 
-> `readonly` **players**: `Collection`\<`string`, [`LithiumXPlayer`](classes\LithiumXPlayer.md)\>
+> `readonly` **players**: `Collection`\<`string`, [`LithiumXPlayer`](LithiumXPlayer.md)\>
 
-Defined in: [src/Structures/Manager.ts:40](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L40)
+Defined in: [src/Structures/Manager.ts:40](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L40)
 
 The map of players.
 
@@ -80,9 +80,9 @@ The map of players.
 
 ### DEFAULT\_SOURCES
 
-> `readonly` `static` **DEFAULT\_SOURCES**: `Record`\<[`SearchPlatform`](type-aliases\SearchPlatform.md), `string`\>
+> `readonly` `static` **DEFAULT\_SOURCES**: `Record`\<[`SearchPlatform`](../type-aliases/SearchPlatform.md), `string`\>
 
-Defined in: [src/Structures/Manager.ts:27](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L27)
+Defined in: [src/Structures/Manager.ts:27](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L27)
 
 ## Accessors
 
@@ -90,15 +90,15 @@ Defined in: [src/Structures/Manager.ts:27](https://github.com/anantix-network/Li
 
 #### Get Signature
 
-> **get** **leastLoadNode**(): `Collection`\<`string`, [`LithiumXNode`](classes\LithiumXNode.md)\>
+> **get** **leastLoadNode**(): `Collection`\<`string`, [`LithiumXNode`](LithiumXNode.md)\>
 
-Defined in: [src/Structures/Manager.ts:49](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L49)
+Defined in: [src/Structures/Manager.ts:49](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L49)
 
 Returns the nodes that has the least load.
 
 ##### Returns
 
-`Collection`\<`string`, [`LithiumXNode`](classes\LithiumXNode.md)\>
+`Collection`\<`string`, [`LithiumXNode`](LithiumXNode.md)\>
 
 ***
 
@@ -106,23 +106,23 @@ Returns the nodes that has the least load.
 
 #### Get Signature
 
-> **get** **useableNodes**(): [`LithiumXNode`](classes\LithiumXNode.md)
+> **get** **useableNodes**(): [`LithiumXNode`](LithiumXNode.md)
 
-Defined in: [src/Structures/Manager.ts:87](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L87)
+Defined in: [src/Structures/Manager.ts:87](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L87)
 
 Returns the node to use.
 
 ##### Returns
 
-[`LithiumXNode`](classes\LithiumXNode.md)
+[`LithiumXNode`](LithiumXNode.md)
 
 ## Methods
 
 ### create()
 
-> **create**(`options`): [`LithiumXPlayer`](classes\LithiumXPlayer.md)
+> **create**(`options`): [`LithiumXPlayer`](LithiumXPlayer.md)
 
-Defined in: [src/Structures/Manager.ts:292](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L292)
+Defined in: [src/Structures/Manager.ts:292](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L292)
 
 Creates a player or returns one if it already exists.
 
@@ -130,19 +130,19 @@ Creates a player or returns one if it already exists.
 
 ##### options
 
-[`PlayerOptions`](interfaces\PlayerOptions.md)
+[`PlayerOptions`](../interfaces/PlayerOptions.md)
 
 #### Returns
 
-[`LithiumXPlayer`](classes\LithiumXPlayer.md)
+[`LithiumXPlayer`](LithiumXPlayer.md)
 
 ***
 
 ### createNode()
 
-> **createNode**(`options`): [`LithiumXNode`](classes\LithiumXNode.md)
+> **createNode**(`options`): [`LithiumXNode`](LithiumXNode.md)
 
-Defined in: [src/Structures/Manager.ts:320](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L320)
+Defined in: [src/Structures/Manager.ts:320](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L320)
 
 Creates a node or returns one if it already exists.
 
@@ -150,19 +150,19 @@ Creates a node or returns one if it already exists.
 
 ##### options
 
-[`NodeOptions`](interfaces\NodeOptions.md)
+[`NodeOptions`](../interfaces/NodeOptions.md)
 
 #### Returns
 
-[`LithiumXNode`](classes\LithiumXNode.md)
+[`LithiumXNode`](LithiumXNode.md)
 
 ***
 
 ### decodeTrack()
 
-> **decodeTrack**(`track`): `Promise`\<[`TrackData`](interfaces\TrackData.md)\>
+> **decodeTrack**(`track`): `Promise`\<[`TrackData`](../interfaces/TrackData.md)\>
 
-Defined in: [src/Structures/Manager.ts:283](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L283)
+Defined in: [src/Structures/Manager.ts:283](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L283)
 
 Decodes the base64 encoded track and returns a TrackData.
 
@@ -174,15 +174,15 @@ Decodes the base64 encoded track and returns a TrackData.
 
 #### Returns
 
-`Promise`\<[`TrackData`](interfaces\TrackData.md)\>
+`Promise`\<[`TrackData`](../interfaces/TrackData.md)\>
 
 ***
 
 ### decodeTracks()
 
-> **decodeTracks**(`tracks`): `Promise`\<[`TrackData`](interfaces\TrackData.md)[]\>
+> **decodeTracks**(`tracks`): `Promise`\<[`TrackData`](../interfaces/TrackData.md)[]\>
 
-Defined in: [src/Structures/Manager.ts:263](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L263)
+Defined in: [src/Structures/Manager.ts:263](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L263)
 
 Decodes the base64 encoded tracks and returns a TrackData array.
 
@@ -194,7 +194,7 @@ Decodes the base64 encoded tracks and returns a TrackData array.
 
 #### Returns
 
-`Promise`\<[`TrackData`](interfaces\TrackData.md)[]\>
+`Promise`\<[`TrackData`](../interfaces/TrackData.md)[]\>
 
 ***
 
@@ -202,7 +202,7 @@ Decodes the base64 encoded tracks and returns a TrackData array.
 
 > **destroy**(`guild`): `void`
 
-Defined in: [src/Structures/Manager.ts:312](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L312)
+Defined in: [src/Structures/Manager.ts:312](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L312)
 
 Destroys a player if it exists.
 
@@ -222,7 +222,7 @@ Destroys a player if it exists.
 
 > **destroyNode**(`identifier`): `void`
 
-Defined in: [src/Structures/Manager.ts:332](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L332)
+Defined in: [src/Structures/Manager.ts:332](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L332)
 
 Destroys a node if it exists.
 
@@ -240,9 +240,9 @@ Destroys a node if it exists.
 
 ### get()
 
-> **get**(`guild`): [`LithiumXPlayer`](classes\LithiumXPlayer.md)
+> **get**(`guild`): [`LithiumXPlayer`](LithiumXPlayer.md)
 
-Defined in: [src/Structures/Manager.ts:304](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L304)
+Defined in: [src/Structures/Manager.ts:304](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L304)
 
 Returns a player or undefined if it does not exist.
 
@@ -254,7 +254,7 @@ Returns a player or undefined if it does not exist.
 
 #### Returns
 
-[`LithiumXPlayer`](classes\LithiumXPlayer.md)
+[`LithiumXPlayer`](LithiumXPlayer.md)
 
 ***
 
@@ -262,7 +262,7 @@ Returns a player or undefined if it does not exist.
 
 > **init**(`clientId`?): `this`
 
-Defined in: [src/Structures/Manager.ts:151](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L151)
+Defined in: [src/Structures/Manager.ts:151](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L151)
 
 Initiates the Manager.
 
@@ -280,9 +280,9 @@ Initiates the Manager.
 
 ### search()
 
-> **search**(`query`, `requester`?): `Promise`\<[`SearchResult`](interfaces\SearchResult.md)\>
+> **search**(`query`, `requester`?): `Promise`\<[`SearchResult`](../interfaces/SearchResult.md)\>
 
-Defined in: [src/Structures/Manager.ts:174](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L174)
+Defined in: [src/Structures/Manager.ts:174](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L174)
 
 Searches the enabled sources based off the URL or the `source` property.
 
@@ -290,7 +290,7 @@ Searches the enabled sources based off the URL or the `source` property.
 
 ##### query
 
-`string` | [`SearchQuery`](interfaces\SearchQuery.md)
+`string` | [`SearchQuery`](../interfaces/SearchQuery.md)
 
 ##### requester?
 
@@ -300,7 +300,7 @@ The user who requested the search.
 
 #### Returns
 
-`Promise`\<[`SearchResult`](interfaces\SearchResult.md)\>
+`Promise`\<[`SearchResult`](../interfaces/SearchResult.md)\>
 
 The search result.
 
@@ -310,7 +310,7 @@ The search result.
 
 > **updateVoiceState**(`data`): `Promise`\<`void`\>
 
-Defined in: [src/Structures/Manager.ts:343](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L343)
+Defined in: [src/Structures/Manager.ts:343](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L343)
 
 Sends voice data to the Lavalink server.
 
@@ -318,7 +318,7 @@ Sends voice data to the Lavalink server.
 
 ##### data
 
-[`VoiceState`](interfaces\VoiceState.md) | [`VoiceServer`](interfaces\VoiceServer.md) | [`VoicePacket`](interfaces\VoicePacket.md)
+[`VoiceState`](../interfaces/VoiceState.md) | [`VoiceServer`](../interfaces/VoiceServer.md) | [`VoicePacket`](../interfaces/VoicePacket.md)
 
 #### Returns
 

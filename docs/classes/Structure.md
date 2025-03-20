@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / Structure
+[LithiumX](../globals.md) / Structure
 
 # Class: `abstract` Structure
 
-Defined in: [src/Structures/Utils.ts:180](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L180)
+Defined in: [src/Structures/Utils.ts:180](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L180)
 
 Gets or extends structures to extend the built in, or already extended, classes to add more functionality.
 
@@ -26,7 +26,7 @@ Gets or extends structures to extend the built in, or already extended, classes 
 
 > `static` **extend**\<`K`, `T`\>(`name`, `extender`): `T`
 
-Defined in: [src/Structures/Utils.ts:186](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L186)
+Defined in: [src/Structures/Utils.ts:186](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L186)
 
 Extends a class.
 
@@ -34,11 +34,11 @@ Extends a class.
 
 ##### K
 
-`K` *extends* keyof [`Extendable`](interfaces\Extendable.md)
+`K` *extends* keyof [`Extendable`](../interfaces/Extendable.md)
 
 ##### T
 
-`T` *extends* *typeof* [`LithiumXQueue`](classes\LithiumXQueue.md) \| *typeof* [`LithiumXPlayer`](classes\LithiumXPlayer.md) \| *typeof* [`LithiumXNode`](classes\LithiumXNode.md)
+`T` *extends* *typeof* [`LithiumXQueue`](LithiumXQueue.md) \| *typeof* [`LithiumXPlayer`](LithiumXPlayer.md) \| *typeof* [`LithiumXNode`](LithiumXNode.md)
 
 #### Parameters
 
@@ -58,9 +58,9 @@ Extends a class.
 
 ### get()
 
-> `static` **get**\<`K`\>(`name`): [`Extendable`](interfaces\Extendable.md)\[`K`\]
+> `static` **get**\<`K`\>(`name`): [`Extendable`](../interfaces/Extendable.md)\[`K`\]
 
-Defined in: [src/Structures/Utils.ts:197](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L197)
+Defined in: [src/Structures/Utils.ts:197](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L197)
 
 Get a structure from available structures by name.
 
@@ -68,7 +68,7 @@ Get a structure from available structures by name.
 
 ##### K
 
-`K` *extends* keyof [`Extendable`](interfaces\Extendable.md)
+`K` *extends* keyof [`Extendable`](../interfaces/Extendable.md)
 
 #### Parameters
 
@@ -78,4 +78,4 @@ Get a structure from available structures by name.
 
 #### Returns
 
-[`Extendable`](interfaces\Extendable.md)\[`K`\]
+[`Extendable`](../interfaces/Extendable.md)\[`K`\]

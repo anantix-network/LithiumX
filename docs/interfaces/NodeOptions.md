@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / NodeOptions
+[LithiumX](../globals.md) / NodeOptions
 
 # Interface: NodeOptions
 
-Defined in: [src/Structures/Node.ts:445](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L445)
+Defined in: [src/Structures/Node.ts:445](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L445)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Node.ts:445](https://github.com/anantix-network/Lith
 
 > **host**: `string`
 
-Defined in: [src/Structures/Node.ts:447](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L447)
+Defined in: [src/Structures/Node.ts:447](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L447)
 
 The host for the node.
 
@@ -24,7 +24,7 @@ The host for the node.
 
 > `optional` **identifier**: `string`
 
-Defined in: [src/Structures/Node.ts:455](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L455)
+Defined in: [src/Structures/Node.ts:455](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L455)
 
 The identifier for the node.
 
@@ -34,7 +34,7 @@ The identifier for the node.
 
 > `optional` **password**: `string`
 
-Defined in: [src/Structures/Node.ts:451](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L451)
+Defined in: [src/Structures/Node.ts:451](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L451)
 
 The password for the node.
 
@@ -44,7 +44,7 @@ The password for the node.
 
 > `optional` **port**: `number`
 
-Defined in: [src/Structures/Node.ts:449](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L449)
+Defined in: [src/Structures/Node.ts:449](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L449)
 
 The port for the node.
 
@@ -54,7 +54,7 @@ The port for the node.
 
 > `optional` **priority**: `number`
 
-Defined in: [src/Structures/Node.ts:467](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L467)
+Defined in: [src/Structures/Node.ts:467](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L467)
 
 Priority of the node.
 
@@ -64,7 +64,7 @@ Priority of the node.
 
 > `optional` **requestTimeout**: `number`
 
-Defined in: [src/Structures/Node.ts:465](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L465)
+Defined in: [src/Structures/Node.ts:465](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L465)
 
 The timeout used for api calls.
 
@@ -74,7 +74,7 @@ The timeout used for api calls.
 
 > `optional` **resumeStatus**: `boolean`
 
-Defined in: [src/Structures/Node.ts:461](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L461)
+Defined in: [src/Structures/Node.ts:461](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L461)
 
 Whether to resume the previous session.
 
@@ -84,7 +84,7 @@ Whether to resume the previous session.
 
 > `optional` **resumeTimeout**: `number`
 
-Defined in: [src/Structures/Node.ts:463](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L463)
+Defined in: [src/Structures/Node.ts:463](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L463)
 
 The time the manager will wait before trying to resume the previous session.
 
@@ -94,7 +94,7 @@ The time the manager will wait before trying to resume the previous session.
 
 > `optional` **retryAmount**: `number`
 
-Defined in: [src/Structures/Node.ts:457](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L457)
+Defined in: [src/Structures/Node.ts:457](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L457)
 
 The retryAmount for the node.
 
@@ -104,7 +104,7 @@ The retryAmount for the node.
 
 > `optional` **retryDelay**: `number`
 
-Defined in: [src/Structures/Node.ts:459](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L459)
+Defined in: [src/Structures/Node.ts:459](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L459)
 
 The retryDelay for the node.
 
@@ -114,6 +114,6 @@ The retryDelay for the node.
 
 > `optional` **secure**: `boolean`
 
-Defined in: [src/Structures/Node.ts:453](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L453)
+Defined in: [src/Structures/Node.ts:453](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L453)
 
 Whether the host uses SSL.

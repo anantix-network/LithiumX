@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / LithiumXRest
+[LithiumX](../globals.md) / LithiumXRest
 
 # Class: LithiumXRest
 
-Defined in: [src/Structures/Rest.ts:4](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L4)
+Defined in: [src/Structures/Rest.ts:4](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L4)
 
 Handles the requests sent to the Lavalink REST API.
 
@@ -16,13 +16,13 @@ Handles the requests sent to the Lavalink REST API.
 
 > **new LithiumXRest**(`node`): `LithiumXRest`
 
-Defined in: [src/Structures/Rest.ts:12](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L12)
+Defined in: [src/Structures/Rest.ts:12](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L12)
 
 #### Parameters
 
 ##### node
 
-[`LithiumXNode`](classes\LithiumXNode.md)
+[`LithiumXNode`](LithiumXNode.md)
 
 #### Returns
 
@@ -34,7 +34,7 @@ Defined in: [src/Structures/Rest.ts:12](https://github.com/anantix-network/Lithi
 
 > **delete**(`endpoint`): `Promise`\<`unknown`\>
 
-Defined in: [src/Structures/Rest.ts:80](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L80)
+Defined in: [src/Structures/Rest.ts:85](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L85)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: [src/Structures/Rest.ts:80](https://github.com/anantix-network/Lithi
 
 > **destroyPlayer**(`guildId`): `Promise`\<`unknown`\>
 
-Defined in: [src/Structures/Rest.ts:38](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L38)
+Defined in: [src/Structures/Rest.ts:38](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L38)
 
 Sends a DELETE request to the server to destroy the player.
 
@@ -72,7 +72,7 @@ Sends a DELETE request to the server to destroy the player.
 
 > **get**(`endpoint`): `Promise`\<`unknown`\>
 
-Defined in: [src/Structures/Rest.ts:65](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L65)
+Defined in: [src/Structures/Rest.ts:70](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L70)
 
 #### Parameters
 
@@ -90,7 +90,7 @@ Defined in: [src/Structures/Rest.ts:65](https://github.com/anantix-network/Lithi
 
 > **getAllPlayers**(): `Promise`\<`unknown`\>
 
-Defined in: [src/Structures/Rest.ts:28](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L28)
+Defined in: [src/Structures/Rest.ts:28](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L28)
 
 Retrieves all the players that are currently running on the node.
 
@@ -104,7 +104,7 @@ Retrieves all the players that are currently running on the node.
 
 > **patch**(`endpoint`, `body`): `Promise`\<`unknown`\>
 
-Defined in: [src/Structures/Rest.ts:70](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L70)
+Defined in: [src/Structures/Rest.ts:75](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L75)
 
 #### Parameters
 
@@ -126,7 +126,7 @@ Defined in: [src/Structures/Rest.ts:70](https://github.com/anantix-network/Lithi
 
 > **post**(`endpoint`, `body`): `Promise`\<`unknown`\>
 
-Defined in: [src/Structures/Rest.ts:75](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L75)
+Defined in: [src/Structures/Rest.ts:80](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L80)
 
 #### Parameters
 
@@ -148,7 +148,7 @@ Defined in: [src/Structures/Rest.ts:75](https://github.com/anantix-network/Lithi
 
 > **setSessionId**(`sessionId`): `string`
 
-Defined in: [src/Structures/Rest.ts:22](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L22)
+Defined in: [src/Structures/Rest.ts:22](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L22)
 
 Sets the session ID.
 
@@ -170,7 +170,7 @@ Returns the session ID.
 
 > **updatePlayer**(`options`): `Promise`\<`unknown`\>
 
-Defined in: [src/Structures/Rest.ts:33](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Rest.ts#L33)
+Defined in: [src/Structures/Rest.ts:33](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Rest.ts#L33)
 
 Sends a PATCH request to update player related data.
 

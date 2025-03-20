@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / KaraokeOptions
+[LithiumX](../globals.md) / KaraokeOptions
 
 # Interface: KaraokeOptions
 
-Defined in: [src/Structures/Filters.ts:339](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L339)
+Defined in: [src/Structures/Filters.ts:339](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L339)
 
 Options for applying karaoke effect to audio.
 
@@ -16,7 +16,7 @@ Options for applying karaoke effect to audio.
 
 > `optional` **filterBand**: `number`
 
-Defined in: [src/Structures/Filters.ts:345](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L345)
+Defined in: [src/Structures/Filters.ts:345](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L345)
 
 The filter band of karaoke effect.
 
@@ -26,7 +26,7 @@ The filter band of karaoke effect.
 
 > `optional` **filterWidth**: `number`
 
-Defined in: [src/Structures/Filters.ts:347](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L347)
+Defined in: [src/Structures/Filters.ts:347](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L347)
 
 The filter width of karaoke effect.
 
@@ -36,7 +36,7 @@ The filter width of karaoke effect.
 
 > `optional` **level**: `number`
 
-Defined in: [src/Structures/Filters.ts:341](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L341)
+Defined in: [src/Structures/Filters.ts:341](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L341)
 
 The level of karaoke effect.
 
@@ -46,6 +46,6 @@ The level of karaoke effect.
 
 > `optional` **monoLevel**: `number`
 
-Defined in: [src/Structures/Filters.ts:343](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L343)
+Defined in: [src/Structures/Filters.ts:343](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L343)
 
 The mono level of karaoke effect.

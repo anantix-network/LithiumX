@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / Payload
+[LithiumX](../globals.md) / Payload
 
 # Interface: Payload
 
-Defined in: [src/Structures/Manager.ts:388](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L388)
+Defined in: [src/Structures/Manager.ts:388](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L388)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Manager.ts:388](https://github.com/anantix-network/L
 
 > **d**: `object`
 
-Defined in: [src/Structures/Manager.ts:391](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L391)
+Defined in: [src/Structures/Manager.ts:391](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L391)
 
 #### channel\_id
 
@@ -38,6 +38,6 @@ Defined in: [src/Structures/Manager.ts:391](https://github.com/anantix-network/L
 
 > **op**: `number`
 
-Defined in: [src/Structures/Manager.ts:390](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Manager.ts#L390)
+Defined in: [src/Structures/Manager.ts:390](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Manager.ts#L390)
 
 The OP code
