@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / Exception
+[LithiumX](../globals.md) / Exception
 
 # Interface: Exception
 
-Defined in: [src/Structures/Utils.ts:305](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L305)
+Defined in: [src/Structures/Utils.ts:305](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L305)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Utils.ts:305](https://github.com/anantix-network/Lit
 
 > **cause**: `string`
 
-Defined in: [src/Structures/Utils.ts:308](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L308)
+Defined in: [src/Structures/Utils.ts:308](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L308)
 
 ***
 
@@ -22,12 +22,12 @@ Defined in: [src/Structures/Utils.ts:308](https://github.com/anantix-network/Lit
 
 > **message**: `string`
 
-Defined in: [src/Structures/Utils.ts:306](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L306)
+Defined in: [src/Structures/Utils.ts:306](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L306)
 
 ***
 
 ### severity
 
-> **severity**: [`Severity`](type-aliases\Severity.md)
+> **severity**: [`Severity`](../type-aliases/Severity.md)
 
-Defined in: [src/Structures/Utils.ts:307](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L307)
+Defined in: [src/Structures/Utils.ts:307](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L307)

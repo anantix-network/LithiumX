@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / LavalinkInfo
+[LithiumX](../globals.md) / LavalinkInfo
 
 # Interface: LavalinkInfo
 
-Defined in: [src/Structures/Node.ts:514](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L514)
+Defined in: [src/Structures/Node.ts:514](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L514)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Node.ts:514](https://github.com/anantix-network/Lith
 
 > **buildTime**: `number`
 
-Defined in: [src/Structures/Node.ts:516](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L516)
+Defined in: [src/Structures/Node.ts:516](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L516)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/Structures/Node.ts:516](https://github.com/anantix-network/Lith
 
 > **filters**: `string`[]
 
-Defined in: [src/Structures/Node.ts:521](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L521)
+Defined in: [src/Structures/Node.ts:521](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L521)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/Structures/Node.ts:521](https://github.com/anantix-network/Lith
 
 > **git**: `object`
 
-Defined in: [src/Structures/Node.ts:517](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L517)
+Defined in: [src/Structures/Node.ts:517](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L517)
 
 #### branch
 
@@ -50,7 +50,7 @@ Defined in: [src/Structures/Node.ts:517](https://github.com/anantix-network/Lith
 
 > **jvm**: `string`
 
-Defined in: [src/Structures/Node.ts:518](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L518)
+Defined in: [src/Structures/Node.ts:518](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L518)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [src/Structures/Node.ts:518](https://github.com/anantix-network/Lith
 
 > **lavaplayer**: `string`
 
-Defined in: [src/Structures/Node.ts:519](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L519)
+Defined in: [src/Structures/Node.ts:519](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L519)
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: [src/Structures/Node.ts:519](https://github.com/anantix-network/Lith
 
 > **plugins**: `object`[]
 
-Defined in: [src/Structures/Node.ts:522](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L522)
+Defined in: [src/Structures/Node.ts:522](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L522)
 
 #### name
 
@@ -82,7 +82,7 @@ Defined in: [src/Structures/Node.ts:522](https://github.com/anantix-network/Lith
 
 > **sourceManagers**: `string`[]
 
-Defined in: [src/Structures/Node.ts:520](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L520)
+Defined in: [src/Structures/Node.ts:520](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L520)
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: [src/Structures/Node.ts:520](https://github.com/anantix-network/Lith
 
 > **version**: `object`
 
-Defined in: [src/Structures/Node.ts:515](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Node.ts#L515)
+Defined in: [src/Structures/Node.ts:515](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Node.ts#L515)
 
 #### major
 

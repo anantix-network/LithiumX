@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / DistortionOptions
+[LithiumX](../globals.md) / DistortionOptions
 
 # Interface: DistortionOptions
 
-Defined in: [src/Structures/Filters.ts:350](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L350)
+Defined in: [src/Structures/Filters.ts:350](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L350)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/Structures/Filters.ts:350](https://github.com/anantix-network/L
 
 > `optional` **cosOffset**: `number`
 
-Defined in: [src/Structures/Filters.ts:353](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L353)
+Defined in: [src/Structures/Filters.ts:353](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L353)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/Structures/Filters.ts:353](https://github.com/anantix-network/L
 
 > `optional` **cosScale**: `number`
 
-Defined in: [src/Structures/Filters.ts:354](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L354)
+Defined in: [src/Structures/Filters.ts:354](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L354)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/Structures/Filters.ts:354](https://github.com/anantix-network/L
 
 > `optional` **offset**: `number`
 
-Defined in: [src/Structures/Filters.ts:357](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L357)
+Defined in: [src/Structures/Filters.ts:357](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L357)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/Structures/Filters.ts:357](https://github.com/anantix-network/L
 
 > `optional` **scale**: `number`
 
-Defined in: [src/Structures/Filters.ts:358](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L358)
+Defined in: [src/Structures/Filters.ts:358](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L358)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/Structures/Filters.ts:358](https://github.com/anantix-network/L
 
 > `optional` **sinOffset**: `number`
 
-Defined in: [src/Structures/Filters.ts:351](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L351)
+Defined in: [src/Structures/Filters.ts:351](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L351)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/Structures/Filters.ts:351](https://github.com/anantix-network/L
 
 > `optional` **sinScale**: `number`
 
-Defined in: [src/Structures/Filters.ts:352](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L352)
+Defined in: [src/Structures/Filters.ts:352](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L352)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/Structures/Filters.ts:352](https://github.com/anantix-network/L
 
 > `optional` **tanOffset**: `number`
 
-Defined in: [src/Structures/Filters.ts:355](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L355)
+Defined in: [src/Structures/Filters.ts:355](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L355)
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: [src/Structures/Filters.ts:355](https://github.com/anantix-network/L
 
 > `optional` **tanScale**: `number`
 
-Defined in: [src/Structures/Filters.ts:356](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L356)
+Defined in: [src/Structures/Filters.ts:356](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L356)

@@ -1,16 +1,16 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / TrackStartEvent
+[LithiumX](../globals.md) / TrackStartEvent
 
 # Interface: TrackStartEvent
 
-Defined in: [src/Structures/Utils.ts:311](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L311)
+Defined in: [src/Structures/Utils.ts:311](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L311)
 
 ## Extends
 
-- [`PlayerEvent`](interfaces\PlayerEvent.md)
+- [`PlayerEvent`](PlayerEvent.md)
 
 ## Properties
 
@@ -18,11 +18,11 @@ Defined in: [src/Structures/Utils.ts:311](https://github.com/anantix-network/Lit
 
 > **guildId**: `string`
 
-Defined in: [src/Structures/Utils.ts:302](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L302)
+Defined in: [src/Structures/Utils.ts:302](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L302)
 
 #### Inherited from
 
-[`PlayerEvent`](interfaces\PlayerEvent.md).[`guildId`](interfaces\PlayerEvent.md#guildid)
+[`PlayerEvent`](PlayerEvent.md).[`guildId`](PlayerEvent.md#guildid)
 
 ***
 
@@ -30,19 +30,19 @@ Defined in: [src/Structures/Utils.ts:302](https://github.com/anantix-network/Lit
 
 > **op**: `"event"`
 
-Defined in: [src/Structures/Utils.ts:300](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L300)
+Defined in: [src/Structures/Utils.ts:300](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L300)
 
 #### Inherited from
 
-[`PlayerEvent`](interfaces\PlayerEvent.md).[`op`](interfaces\PlayerEvent.md#op)
+[`PlayerEvent`](PlayerEvent.md).[`op`](PlayerEvent.md#op)
 
 ***
 
 ### track
 
-> **track**: [`TrackData`](interfaces\TrackData.md)
+> **track**: [`TrackData`](TrackData.md)
 
-Defined in: [src/Structures/Utils.ts:313](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L313)
+Defined in: [src/Structures/Utils.ts:313](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L313)
 
 ***
 
@@ -50,8 +50,8 @@ Defined in: [src/Structures/Utils.ts:313](https://github.com/anantix-network/Lit
 
 > **type**: `"TrackStartEvent"`
 
-Defined in: [src/Structures/Utils.ts:312](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Utils.ts#L312)
+Defined in: [src/Structures/Utils.ts:312](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Utils.ts#L312)
 
 #### Overrides
 
-[`PlayerEvent`](interfaces\PlayerEvent.md).[`type`](interfaces\PlayerEvent.md#type)
+[`PlayerEvent`](PlayerEvent.md).[`type`](PlayerEvent.md#type)

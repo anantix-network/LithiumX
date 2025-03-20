@@ -1,12 +1,12 @@
-[**LithiumX v1.0.7**](README.md)
+[**LithiumX v1.0.8**](../README.md)
 
 ***
 
-[LithiumX](globals.md) / RotationOptions
+[LithiumX](../globals.md) / RotationOptions
 
 # Interface: RotationOptions
 
-Defined in: [src/Structures/Filters.ts:333](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L333)
+Defined in: [src/Structures/Filters.ts:333](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L333)
 
 Options for applying rotation effect to audio.
 
@@ -16,6 +16,6 @@ Options for applying rotation effect to audio.
 
 > **rotationHz**: `number`
 
-Defined in: [src/Structures/Filters.ts:335](https://github.com/anantix-network/LithiumX/blob/720bc1bb802e250a8740a01a0f217198cffacb28/src/Structures/Filters.ts#L335)
+Defined in: [src/Structures/Filters.ts:335](https://github.com/anantix-network/LithiumX/blob/6d83bed841f7c0d8766531c5310768bcb05e7f91/src/Structures/Filters.ts#L335)
 
 The rotation speed in Hertz (Hz).
