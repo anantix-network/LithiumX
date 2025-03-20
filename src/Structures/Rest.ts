@@ -51,8 +51,13 @@ class LithiumXRest {
 		};
 		try {
 			const response = await fetch(`http${this.node.options.secure ? "s" : ""}://${this.node.options.host}:${this.node.options.port}${endpoint}`, config);
-			return response.json();
+			const contentType = response.headers.get('content-type');
+			if (!contentType || !contentType.includes('application/json')) return response.status >= 200 && response.status < 300 ? {} : null;
+			const text = await response.text();
+			if (!text || text.trim() === '') return {}
+			return JSON.parse(text);
 		} catch (error) {
+			console.error(`REST Error (${method} ${endpoint}):`, error);
 			if (error?.response?.status === 404) {
 				this.node.destroy();
 				this.node.manager.createNode(this.node.options).connect();
