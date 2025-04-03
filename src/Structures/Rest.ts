@@ -1,4 +1,5 @@
 import { LithiumXNode } from "./Node";
+import { FilterOptions } from "./Filters";
 
 /** Handles the requests sent to the Lavalink REST API. */
 class LithiumXRest {
@@ -37,6 +38,16 @@ class LithiumXRest {
 	/** Sends a DELETE request to the server to destroy the player. */
 	public async destroyPlayer(guildId: string): Promise<unknown> {
 		return await this.delete(`/v4/sessions/${this.sessionId}/players/${guildId}`);
+	}
+
+	// Add method to apply filters
+	public async applyFilters(guildId: string, filters: FilterOptions): Promise<void> {
+		await this.updatePlayer({
+			guildId,
+			data: {
+				filters
+			}
+		});
 	}
 
 	/* Sends a GET request to the specified endpoint and returns the response data. */
@@ -114,6 +125,27 @@ interface playOptions {
 		};
 		/** Whether to not replace the track if a play payload is sent. */
 		noReplace?: boolean;
+	};
+}
+
+/**
+ * Interface for player update options including filters
+ */
+interface PlayerUpdateOptions {
+	guildId: string;
+	data: {
+		encodedTrack?: string;
+		identifier?: string;
+		position?: number;
+		endTime?: number;
+		volume?: number;
+		paused?: boolean;
+		filters?: FilterOptions;
+		voice?: {
+			token: string;
+			endpoint: string;
+			sessionId: string;
+		};
 	};
 }
 

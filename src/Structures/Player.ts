@@ -4,6 +4,9 @@ import { LavalinkInfo, LithiumXNode } from "./Node";
 import { LithiumXQueue } from "./Queue";
 import { Sizes, State, Structure, TrackSourceName, TrackUtils, VoiceState } from "./Utils";
 import playerCheck from "../Utils/PlayerCheck";
+import { FilterOptions, FilterPresets } from "./Filters";
+import { LyricsData, LyricsOptions } from "./Lyrics";
+import { SaveQueueOptions, LoadQueueOptions, QueueOperationResult } from "./QueueManager";
 
 export class LithiumXPlayer {
 	/** The Queue for the Player. */
@@ -48,6 +51,10 @@ export class LithiumXPlayer {
 	private dynamicLoopInterval: NodeJS.Timeout;
 
 	/**
+	 * Currently applied filters
+	 */
+
+	/**
 	 * Set custom data.
 	 * @param key
 	 * @param value
@@ -88,7 +95,7 @@ export class LithiumXPlayer {
 		if (options.textChannel) this.textChannel = options.textChannel;
 		const node = this.manager.nodes.get(options.node);
 		this.node = node || this.manager.useableNodes;
-		
+
 		if (!this.node) throw new RangeError("No available nodes.");
 
 		this.manager.players.set(options.guild, this);
@@ -554,6 +561,238 @@ export class LithiumXPlayer {
 		});
 
 		return this;
+	}
+
+	/**
+	 * Sets filters for this player
+	 * @param filters The filters to apply
+	 */
+	public setFilters(filters: FilterOptions): Promise<this> {
+		// Convert FilterOptions to actual filter properties
+		Object.keys(filters).forEach(key => {
+			if (this.filters[key] !== undefined) {
+				this.filters[key] = filters[key];
+			}
+		});
+
+		return this.node.rest.applyFilters(this.guild, filters).then(() => this);
+	}
+
+	/**
+	 * Clear all filters from this player
+	 */
+	public clearFilters(): Promise<this> {
+		return this.setFilters({});
+	}
+
+	/**
+	 * Apply bass boost filter
+	 * @param gain Boost intensity from 0 to 1
+	 */
+	public bassBoost(gain = 0.65): Promise<this> {
+		return this.setFilters(FilterPresets.bassBoost(gain));
+	}
+
+	/**
+	 * Apply nightcore filter
+	 * @param speed Playback speed (default: 1.12)
+	 * @param pitch Pitch adjustment (default: 1.12)
+	 */
+	public nightcore(speed = 1.12, pitch = 1.12): Promise<this> {
+		return this.setFilters(FilterPresets.nightcore(speed, pitch));
+	}
+
+	/**
+	 * Apply vaporwave filter
+	 */
+	public vaporwave(): Promise<this> {
+		return this.setFilters(FilterPresets.vaporwave());
+	}
+
+	/**
+	 * Apply pop filter
+	 */
+	public pop(): Promise<this> {
+		return this.setFilters(FilterPresets.pop());
+	}
+
+	/**
+	 * Apply soft filter
+	 */
+	public soft(): Promise<this> {
+		return this.setFilters(FilterPresets.soft());
+	}
+
+	/**
+	 * Apply karaoke filter to reduce vocals
+	 */
+	public karaoke(options: { level?: number; monoLevel?: number; filterBand?: number; filterWidth?: number } = {}): Promise<this> {
+		const karaokeOptions = {
+			level: options.level ?? 1.0,
+			monoLevel: options.monoLevel ?? 1.0,
+			filterBand: options.filterBand ?? 220.0,
+			filterWidth: options.filterWidth ?? 100.0
+		};
+
+		return this.setFilters({ karaoke: karaokeOptions });
+	}
+
+	/**
+	 * Apply 8D audio effect with rotation
+	 * @param rotationHz Rotation speed in Hz (default: 0.2)
+	 */
+	public eightD(rotationHz = 0.2): Promise<this> {
+		return this.setFilters({ rotation: { rotationHz } });
+	}
+
+	/**
+	 * Apply vibrato effect
+	 * @param frequency Frequency of the vibrato effect (default: 2.0)
+	 * @param depth Depth of the vibrato effect (default: 0.5)
+	 */
+	public vibrato(frequency = 2.0, depth = 0.5): Promise<this> {
+		return this.setFilters({ vibrato: { frequency, depth } });
+	}
+
+	/**
+	 * Apply tremolo effect
+	 * @param frequency Frequency of the tremolo effect (default: 2.0)
+	 * @param depth Depth of the tremolo effect (default: 0.5)
+	 */
+	public tremolo(frequency = 2.0, depth = 0.5): Promise<this> {
+		return this.setFilters({ tremolo: { frequency, depth } });
+	}
+
+	/**
+	 * Combine multiple filter presets
+	 * @param filters Multiple filter options to combine
+	 */
+	public async combine(...filters: FilterOptions[]): Promise<this> {
+		const combined = filters.reduce((acc, filter) => {
+			Object.entries(filter).forEach(([key, value]) => {
+				if (key === 'equalizer' && acc.equalizer) {
+					// For equalizer, merge bands by band number
+					const existing = new Map(acc.equalizer.map(band => [band.band, band]));
+					value.forEach(band => existing.set(band.band, band));
+					acc.equalizer = Array.from(existing.values());
+				} else {
+					// For other filters, just replace
+					acc[key] = value;
+				}
+			});
+			return acc;
+		}, {} as FilterOptions);
+
+		return this.setFilters(combined);
+	}
+
+	/**
+	 * Get lyrics for the current track
+	 * @param options Lyrics search options
+	 */
+	public async fetchLyrics(options: LyricsOptions = {}): Promise<LyricsData | null> {
+		if (!this.queue.current) {
+			return null;
+		}
+
+		if (!this.manager.lyrics) {
+			throw new Error("Lyrics system is not enabled. Enable it in the manager options.");
+		}
+
+		try {
+			// Now compatible with both Track and UnresolvedTrack
+			const lyrics = await this.manager.lyrics.search(this.queue.current, options);
+
+			if (lyrics) {
+				this.manager.emit("LyricsFound", this, lyrics);
+				return lyrics;
+			} else {
+				this.manager.emit("LyricsNotFound", this, this.queue.current);
+				return null;
+			}
+		} catch (error) {
+			console.error("Error fetching lyrics:", error);
+			return null;
+		}
+	}
+
+	/**
+	 * Get lyrics for the current track from a specific provider
+	 * @param providerName The lyrics provider to use
+	 * @param options Lyrics search options
+	 */
+	public async fetchLyricsFrom(providerName: string, options: LyricsOptions = {}): Promise<LyricsData | null> {
+		if (!this.queue.current) {
+			return null;
+		}
+
+		if (!this.manager.lyrics) {
+			throw new Error("Lyrics system is not enabled. Enable it in the manager options.");
+		}
+
+		try {
+			// Now compatible with both Track and UnresolvedTrack
+			const lyrics = await this.manager.lyrics.searchWithProvider(providerName, this.queue.current, options);
+
+			if (lyrics) {
+				this.manager.emit("LyricsFound", this, lyrics);
+				return lyrics;
+			} else {
+				this.manager.emit("LyricsNotFound", this, this.queue.current);
+				return null;
+			}
+		} catch (error) {
+			console.error(`Error fetching lyrics from ${providerName}:`, error);
+			return null;
+		}
+	}
+
+	/**
+	 * Get a list of available lyrics providers
+	 */
+	public getLyricsProviders(): string[] {
+		if (!this.manager.lyrics) {
+			throw new Error("Lyrics system is not enabled. Enable it in the manager options.");
+		}
+
+		return this.manager.lyrics.getProviders();
+	}
+
+	/**
+	 * Save the current queue
+	 * @param options Save options
+	 */
+	public saveQueue(options: SaveQueueOptions = {}): Promise<QueueOperationResult> {
+		if (!this.manager.queues) {
+			throw new Error("Queue manager is not available");
+		}
+
+		return this.manager.queues.saveQueue(this, options);
+	}
+
+	/**
+	 * Load a saved queue
+	 * @param queueId The ID of the saved queue
+	 * @param options Load options
+	 */
+	public loadQueue(queueId: string, options: LoadQueueOptions = {}): Promise<QueueOperationResult> {
+		if (!this.manager.queues) {
+			throw new Error("Queue manager is not available");
+		}
+
+		return this.manager.queues.loadQueue(queueId, this, options);
+	}
+
+	/**
+	 * List all available saved queues for this guild
+	 * @param includeGlobal Whether to include global queues
+	 */
+	public listSavedQueues(includeGlobal = true): Promise<import("./QueueManager").SavedQueue[]> {
+		if (!this.manager.queues) {
+			throw new Error("Queue manager is not available");
+		}
+
+		return this.manager.queues.listQueues(this.guild, includeGlobal);
 	}
 }
 

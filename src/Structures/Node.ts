@@ -14,6 +14,72 @@ import { LithiumXPlayer, Track, UnresolvedTrack } from "./Player";
 import { LithiumXRest } from "./Rest";
 import nodeCheck from "../Utils/NodeCheck";
 import WebSocket from "ws";
+import fs from "fs";
+import path from "path";
+
+// Storage strategy interface
+interface StorageStrategy {
+	save(key: string, data: any): Promise<void>;
+	load(key: string): Promise<any>;
+	delete(key: string): Promise<void>;
+	getAll(): Promise<string[]>;
+}
+
+// File storage implementation
+class FileStorage implements StorageStrategy {
+	constructor(private basePath: string) {
+		if (!fs.existsSync(basePath)) {
+			fs.mkdirSync(basePath, { recursive: true });
+		}
+	}
+
+	async save(key: string, data: any): Promise<void> {
+		const filePath = path.join(this.basePath, `${key}.json`);
+		await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2));
+	}
+
+	async load(key: string): Promise<any> {
+		const filePath = path.join(this.basePath, `${key}.json`);
+		if (!fs.existsSync(filePath)) return null;
+		const data = await fs.promises.readFile(filePath, 'utf8');
+		return JSON.parse(data);
+	}
+
+	async delete(key: string): Promise<void> {
+		const filePath = path.join(this.basePath, `${key}.json`);
+		if (fs.existsSync(filePath)) {
+			await fs.promises.unlink(filePath);
+		}
+	}
+
+	async getAll(): Promise<string[]> {
+		const files = await fs.promises.readdir(this.basePath);
+		return files
+			.filter(file => file.endsWith('.json'))
+			.map(file => file.replace('.json', ''));
+	}
+}
+
+// Memory storage implementation (for testing or temporary storage)
+class MemoryStorage implements StorageStrategy {
+	private data = new Map<string, any>();
+
+	async save(key: string, data: any): Promise<void> {
+		this.data.set(key, data);
+	}
+
+	async load(key: string): Promise<any> {
+		return this.data.get(key) || null;
+	}
+
+	async delete(key: string): Promise<void> {
+		this.data.delete(key);
+	}
+
+	async getAll(): Promise<string[]> {
+		return Array.from(this.data.keys());
+	}
+}
 
 class LithiumXNode {
 	/** The socket for the node. */
@@ -25,6 +91,10 @@ class LithiumXNode {
 	public sessionId: string | null;
 	/** The REST instance. */
 	public readonly rest: LithiumXRest;
+
+	// Storage for autoresume functionality
+	private autoResumeInterval?: NodeJS.Timeout;
+	private storage: StorageStrategy;
 
 	private static _manager: LithiumXManager;
 	private reconnectTimeout?: NodeJS.Timeout;
@@ -67,6 +137,9 @@ class LithiumXNode {
 			retryAmount: 30,
 			retryDelay: 60000,
 			priority: 0,
+			autoResume: false,
+			autoResumeInterval: 60000,
+			autoResumeStoragePath: "./playerStorage",
 			...options,
 		};
 
@@ -97,6 +170,17 @@ class LithiumXNode {
 			},
 		};
 
+		// Setup storage
+		if (this.options.autoResume) {
+			if (this.options.storageStrategy === 'memory') {
+				this.storage = new MemoryStorage();
+			} else {
+				// Default to file storage
+				const storagePath = path.resolve(this.options.autoResumeStoragePath);
+				this.storage = new FileStorage(storagePath);
+			}
+		}
+
 		this.manager.nodes.set(this.options.identifier, this);
 		this.manager.emit("NodeCreate", this);
 		this.rest = new LithiumXRest(this);
@@ -123,6 +207,17 @@ class LithiumXNode {
 	/** Destroys the Node and all players connected with it. */
 	public destroy(): void {
 		if (!this.connected) return;
+
+		// Save player states before destroying if autoresume is enabled
+		if (this.options.autoResume) {
+			this.saveAllPlayers();
+		}
+
+		// Clear autoresume interval if it exists
+		if (this.autoResumeInterval) {
+			clearInterval(this.autoResumeInterval);
+			this.autoResumeInterval = undefined;
+		}
 
 		const players = this.manager.players.filter((p) => p.node == this);
 		if (players.size) players.forEach((p) => p.destroy());
@@ -157,9 +252,33 @@ class LithiumXNode {
 	protected open(): void {
 		if (this.reconnectTimeout) clearTimeout(this.reconnectTimeout);
 		this.manager.emit("NodeConnect", this);
+
+		// Setup auto-resume if enabled
+		if (this.options.autoResume) {
+			// Load saved player states on reconnect
+			this.loadAllPlayers();
+
+			// Set up interval to periodically save player states
+			if (this.options.autoResumeInterval && !this.autoResumeInterval) {
+				this.autoResumeInterval = setInterval(() => {
+					this.saveAllPlayers();
+				}, this.options.autoResumeInterval);
+			}
+		}
 	}
 
 	protected close(code: number, reason: string): void {
+		// Save all player states when connection closes if autoresume is enabled
+		if (this.options.autoResume) {
+			this.saveAllPlayers();
+		}
+
+		// Clear the autoresume interval when disconnected
+		if (this.autoResumeInterval) {
+			clearInterval(this.autoResumeInterval);
+			this.autoResumeInterval = undefined;
+		}
+
 		this.manager.emit("NodeDisconnect", this, { code, reason });
 		if (code !== 1000 || reason !== "destroy") this.reconnect();
 	}
@@ -440,6 +559,124 @@ class LithiumXNode {
 	protected socketClosed(player: LithiumXPlayer, payload: WebSocketClosedEvent): void {
 		this.manager.emit("SocketClosed", player, payload);
 	}
+
+	/**
+	 * Save the state of all players connected to this node
+	 */
+	private async saveAllPlayers(): Promise<void> {
+		try {
+			const players = this.manager.players.filter(player => player.node === this);
+			if (players.size) {
+				for (const player of players.values()) {
+					await this.savePlayer(player);
+				}
+			}
+		} catch (error) {
+			this.manager.emit("NodeError", this, new Error(`Error saving player states: ${error.message}`));
+		}
+	}
+
+	/**
+	 * Save a single player's state to storage
+	 */
+	private async savePlayer(player: LithiumXPlayer): Promise<void> {
+		try {
+			const playerData = {
+				guildId: player.guild,
+				voiceChannel: player.voiceChannel,
+				textChannel: player.textChannel,
+				volume: player.volume,
+				paused: player.paused,
+				playing: player.playing,
+				position: player.position,
+				track: player.queue.current,
+				queue: player.queue.map(track => track),
+				queueRepeat: player.queueRepeat,
+				trackRepeat: player.trackRepeat,
+				isAutoplay: player.isAutoplay,
+				timestamp: Date.now()
+			};
+
+			await this.storage.save(`player-${player.guild}`, playerData);
+		} catch (error) {
+			this.manager.emit("NodeError", this, new Error(`Failed to save player state: ${error.message}`));
+		}
+	}
+
+	/**
+	 * Load all saved player states from storage
+	 */
+	private async loadAllPlayers(): Promise<void> {
+		try {
+			const keys = await this.storage.getAll();
+
+			for (const key of keys) {
+				if (!key.startsWith('player-')) continue;
+
+				try {
+					const data = await this.storage.load(key);
+					if (!data) continue;
+
+					// Check if the stored data is too old
+					const maxAge = this.options.autoResumeMaxAge || 86400000; // 24 hours in ms
+					if (Date.now() - data.timestamp > maxAge) {
+						await this.storage.delete(key);
+						continue;
+					}
+
+					// Create or get an existing player
+					const guildId = data.guildId;
+					let player = this.manager.players.get(guildId);
+
+					if (!player) {
+						player = this.manager.create({
+							guild: guildId,
+							voiceChannel: data.voiceChannel,
+							textChannel: data.textChannel,
+							selfDeafen: true,
+						});
+					}
+
+					// Restore player state
+					player.queue.clear();
+					if (data.queue && Array.isArray(data.queue)) {
+						data.queue.forEach(track => {
+							player.queue.add(TrackUtils.build(track, data.requester));
+						});
+					}
+
+					player.setVolume(data.volume);
+					player.queueRepeat = data.queueRepeat;
+					player.trackRepeat = data.trackRepeat;
+					player.isAutoplay = data.isAutoplay;
+
+					// If there was a current track, attempt to play it from the position
+					if (data.track) {
+						const track = TrackUtils.build(data.track, data.requester);
+						player.queue.current = track;
+
+						player.play();
+						if (data.position) {
+							player.seek(data.position);
+						}
+
+						if (data.paused) {
+							player.pause(true);
+						}
+					}
+
+					// Delete the saved state after restoring
+					await this.storage.delete(key);
+
+					this.manager.emit("PlayerResume", player, data);
+				} catch (error) {
+					this.manager.emit("NodeError", this, new Error(`Error restoring player from ${key}: ${error.message}`));
+				}
+			}
+		} catch (error) {
+			this.manager.emit("NodeError", this, new Error(`Failed to load player states: ${error.message}`));
+		}
+	}
 }
 
 interface NodeOptions {
@@ -465,6 +702,16 @@ interface NodeOptions {
 	requestTimeout?: number;
 	/** Priority of the node. */
 	priority?: number;
+	/** Whether to enable auto-resume functionality. */
+	autoResume?: boolean;
+	/** Storage strategy to use for autoresume ('file' or 'memory') */
+	storageStrategy?: 'file' | 'memory';
+	/** Directory to store player states for auto-resume functionality. */
+	autoResumeStoragePath?: string;
+	/** Interval in ms to save player states to storage. */
+	autoResumeInterval?: number;
+	/** Maximum age in ms for saved player states. */
+	autoResumeMaxAge?: number;
 }
 
 interface NodeStats {
@@ -530,5 +777,6 @@ export {
 	MemoryStats,
 	CPUStats,
 	FrameStats,
-	LavalinkInfo
+	LavalinkInfo,
+	StorageStrategy
 }

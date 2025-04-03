@@ -19,6 +19,9 @@ import { LithiumXPlayer, PlayerOptions, Track, UnresolvedTrack } from "./Player"
 import { VoiceState } from "..";
 import managerCheck from "../Utils/ManagerCheck";
 import { TypedEmitter } from "tiny-typed-emitter";
+import { LyricsManager, LyricsManagerOptions, LyricsProvider } from "./Lyrics";
+import { QueueManager } from "./QueueManager";
+import { Analytics, AnalyticsOptions } from "./Analytics";
 
 /**
  * The main hub for interacting with Lavalink and using Magmastream,
@@ -44,6 +47,12 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	public readonly options: ManagerOptions;
 	private initiated = false;
 	public caches = new Collection<string, SearchResult>();
+	/** The Lyrics Manager */
+	public lyrics: LyricsManager;
+	/** The Queue Manager */
+	public queues: QueueManager;
+	/** The Analytics System */
+	public analytics: Analytics;
 
 	/** Returns the nodes that has the least load. */
 	public get leastLoadNode(): Collection<string, LithiumXNode> {
@@ -99,7 +108,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		Structure.get("Player").init(this);
 		Structure.get("Node").init(this);
 		TrackUtils.init(this);
-		
+
 		if (options.trackPartial) {
 			TrackUtils.setTrackPartial(options.trackPartial);
 			delete options.trackPartial;
@@ -142,6 +151,17 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 				this.caches.clear();
 			}, this.options.caches.time);
 		}
+
+		// Initialize lyrics manager if enabled
+		if (options.lyrics?.enabled) {
+			this.lyrics = new LyricsManager(this, options.lyrics);
+		}
+
+		// Initialize queue manager
+		this.queues = new QueueManager(this, options.queueManager);
+		
+		// Initialize analytics system
+		this.analytics = new Analytics(this, options.analytics);
 	}
 
 	/**
@@ -261,12 +281,12 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	 * @param tracks
 	 */
 	public decodeTracks(tracks: string[]): Promise<TrackData[]> {
-		return new Promise(async(resolve, reject) => {
+		return new Promise(async (resolve, reject) => {
 			const node = this.nodes.first();
 			if (!node) {
 				return reject(new Error("No available nodes."));
 			}
-	
+
 			await node.rest.post("/v4/decodetracks", JSON.stringify(tracks))
 				.then((res) => {
 					if (!res) return reject(new Error("No data returned from query."));
@@ -425,6 +445,15 @@ interface ManagerOptions {
 		/** The time to cache the search results. */
 		time: number;
 	}
+	/** Lyrics configuration */
+	lyrics?: {
+		/** Whether to enable the lyrics system */
+		enabled?: boolean;
+	} & LyricsManagerOptions;
+	/** Queue manager configuration */
+	queueManager?: import("./QueueManager").QueueManagerOptions;
+	/** Analytics configuration */
+	analytics?: AnalyticsOptions;
 	/**
 	 * Function to send data to the websocket.
 	 * @param id
@@ -489,14 +518,22 @@ interface ManagerEvents {
 	PlayerStateUpdate: (oldPlayer: LithiumXPlayer, newPlayer: LithiumXPlayer) => void;
 	PlayerMove: (player: LithiumXPlayer, initChannel: string, newChannel: string) => void;
 	PlayerDisconnect: (player: LithiumXPlayer, oldChannel: string) => void;
+	PlayerResume: (player: LithiumXPlayer, payload: object) => void;
 	QueueEnd: (player: LithiumXPlayer, track: Track | UnresolvedTrack, payload: TrackEndEvent) => void;
 	SocketClosed: (player: LithiumXPlayer, payload: WebSocketClosedEvent) => void;
 	TrackStart: (player: LithiumXPlayer, track: Track, payload: TrackStartEvent) => void;
 	TrackEnd: (player: LithiumXPlayer, track: Track, payload: TrackEndEvent) => void;
 	TrackStuck: (player: LithiumXPlayer, track: Track, payload: TrackStuckEvent) => void;
 	TrackError: (player: LithiumXPlayer, track: Track | UnresolvedTrack, payload: TrackExceptionEvent) => void;
+	/** Emitted when lyrics are found for a track */
+	LyricsFound: (player: LithiumXPlayer, lyrics: import("./Lyrics").LyricsData) => void;
+	/** Emitted when lyrics could not be found for a track */
+	LyricsNotFound: (player: LithiumXPlayer, track: Track | UnresolvedTrack) => void;
+	/** Emitted when a queue is saved */
+	QueueSaved: (player: LithiumXPlayer, queue: import("./QueueManager").SavedQueue) => void;
+	/** Emitted when a queue is loaded */
+	QueueLoaded: (player: LithiumXPlayer, queue: import("./QueueManager").SavedQueue) => void;
 }
-
 
 export {
 	LithiumXManager,

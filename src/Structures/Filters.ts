@@ -1,6 +1,100 @@
 import { Band, bassBoostEqualizer, softEqualizer, trebleBassEqualizer, tvEqualizer, vaporwaveEqualizer } from "../Utils/FiltersEqualizers";
 import { LithiumXPlayer } from "./Player";
 
+// Filter options interfaces
+export interface TimescaleOptions {
+	/** The speed factor for the timescale. */
+	speed?: number;
+	/** The pitch factor for the timescale. */
+	pitch?: number;
+	/** The rate factor for the timescale. */
+	rate?: number;
+}
+
+export interface VibratoOptions {
+	/** The frequency of the vibrato effect. */
+	frequency: number;
+	/** The depth of the vibrato effect.*/
+	depth: number;
+}
+
+export interface RotationOptions {
+	/** The rotation speed in Hertz (Hz). */
+	rotationHz: number;
+}
+
+export interface KaraokeOptions {
+	/** The level of karaoke effect. */
+	level?: number;
+	/** The mono level of karaoke effect. */
+	monoLevel?: number;
+	/** The filter band of karaoke effect. */
+	filterBand?: number;
+	/** The filter width of karaoke effect. */
+	filterWidth?: number;
+}
+
+export interface DistortionOptions {
+	sinOffset?: number;
+	sinScale?: number;
+	cosOffset?: number;
+	cosScale?: number;
+	tanOffset?: number;
+	tanScale?: number;
+	offset?: number;
+	scale?: number;
+}
+
+export interface EqualizerBand {
+	band: number;
+	gain: number;
+}
+
+export interface FrequencyDepthOptions {
+	frequency?: number;
+	depth?: number;
+}
+
+export interface ChannelMixOptions {
+	leftToLeft?: number;
+	leftToRight?: number;
+	rightToLeft?: number;
+	rightToRight?: number;
+}
+
+export interface LowPassOptions {
+	smoothing?: number;
+}
+
+export interface AvailableFilters {
+	bassboost: boolean;
+	distort: boolean;
+	eightD: boolean;
+	karaoke: boolean;
+	nightcore: boolean;
+	slowmo: boolean;
+	soft: boolean;
+	trebleBass: boolean;
+	tv: boolean;
+	vaporwave: boolean;
+}
+
+/**
+ * Represents the available audio filters to be applied to a player
+ */
+export interface FilterOptions {
+	volume?: number;
+	equalizer?: EqualizerBand[];
+	karaoke?: KaraokeOptions;
+	timescale?: TimescaleOptions;
+	tremolo?: FrequencyDepthOptions;
+	vibrato?: FrequencyDepthOptions;
+	rotation?: RotationOptions;
+	distortion?: DistortionOptions;
+	channelMix?: ChannelMixOptions;
+	lowPass?: LowPassOptions;
+}
+
 class Filters {
 	public distortion: DistortionOptions | null;
 	public equalizer: Band[];
@@ -293,13 +387,12 @@ class Filters {
 			vaporwave: false,
 		};
 
-		this.player.filters = new Filters(this.player);
-		this.setEqualizer([]);
-		this.setDistortion(null);
-		this.setKaraoke(null);
-		this.setRotation(null);
-		this.setTimescale(null);
-		this.setVibrato(null);
+		this.equalizer = [];
+		this.distortion = null;
+		this.karaoke = null;
+		this.rotation = null;
+		this.timescale = null;
+		this.vibrato = null;
 
 		await this.updateFilters();
 		return this;
@@ -311,64 +404,112 @@ class Filters {
 	}
 }
 
-/** Options for adjusting the timescale of audio. */
-interface TimescaleOptions {
-	/** The speed factor for the timescale. */
-	speed?: number;
-	/** The pitch factor for the timescale. */
-	pitch?: number;
-	/** The rate factor for the timescale. */
-	rate?: number;
+/**
+ * Preset equalizer bands for common audio effects
+ */
+export class FilterPresets {
+	/**
+	 * Bass boost filter preset
+	 * @param gain How much to boost the bass (0 to 1)
+	 */
+	static bassBoost(gain = 0.65): FilterOptions {
+		// Convert gain to a value between 0 and 1
+		const normalizedGain = Math.max(0, Math.min(1, gain));
+
+		// Create equalizer bands with boosted bass
+		const bands: EqualizerBand[] = [
+			{ band: 0, gain: normalizedGain * 0.6 },
+			{ band: 1, gain: normalizedGain * 0.67 },
+			{ band: 2, gain: normalizedGain * 0.67 },
+			{ band: 3, gain: normalizedGain * 0.4 }
+		];
+
+		return { equalizer: bands };
+	}
+
+	/**
+	 * Nightcore effect preset
+	 * @param speed Playback speed (default: 1.12)
+	 * @param pitch Pitch adjustment (default: 1.12)
+	 */
+	static nightcore(speed = 1.12, pitch = 1.12): FilterOptions {
+		return {
+			timescale: {
+				speed,
+				pitch,
+				rate: 1
+			}
+		};
+	}
+
+	/**
+	 * Vaporwave effect preset
+	 */
+	static vaporwave(): FilterOptions {
+		return {
+			timescale: {
+				speed: 0.8,
+				pitch: 0.8,
+				rate: 1
+			}
+		};
+	}
+
+	/**
+	 * Pop filter preset
+	 */
+	static pop(): FilterOptions {
+		return {
+			equalizer: [
+				{ band: 0, gain: -0.25 },
+				{ band: 1, gain: 0.48 },
+				{ band: 2, gain: 0.59 },
+				{ band: 3, gain: 0.72 },
+				{ band: 4, gain: 0.56 },
+				{ band: 5, gain: 0.15 },
+				{ band: 6, gain: -0.24 },
+				{ band: 7, gain: -0.24 },
+				{ band: 8, gain: -0.16 },
+				{ band: 9, gain: -0.16 },
+				{ band: 10, gain: 0 },
+				{ band: 11, gain: 0 },
+				{ band: 12, gain: 0 },
+				{ band: 13, gain: 0 },
+				{ band: 14, gain: 0 }
+			]
+		};
+	}
+
+	/**
+	 * Soft filter preset
+	 */
+	static soft(): FilterOptions {
+		return {
+			equalizer: [
+				{ band: 0, gain: 0 },
+				{ band: 1, gain: 0 },
+				{ band: 2, gain: 0 },
+				{ band: 3, gain: 0 },
+				{ band: 4, gain: 0 },
+				{ band: 5, gain: 0 },
+				{ band: 6, gain: 0 },
+				{ band: 7, gain: 0 },
+				{ band: 8, gain: -0.25 },
+				{ band: 9, gain: -0.25 },
+				{ band: 10, gain: -0.25 },
+				{ band: 11, gain: -0.25 },
+				{ band: 12, gain: -0.25 },
+				{ band: 13, gain: -0.25 }
+			]
+		};
+	}
+
+	/**
+	 * Clear all applied filters
+	 */
+	static clear(): FilterOptions {
+		return {};
+	}
 }
 
-/** Options for applying vibrato effect to audio. */
-interface VibratoOptions {
-	/** The frequency of the vibrato effect. */
-	frequency: number;
-	/** * The depth of the vibrato effect.*/
-	depth: number;
-}
-
-/** Options for applying rotation effect to audio. */
-interface RotationOptions {
-	/** The rotation speed in Hertz (Hz). */
-	rotationHz: number;
-}
-
-/** Options for applying karaoke effect to audio. */
-interface KaraokeOptions {
-	/** The level of karaoke effect. */
-	level?: number;
-	/** The mono level of karaoke effect. */
-	monoLevel?: number;
-	/** The filter band of karaoke effect. */
-	filterBand?: number;
-	/** The filter width of karaoke effect. */
-	filterWidth?: number;
-}
-
-interface DistortionOptions {
-	sinOffset?: number;
-	sinScale?: number;
-	cosOffset?: number;
-	cosScale?: number;
-	tanOffset?: number;
-	tanScale?: number;
-	offset?: number;
-	scale?: number;
-}
-
-interface AvailableFilters {
-	bassboost: boolean;
-	distort: boolean;
-	eightD: boolean;
-	karaoke: boolean;
-	nightcore: boolean;
-	slowmo: boolean;
-	soft: boolean;
-	trebleBass: boolean;
-	tv: boolean;
-	vaporwave: boolean;
-}
-
-export { Filters, TimescaleOptions, VibratoOptions, RotationOptions, KaraokeOptions, DistortionOptions, AvailableFilters };
+export { Filters };
