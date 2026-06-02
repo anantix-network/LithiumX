@@ -258,14 +258,17 @@ class LithiumXNode {
 
 		this.heartbeatTimer = setInterval(async () => {
 			const start = Date.now();
-			const timeoutPromise = new Promise<never>((_, reject) =>
-				setTimeout(() => reject(new Error('heartbeat timeout')), timeout)
-			);
+			let timeoutId: NodeJS.Timeout;
+			const timeoutPromise = new Promise<never>((_, reject) => {
+				timeoutId = setTimeout(() => reject(new Error('heartbeat timeout')), timeout);
+			});
 
 			try {
 				await Promise.race([this.rest.get('/v4/version'), timeoutPromise]);
+				clearTimeout(timeoutId!);
 				this.manager.emit('NodeHealthCheck', this, { latency: Date.now() - start, healthy: true });
 			} catch {
+				clearTimeout(timeoutId!);
 				this.manager.emit('NodeHealthCheck', this, { latency: -1, healthy: false });
 				if (!this.reconnectTimeout) this.reconnect();
 			}
@@ -296,6 +299,7 @@ class LithiumXNode {
 			}
 		}
 
+		this.stopHeartbeat();    // clear any stale timer before starting
 		this.startHeartbeat();
 	}
 
