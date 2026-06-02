@@ -566,6 +566,7 @@ class LithiumXNode {
 
 		this.manager.emit("TrackEnd", player, track, payload);
 		if (this.manager.options.autoPlay) player.play();
+		if (this.manager.options.prefetch) player.prefetchNext();
 	}
 
 	protected async queueEnd(player: LithiumXPlayer, track: Track, payload: TrackEndEvent): Promise<void> {

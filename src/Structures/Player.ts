@@ -307,6 +307,20 @@ export class LithiumXPlayer {
 	}
 
 	/**
+	 * Prefetches and resolves the next UnresolvedTrack in the queue in-place.
+	 * Runs as a fire-and-forget background operation; errors are silently ignored.
+	 */
+	public async prefetchNext(): Promise<void> {
+		const next = this.queue[0];
+		if (!next || !TrackUtils.isUnresolvedTrack(next)) return;
+		try {
+			this.queue[0] = await TrackUtils.getClosestTrack(next as UnresolvedTrack);
+		} catch {
+			// falls back to on-demand resolution at play time
+		}
+	}
+
+	/**
 	 * Gets recommended tracks and returns an array of tracks.
 	 * @param track
 	 * @param requester
