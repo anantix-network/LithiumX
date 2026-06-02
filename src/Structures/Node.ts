@@ -98,6 +98,7 @@ class LithiumXNode {
 
 	private static _manager: LithiumXManager;
 	private reconnectTimeout?: NodeJS.Timeout;
+	private heartbeatTimer?: NodeJS.Timeout;
 	private reconnectAttempts = 1;
 
 	/** Returns if connected to the Node. */
@@ -219,6 +220,8 @@ class LithiumXNode {
 			this.autoResumeInterval = undefined;
 		}
 
+		this.stopHeartbeat();
+
 		const players = this.manager.players.filter((p) => p.node == this);
 		if (players.size) players.forEach((p) => p.destroy());
 
@@ -249,6 +252,33 @@ class LithiumXNode {
 		}, this.options.retryDelay) as unknown as NodeJS.Timeout;
 	}
 
+	private startHeartbeat(): void {
+		const interval = this.options.heartbeatInterval ?? 30_000;
+		const timeout = this.options.heartbeatTimeout ?? 5_000;
+
+		this.heartbeatTimer = setInterval(async () => {
+			const start = Date.now();
+			const timeoutPromise = new Promise<never>((_, reject) =>
+				setTimeout(() => reject(new Error('heartbeat timeout')), timeout)
+			);
+
+			try {
+				await Promise.race([this.rest.get('/v4/version'), timeoutPromise]);
+				this.manager.emit('NodeHealthCheck', this, { latency: Date.now() - start, healthy: true });
+			} catch {
+				this.manager.emit('NodeHealthCheck', this, { latency: -1, healthy: false });
+				if (!this.reconnectTimeout) this.reconnect();
+			}
+		}, interval);
+	}
+
+	private stopHeartbeat(): void {
+		if (this.heartbeatTimer) {
+			clearInterval(this.heartbeatTimer);
+			this.heartbeatTimer = undefined;
+		}
+	}
+
 	protected open(): void {
 		if (this.reconnectTimeout) clearTimeout(this.reconnectTimeout);
 		this.manager.emit("NodeConnect", this);
@@ -265,6 +295,8 @@ class LithiumXNode {
 				}, this.options.autoResumeInterval);
 			}
 		}
+
+		this.startHeartbeat();
 	}
 
 	protected close(code: number, reason: string): void {
@@ -279,6 +311,7 @@ class LithiumXNode {
 			this.autoResumeInterval = undefined;
 		}
 
+		this.stopHeartbeat();
 		this.manager.emit("NodeDisconnect", this, { code, reason });
 		if (code !== 1000 || reason !== "destroy") this.reconnect();
 	}
@@ -712,6 +745,10 @@ interface NodeOptions {
 	autoResumeInterval?: number;
 	/** Maximum age in ms for saved player states. */
 	autoResumeMaxAge?: number;
+	/** Interval in ms between heartbeat pings to check node health. Default 30000. */
+	heartbeatInterval?: number;
+	/** Ms to wait for heartbeat ping response before marking unhealthy. Default 5000. */
+	heartbeatTimeout?: number;
 }
 
 interface NodeStats {
