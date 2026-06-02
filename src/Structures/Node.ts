@@ -238,6 +238,7 @@ class LithiumXNode {
 
 	private reconnect(): void {
 		this.reconnectTimeout = setTimeout(() => {
+			this.reconnectTimeout = undefined;
 			if (this.reconnectAttempts >= this.options.retryAmount) {
 				const error = new Error(`Unable to connect after ${this.options.retryAmount} attempts.`);
 
@@ -283,7 +284,10 @@ class LithiumXNode {
 	}
 
 	protected open(): void {
-		if (this.reconnectTimeout) clearTimeout(this.reconnectTimeout);
+		if (this.reconnectTimeout) {
+			clearTimeout(this.reconnectTimeout);
+			this.reconnectTimeout = undefined;
+		}
 		this.manager.emit("NodeConnect", this);
 
 		// Setup auto-resume if enabled

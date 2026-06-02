@@ -158,8 +158,9 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			this.players
 				.filter((p) => p.node === disconnectedNode)
 				.forEach((p) => {
-					p.moveNode(target.options.identifier);
-					this.emit('PlayerMigrated', p, disconnectedNode, target);
+					p.moveNode(target.options.identifier)
+						.then(() => this.emit('PlayerMigrated', p, disconnectedNode, target))
+						.catch(() => {});
 				});
 		});
 

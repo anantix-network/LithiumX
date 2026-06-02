@@ -39,7 +39,7 @@ describe('Player migration on NodeDisconnect', () => {
     expect(moveNodeSpy2).toHaveBeenCalledWith('node-2');
   });
 
-  it('emits PlayerMigrated event with correct arguments', () => {
+  it('emits PlayerMigrated event with correct arguments', async () => {
     const node1 = manager.nodes.get('node-1')!;
     const node2 = manager.nodes.get('node-2')!;
 
@@ -58,6 +58,9 @@ describe('Player migration on NodeDisconnect', () => {
     const emitSpy = vi.spyOn(manager, 'emit');
 
     manager.emit('NodeDisconnect', node1, { code: 1006, reason: 'abnormal closure' });
+
+    // Wait for async promise chain to complete
+    await new Promise(resolve => setImmediate(resolve));
 
     expect(emitSpy).toHaveBeenCalledWith('PlayerMigrated', player, node1, expect.any(Object));
   });
