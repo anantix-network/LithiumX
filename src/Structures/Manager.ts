@@ -23,6 +23,11 @@ import { LyricsManager, LyricsManagerOptions, LyricsProvider } from "./Lyrics";
 import { QueueManager } from "./QueueManager";
 import { Analytics, AnalyticsOptions } from "./Analytics";
 
+interface CachedResult {
+  result: SearchResult;
+  expiresAt: number;
+}
+
 /**
  * The main hub for interacting with Lavalink and using Magmastream,
  */
@@ -46,7 +51,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	/** The options that were set. */
 	public readonly options: ManagerOptions;
 	private initiated = false;
-	public caches = new Collection<string, SearchResult>();
+	public caches = new Collection<string, CachedResult>();
 	/** The Lyrics Manager */
 	public lyrics: LyricsManager;
 	/** The Queue Manager */
@@ -130,6 +135,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			clientName: "LithiumX (https://github.com/anantix-network/LithiumX)",
 			defaultSearchPlatform: "youtube",
 			useNode: "leastPlayers",
+			prefetch: false,
 			...options,
 		};
 
@@ -146,11 +152,16 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 				this.nodes.set(node.options.identifier, node);
 			}
 		}
-		if (this.options.caches || typeof this.options.caches.enabled === "boolean" || typeof this.options.caches.time === "number") {
-			setInterval(() => {
-				this.caches.clear();
-			}, this.options.caches.time);
-		}
+		this.on('NodeDisconnect', (disconnectedNode) => {
+			const target = this.useableNodes;
+			if (!target || target === disconnectedNode) return;
+			this.players
+				.filter((p) => p.node === disconnectedNode)
+				.forEach((p) => {
+					p.moveNode(target.options.identifier);
+					this.emit('PlayerMigrated', p, disconnectedNode, target);
+				});
+		});
 
 		// Initialize lyrics manager if enabled
 		if (options.lyrics?.enabled) {
@@ -197,16 +208,21 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		if (!node) {
 			throw new Error("No available nodes.");
 		}
-		if (this.options.caches.enabled && this.options.caches.time > 0 && typeof query === "string") {
-			const data = this.caches.get(query);
-			if (data) return data;
-		}
 		const _query: SearchQuery = typeof query === "string" ? { query } : query;
 		const _source = LithiumXManager.DEFAULT_SOURCES[_query.source ?? this.options.defaultSearchPlatform] ?? _query.source;
 		let search = _query.query;
 
 		if (!/^https?:\/\//.test(search)) {
 			search = `${_source}:${search}`;
+		}
+
+		// Per-entry TTL cache check (uses normalized key)
+		if (this.options.caches.enabled && this.options.caches.time > 0) {
+			const entry = this.caches.get(search);
+			if (entry) {
+				if (Date.now() < entry.expiresAt) return entry.result;
+				this.caches.delete(search);
+			}
 		}
 
 		try {
@@ -265,7 +281,9 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 					}
 				}
 			}
-			if (this.options.caches.enabled && this.options.caches.time > 0) this.caches.set(search, result);
+			if (this.options.caches.enabled && this.options.caches.time > 0) {
+				this.caches.set(search, { result, expiresAt: Date.now() + this.options.caches.time });
+			}
 			return result;
 		} catch (err) {
 			throw new Error(err);
@@ -274,6 +292,11 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		function isYouTubeURL(uri: string): boolean {
 			return uri.includes("youtube.com") || uri.includes("youtu.be");
 		}
+	}
+
+	/** Clears the entire search result cache, forcing re-fetches on subsequent searches. */
+	public clearSearchCache(): void {
+		this.caches.clear();
 	}
 
 	/**
@@ -454,6 +477,8 @@ interface ManagerOptions {
 	queueManager?: import("./QueueManager").QueueManagerOptions;
 	/** Analytics configuration */
 	analytics?: AnalyticsOptions;
+	/** Whether to prefetch the next UnresolvedTrack in the queue when a track ends. */
+	prefetch?: boolean;
 	/**
 	 * Function to send data to the websocket.
 	 * @param id
@@ -513,6 +538,8 @@ interface ManagerEvents {
 	NodeDisconnect: (node: LithiumXNode, reason: { code?: number; reason?: string }) => void;
 	NodeError: (node: LithiumXNode, error: Error) => void;
 	NodeRaw: (payload: unknown) => void;
+	NodeHealthCheck: (node: LithiumXNode, health: { latency: number; healthy: boolean }) => void;
+	PlayerMigrated: (player: LithiumXPlayer, fromNode: LithiumXNode, toNode: LithiumXNode) => void;
 	PlayerCreate: (player: LithiumXPlayer) => void;
 	PlayerDestroy: (player: LithiumXPlayer) => void;
 	PlayerStateUpdate: (oldPlayer: LithiumXPlayer, newPlayer: LithiumXPlayer) => void;
