@@ -66,10 +66,17 @@ export interface LowPassOptions {
 	smoothing?: number;
 }
 
+export interface HighSpeedOptions {
+	speed?: number;
+	pitch?: number;
+	rate?: number;
+}
+
 export interface AvailableFilters {
 	bassboost: boolean;
 	distort: boolean;
 	eightD: boolean;
+	highSpeed: boolean;
 	karaoke: boolean;
 	nightcore: boolean;
 	slowmo: boolean;
@@ -123,6 +130,7 @@ class Filters {
 			bassboost: false,
 			distort: false,
 			eightD: false,
+			highSpeed: false,
 			karaoke: false,
 			nightcore: false,
 			slowmo: false,
@@ -261,6 +269,22 @@ class Filters {
 		}
 	}
 	/**
+	 * Set the high speed options
+	 * @param {HighSpeedOptions | false} opts - Options to configure timescale, or false to disable.
+	 * @returns {this}
+	*/
+	public setHighSpeed(opts?: HighSpeedOptions | false): this {
+		if (opts === false) {
+			return this.setTimescale(null).setFilterStatus('highSpeed', false);
+		}
+		return this.setTimescale({
+			speed: opts?.speed ?? 1.5,
+			pitch: opts?.pitch ?? 1.0,
+			rate: opts?.rate ?? 1.0,
+		}).setFilterStatus('highSpeed', true);
+	}
+
+	/**
 	 * Set the soft options
 	 * @param {boolean} status - The status to set.
 	 * @returns {this}
@@ -347,6 +371,9 @@ class Filters {
 			case "eightD":
 				this.setEightD(status);
 				break;
+			case "highSpeed":
+				this.setHighSpeed(status ? undefined : false);
+				break;
 			case "nightcore":
 				this.setNightcore(status);
 				break;
@@ -378,6 +405,7 @@ class Filters {
 			bassboost: false,
 			distort: false,
 			eightD: false,
+			highSpeed: false,
 			karaoke: false,
 			nightcore: false,
 			slowmo: false,
@@ -509,6 +537,16 @@ export class FilterPresets {
 	 */
 	static clear(): FilterOptions {
 		return {};
+	}
+
+	/**
+	 * High speed effect preset
+	 * @param speed Playback speed (default: 1.5)
+	 * @param pitch Pitch adjustment (default: 1.0)
+	 * @param rate Rate adjustment (default: 1.0)
+	 */
+	static highSpeed(speed = 1.5, pitch = 1.0, rate = 1.0): FilterOptions {
+		return { timescale: { speed, pitch, rate } };
 	}
 }
 
