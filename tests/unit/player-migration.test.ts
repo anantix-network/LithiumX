@@ -13,23 +13,30 @@ describe('Player migration on NodeDisconnect', () => {
     const node1 = manager.nodes.get('node-1')!;
     const node2 = manager.nodes.get('node-2')!;
 
-    // Create a player on node-1
-    const player = manager.create({
+    // Create two players on node-1
+    const player1 = manager.create({
       guild: '111111111111111111',
+      voiceChannel: '222222222222222222',
+      node: 'node-1',
+    });
+    const player2 = manager.create({
+      guild: '111111111111111112',
       voiceChannel: '222222222222222222',
       node: 'node-1',
     });
 
     // Update node stats so useableNodes picks node-2
-    node1.stats.players = 1;
+    node1.stats.players = 2;
     node2.stats.players = 0;
 
-    const moveNodeSpy = vi.spyOn(player, 'moveNode').mockResolvedValue(player as any);
+    const moveNodeSpy1 = vi.spyOn(player1, 'moveNode').mockResolvedValue(player1 as any);
+    const moveNodeSpy2 = vi.spyOn(player2, 'moveNode').mockResolvedValue(player2 as any);
 
     // Simulate node-1 disconnect
     manager.emit('NodeDisconnect', node1, { code: 1006, reason: 'abnormal closure' });
 
-    expect(moveNodeSpy).toHaveBeenCalledWith('node-2');
+    expect(moveNodeSpy1).toHaveBeenCalledWith('node-2');
+    expect(moveNodeSpy2).toHaveBeenCalledWith('node-2');
   });
 
   it('emits PlayerMigrated event with correct arguments', () => {
