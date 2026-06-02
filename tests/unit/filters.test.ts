@@ -33,19 +33,19 @@ describe('Filters.setHighSpeed()', () => {
 
   it('tracks filter status as true when enabled', () => {
     filters.setHighSpeed();
-    expect(filters.getFilterStatus('highSpeed' as any)).toBe(true);
+    expect(filters.getFilterStatus('highSpeed')).toBe(true);
   });
 
   it('tracks filter status as false when disabled', () => {
     filters.setHighSpeed();
     filters.setHighSpeed(false);
-    expect(filters.getFilterStatus('highSpeed' as any)).toBe(false);
+    expect(filters.getFilterStatus('highSpeed')).toBe(false);
   });
 
   it('resets highSpeed status in clearFilters()', async () => {
     filters.setHighSpeed();
     await filters.clearFilters();
-    expect(filters.getFilterStatus('highSpeed' as any)).toBe(false);
+    expect(filters.getFilterStatus('highSpeed')).toBe(false);
   });
 });
 
