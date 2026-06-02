@@ -23,6 +23,7 @@ export {
     FilterOptions,
     FilterPresets,
     EqualizerBand,
+    HighSpeedOptions,
     KaraokeOptions,
     TimescaleOptions,
     FrequencyDepthOptions,
