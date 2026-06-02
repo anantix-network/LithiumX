@@ -1,6 +1,5 @@
 import { vi } from 'vitest';
 import { LithiumXManager } from '../src/Structures/Manager';
-import { Filters } from '../src/Structures/Filters';
 import type { LithiumXPlayer } from '../src/Structures/Player';
 
 export function createMockPlayerForFilters() {
@@ -14,6 +13,12 @@ export function createMockPlayerForFilters() {
   } as unknown as LithiumXPlayer;
 }
 
+/**
+ * Creates a LithiumXManager with two mock nodes (node-1, node-2) for testing.
+ * Both nodes are mocked as connected with no real WebSocket.
+ * extraOptions can override any ManagerOptions property — note that overriding
+ * `nodes` or `caches` replaces the entire default structure.
+ */
 export function createTestManager(extraOptions: Record<string, unknown> = {}) {
   const manager = new LithiumXManager({
     nodes: [
