@@ -25,6 +25,23 @@ interface StorageStrategy {
 	getAll(): Promise<string[]>;
 }
 
+interface PlayerSaveData {
+	guildId: string;
+	voiceChannel: string | null;
+	textChannel: string | null;
+	volume: number;
+	paused: boolean;
+	playing: boolean;
+	position: number;
+	track: import('./Player').Track | null;
+	queue: import('./Player').Track[];
+	queueRepeat: boolean;
+	trackRepeat: boolean;
+	isAutoplay: boolean;
+	timestamp: number;
+	requester?: string;
+}
+
 // File storage implementation
 class FileStorage implements StorageStrategy {
 	constructor(private basePath: string) {
@@ -85,20 +102,20 @@ class LithiumXNode {
 	/** The socket for the node. */
 	public socket: WebSocket | null = null;
 	/** The stats for the node. */
-	public stats: NodeStats;
-	public manager: LithiumXManager;
+	public stats!: NodeStats;
+	public manager!: LithiumXManager;
 	/** The node's session ID. */
-	public sessionId: string | null;
+	public sessionId: string | null = null;
 	/** The REST instance. */
-	public readonly rest: LithiumXRest;
+	public readonly rest!: LithiumXRest;
 
 	// Storage for autoresume functionality
-	private autoResumeInterval?: NodeJS.Timeout;
-	private storage: StorageStrategy;
+	private autoResumeInterval: NodeJS.Timeout | undefined = undefined;
+	private storage: StorageStrategy | undefined;
 
 	private static _manager: LithiumXManager;
-	private reconnectTimeout?: NodeJS.Timeout;
-	private heartbeatTimer?: NodeJS.Timeout;
+	private reconnectTimeout: NodeJS.Timeout | undefined;
+	private heartbeatTimer: NodeJS.Timeout | undefined;
 	private reconnectAttempts = 1;
 
 	/** Returns if connected to the Node. */
@@ -126,7 +143,7 @@ class LithiumXNode {
 		if (!this.manager) throw new RangeError("Manager has not been initiated.");
 
 		if (this.manager.nodes.has(options.identifier || options.host)) {
-			return this.manager.nodes.get(options.identifier || options.host);
+			return this.manager.nodes.get(options.identifier || options.host) as LithiumXNode;
 		}
 
 		nodeCheck(options);
@@ -177,7 +194,7 @@ class LithiumXNode {
 				this.storage = new MemoryStorage();
 			} else {
 				// Default to file storage
-				const storagePath = path.resolve(this.options.autoResumeStoragePath);
+				const storagePath = path.resolve(this.options.autoResumeStoragePath ?? './playerStorage');
 				this.storage = new FileStorage(storagePath);
 			}
 		}
@@ -225,22 +242,22 @@ class LithiumXNode {
 		const players = this.manager.players.filter((p) => p.node == this);
 		if (players.size) players.forEach((p) => p.destroy());
 
-		this.socket.close(1000, "destroy");
-		this.socket.removeAllListeners();
+		this.socket?.close(1000, "destroy");
+		this.socket?.removeAllListeners();
 		this.socket = null;
 
 		this.reconnectAttempts = 1;
 		clearTimeout(this.reconnectTimeout);
 
 		this.manager.emit("NodeDestroy", this);
-		this.manager.destroyNode(this.options.identifier);
+		this.manager.destroyNode(this.options.identifier ?? this.options.host);
 	}
 
 	private reconnect(): void {
 		this.reconnectTimeout = setTimeout(() => {
 			this.reconnectTimeout = undefined;
-			if (this.reconnectAttempts >= this.options.retryAmount) {
-				const error = new Error(`Unable to connect after ${this.options.retryAmount} attempts.`);
+			if (this.reconnectAttempts >= (this.options.retryAmount ?? 30)) {
+				const error = new Error(`Unable to connect after ${this.options.retryAmount ?? 30} attempts.`);
 
 				this.manager.emit("NodeError", this, error);
 				return this.destroy();
@@ -250,7 +267,7 @@ class LithiumXNode {
 			this.manager.emit("NodeReconnect", this);
 			this.connect();
 			this.reconnectAttempts++;
-		}, this.options.retryDelay) as unknown as NodeJS.Timeout;
+		}, this.options.retryDelay ?? 60000);
 	}
 
 	private startHeartbeat(): void {
@@ -335,7 +352,7 @@ class LithiumXNode {
 		const payload = JSON.parse(d.toString());
 		if (!payload.op) return;
 		this.manager.emit("NodeRaw", payload);
-		let player: LithiumXPlayer;
+		let player: LithiumXPlayer | undefined;
 		switch (payload.op) {
 			case "stats":
 				delete payload.op;
@@ -371,6 +388,8 @@ class LithiumXNode {
 		const track = player.queue.current;
 		const type = payload.type;
 
+		if (!track && type !== "WebSocketClosedEvent") return;
+
 		let error: Error;
 		switch (type) {
 			case "TrackStartEvent":
@@ -383,7 +402,7 @@ class LithiumXNode {
 				this.trackStuck(player, track as Track, payload);
 				break;
 			case "TrackExceptionEvent":
-				this.trackError(player, track, payload);
+				this.trackError(player, track as Track | UnresolvedTrack, payload);
 				break;
 			case "WebSocketClosedEvent":
 				this.socketClosed(player, payload);
@@ -428,20 +447,22 @@ class LithiumXNode {
 	public extractSpotifyTrackID(url: string): string | null {
 		const regex = /https:\/\/open\.spotify\.com\/track\/([a-zA-Z0-9]+)/;
 		const match = url.match(regex);
-		return match ? match[1] : null;
+		return match ? match[1] ?? null : null;
 	}
 
 	public extractSpotifyArtistID(url: string): string | null {
 		const regex = /https:\/\/open\.spotify\.com\/artist\/([a-zA-Z0-9]+)/;
 		const match = url.match(regex);
-		return match ? match[1] : null;
+		return match ? match[1] ?? null : null;
 	}
 
 	// Handle autoplay
 	private async handleAutoplay(player: LithiumXPlayer, track: Track) {
 		const previousTrack = player.queue.previous;
 		if (!player.isAutoplay || !previousTrack) return;
-		const hasSpotifyURL = ["spotify.com", "open.spotify.com"].some((url) => previousTrack.uri.includes(url));
+		const hasSpotifyURL = ["spotify.com", "open.spotify.com"].some((url) =>
+			previousTrack.uri?.includes(url) ?? false
+		);
 		if (hasSpotifyURL) {
 			const node = this.manager.useableNodes;
 			if (!node) return;
@@ -451,8 +472,8 @@ class LithiumXNode {
 			const isSpotifySourceManagerEnabled = info.sourceManagers.includes("spotify");
 
 			if (isSpotifyPluginEnabled && isSpotifySourceManagerEnabled) {
-				const trackID = this.extractSpotifyTrackID(previousTrack.uri);
-				const artistID = this.extractSpotifyArtistID(previousTrack.pluginInfo.artistUrl);
+				const trackID = this.extractSpotifyTrackID(previousTrack.uri ?? '');
+				const artistID = this.extractSpotifyArtistID(previousTrack.pluginInfo?.artistUrl ?? '');
 
 				let identifier = "";
 				if (trackID && artistID) {
@@ -480,14 +501,21 @@ class LithiumXNode {
 			}
 		}
 
-		const hasYouTubeURL = ["youtube.com", "youtu.be"].some((url) => previousTrack.uri.includes(url));
+		const hasYouTubeURL = ["youtube.com", "youtu.be"].some((url) =>
+			previousTrack.uri?.includes(url) ?? false
+		);
 
-		let videoID = previousTrack.uri.substring(previousTrack.uri.indexOf("=") + 1);
+		let videoID = previousTrack.uri?.substring((previousTrack.uri?.indexOf("=") ?? -1) + 1) ?? '';
 
 		if (!hasYouTubeURL) {
 			const res = await player.search(`${previousTrack.author} - ${previousTrack.title}`, player.get("Internal_BotUser"));
 
-			videoID = res.tracks[0].uri.substring(res.tracks[0].uri.indexOf("=") + 1);
+			const firstTrack = res.tracks[0];
+			const secondTrack = res.tracks[1];
+			const fallbackTrack = firstTrack ?? secondTrack;
+			if (fallbackTrack) {
+				videoID = fallbackTrack.uri.substring(fallbackTrack.uri.indexOf("=") + 1);
+			}
 		}
 
 		let randomIndex: number;
@@ -505,7 +533,7 @@ class LithiumXNode {
 		let tracks = res.tracks;
 
 		if (res.loadType === "playlist") {
-			tracks = res.playlist.tracks;
+			tracks = res.playlist?.tracks ?? [];
 		}
 
 		const foundTrack = tracks.sort(() => Math.random() - 0.5).find((shuffledTrack) => shuffledTrack.uri !== track.uri);
@@ -516,9 +544,9 @@ class LithiumXNode {
 				foundTrack.title = foundTrack.title.replace("Topic -", "");
 
 				if (foundTrack.title.includes("-")) {
-					const [author, title] = foundTrack.title.split("-").map((str: string) => str.trim());
-					foundTrack.author = author;
-					foundTrack.title = title;
+					const parts = foundTrack.title.split("-").map((str: string) => str.trim());
+					foundTrack.author = parts[0] ?? foundTrack.author;
+					foundTrack.title = parts[1] ?? foundTrack.title;
 				}
 			}
 			player.queue.add(foundTrack);
@@ -529,7 +557,7 @@ class LithiumXNode {
 	// Handle the case when a track failed to load or was cleaned up
 	private handleFailedTrack(player: LithiumXPlayer, track: Track, payload: TrackEndEvent): void {
 		player.queue.previous = player.queue.current;
-		player.queue.current = player.queue.shift();
+		player.queue.current = player.queue.shift() ?? null;
 
 		if (!player.queue.current) {
 			this.queueEnd(player, track, payload);
@@ -546,17 +574,17 @@ class LithiumXNode {
 		const { autoPlay } = this.manager.options;
 
 		if (trackRepeat) {
-			queue.unshift(queue.current);
+			if (queue.current) queue.unshift(queue.current);
 		} else if (queueRepeat) {
-			queue.add(queue.current);
+			if (queue.current) queue.add(queue.current);
 		}
 
 		queue.previous = queue.current;
-		queue.current = queue.shift();
+		queue.current = queue.shift() ?? null;
 
 		this.manager.emit("TrackEnd", player, track, payload);
 
-		if (payload.reason === "stopped" && !(queue.current = queue.shift())) {
+		if (payload.reason === "stopped" && !(queue.current = queue.shift() ?? null)) {
 			this.queueEnd(player, track, payload);
 			return;
 		}
@@ -567,7 +595,7 @@ class LithiumXNode {
 	// Handle the case when there's another track in the queue
 	private playNextTrack(player: LithiumXPlayer, track: Track, payload: TrackEndEvent): void {
 		player.queue.previous = player.queue.current;
-		player.queue.current = player.queue.shift();
+		player.queue.current = player.queue.shift() ?? null;
 
 		this.manager.emit("TrackEnd", player, track, payload);
 		if (this.manager.options.autoPlay) player.play();
@@ -607,6 +635,7 @@ class LithiumXNode {
 	 * Save the state of all players connected to this node
 	 */
 	private async saveAllPlayers(): Promise<void> {
+		if (!this.storage) return;
 		try {
 			const players = this.manager.players.filter(player => player.node === this);
 			if (players.size) {
@@ -614,8 +643,9 @@ class LithiumXNode {
 					await this.savePlayer(player);
 				}
 			}
-		} catch (error) {
-			this.manager.emit("NodeError", this, new Error(`Error saving player states: ${error.message}`));
+		} catch (error: unknown) {
+			const msg = error instanceof Error ? error.message : String(error);
+			this.manager.emit("NodeError", this, new Error(`Error saving player states: ${msg}`));
 		}
 	}
 
@@ -623,6 +653,7 @@ class LithiumXNode {
 	 * Save a single player's state to storage
 	 */
 	private async savePlayer(player: LithiumXPlayer): Promise<void> {
+		if (!this.storage) return;
 		try {
 			const playerData = {
 				guildId: player.guild,
@@ -641,8 +672,9 @@ class LithiumXNode {
 			};
 
 			await this.storage.save(`player-${player.guild}`, playerData);
-		} catch (error) {
-			this.manager.emit("NodeError", this, new Error(`Failed to save player state: ${error.message}`));
+		} catch (error: unknown) {
+			const msg = error instanceof Error ? error.message : String(error);
+			this.manager.emit("NodeError", this, new Error(`Failed to save player state: ${msg}`));
 		}
 	}
 
@@ -650,6 +682,7 @@ class LithiumXNode {
 	 * Load all saved player states from storage
 	 */
 	private async loadAllPlayers(): Promise<void> {
+		if (!this.storage) return;
 		try {
 			const keys = await this.storage.getAll();
 
@@ -657,8 +690,10 @@ class LithiumXNode {
 				if (!key.startsWith('player-')) continue;
 
 				try {
-					const data = await this.storage.load(key);
-					if (!data) continue;
+					const rawData = await this.storage.load(key);
+					if (!rawData) continue;
+
+					const data = rawData as PlayerSaveData;
 
 					// Check if the stored data is too old
 					const maxAge = this.options.autoResumeMaxAge || 86400000; // 24 hours in ms
@@ -672,19 +707,20 @@ class LithiumXNode {
 					let player = this.manager.players.get(guildId);
 
 					if (!player) {
-						player = this.manager.create({
+						const createOptions: import('./Player').PlayerOptions = {
 							guild: guildId,
-							voiceChannel: data.voiceChannel,
-							textChannel: data.textChannel,
+							textChannel: data.textChannel ?? '',
 							selfDeafen: true,
-						});
+						};
+						if (data.voiceChannel) createOptions.voiceChannel = data.voiceChannel;
+						player = this.manager.create(createOptions);
 					}
 
 					// Restore player state
 					player.queue.clear();
 					if (data.queue && Array.isArray(data.queue)) {
-						data.queue.forEach(track => {
-							player.queue.add(TrackUtils.build(track, data.requester));
+						data.queue.forEach((track: Track) => {
+							player!.queue.add(TrackUtils.build(track as unknown as import('./Utils').TrackData, data.requester));
 						});
 					}
 
@@ -695,7 +731,7 @@ class LithiumXNode {
 
 					// If there was a current track, attempt to play it from the position
 					if (data.track) {
-						const track = TrackUtils.build(data.track, data.requester);
+						const track = TrackUtils.build(data.track as unknown as import('./Utils').TrackData, data.requester);
 						player.queue.current = track;
 
 						player.play();
@@ -712,12 +748,14 @@ class LithiumXNode {
 					await this.storage.delete(key);
 
 					this.manager.emit("PlayerResume", player, data);
-				} catch (error) {
-					this.manager.emit("NodeError", this, new Error(`Error restoring player from ${key}: ${error.message}`));
+				} catch (error: unknown) {
+					const msg = error instanceof Error ? error.message : String(error);
+					this.manager.emit("NodeError", this, new Error(`Error restoring player from ${key}: ${msg}`));
 				}
 			}
-		} catch (error) {
-			this.manager.emit("NodeError", this, new Error(`Failed to load player states: ${error.message}`));
+		} catch (error: unknown) {
+			const msg = error instanceof Error ? error.message : String(error);
+			this.manager.emit("NodeError", this, new Error(`Failed to load player states: ${msg}`));
 		}
 	}
 }
