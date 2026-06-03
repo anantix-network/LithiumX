@@ -832,9 +832,9 @@ export interface Track {
 	/** The base64 encoded track. */
 	readonly track: string;
 	/** The artwork url of the track. */
-	readonly artworkUrl: string;
+	readonly artworkUrl: string | undefined;
 	/** The track source name. */
-	readonly sourceName: TrackSourceName;
+	readonly sourceName: TrackSourceName | undefined;
 	/** The title of the track. */
 	title: string;
 	/** The identifier of the track. */
@@ -844,7 +844,7 @@ export interface Track {
 	/** The duration of the track. */
 	readonly duration: number;
 	/** The ISRC of the track. */
-	readonly isrc: string;
+	readonly isrc: string | undefined;
 	/** If the track is seekable. */
 	readonly isSeekable: boolean;
 	/** If the track is a stream.. */
@@ -854,9 +854,9 @@ export interface Track {
 	/** The thumbnail of the track or null if it's a unsupported source. */
 	readonly thumbnail: string | null;
 	/** The user that requested the track. */
-	readonly requester: string | null;
+	readonly requester: string | undefined;
 	/** Displays the track thumbnail with optional size or null if it's a unsupported source. */
-	displayThumbnail(size?: Sizes): string;
+	displayThumbnail(size?: Sizes): string | null;
 	/** Additional track info provided by plugins. */
 	pluginInfo: TrackPluginInfo;
 	/** Add your own data to the track. */

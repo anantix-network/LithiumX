@@ -35,15 +35,18 @@ abstract class TrackUtils {
 	 */
 	static validate(trackOrTracks: unknown): boolean {
 		if (typeof trackOrTracks === "undefined") throw new RangeError("Provided argument must be present.");
+		if (trackOrTracks === null) return false;
 
 		if (Array.isArray(trackOrTracks) && trackOrTracks.length) {
 			for (const track of trackOrTracks) {
-				if (!(track[TRACK_SYMBOL] || track[UNRESOLVED_TRACK_SYMBOL])) return false;
+				const t = track as Record<symbol, unknown>;
+				if (!(t[TRACK_SYMBOL] || t[UNRESOLVED_TRACK_SYMBOL])) return false;
 			}
 			return true;
 		}
 
-		return (trackOrTracks[TRACK_SYMBOL] || trackOrTracks[UNRESOLVED_TRACK_SYMBOL]) === true;
+		const asRecord = trackOrTracks as Record<symbol, unknown>;
+		return (asRecord[TRACK_SYMBOL] || asRecord[UNRESOLVED_TRACK_SYMBOL]) === true;
 	}
 
 	/**
@@ -52,7 +55,7 @@ abstract class TrackUtils {
 	 */
 	static isUnresolvedTrack(track: unknown): boolean {
 		if (typeof track === "undefined") throw new RangeError("Provided argument must be present.");
-		return track[UNRESOLVED_TRACK_SYMBOL] === true;
+		return (track as Record<symbol, unknown>)[UNRESOLVED_TRACK_SYMBOL] === true;
 	}
 
 	/**
@@ -61,7 +64,7 @@ abstract class TrackUtils {
 	 */
 	static isTrack(track: unknown): boolean {
 		if (typeof track === "undefined") throw new RangeError("Provided argument must be present.");
-		return track[TRACK_SYMBOL] === true;
+		return (track as Record<symbol, unknown>)[TRACK_SYMBOL] === true;
 	}
 
 	/**
@@ -82,10 +85,12 @@ abstract class TrackUtils {
 				isrc: data.info?.isrc,
 				isSeekable: data.info.isSeekable,
 				isStream: data.info.isStream,
-				uri: data.info.uri,
+				uri: data.info.uri ?? '',
 				artworkUrl: data.info?.artworkUrl,
 				sourceName: data.info?.sourceName,
-				thumbnail: data.info.uri.includes("youtube") ? `https://img.youtube.com/vi/${data.info.identifier}/default.jpg` : null,
+				thumbnail: data.info.uri?.includes("youtube")
+					? `https://img.youtube.com/vi/${data.info.identifier}/default.jpg`
+					: null,
 				displayThumbnail(size = "default"): string | null {
 					const finalSize = SIZES.find((s) => s === size) ?? "default";
 					return this.uri.includes("youtube") ? `https://img.youtube.com/vi/${data.info.identifier}/${finalSize}.jpg` : null;
@@ -100,7 +105,7 @@ abstract class TrackUtils {
 			if (this.trackPartial) {
 				for (const key of Object.keys(track)) {
 					if (this.trackPartial.includes(key)) continue;
-					delete track[key];
+					delete (track as unknown as Record<string, unknown>)[key];
 				}
 			}
 
@@ -110,8 +115,9 @@ abstract class TrackUtils {
 			});
 
 			return track;
-		} catch (error) {
-			throw new RangeError(`Argument "data" is not a valid track: ${error.message}`);
+		} catch (error: unknown) {
+			const msg = error instanceof Error ? error.message : String(error);
+			throw new RangeError(`Argument "data" is not a valid track: ${msg}`);
 		}
 	}
 
@@ -124,10 +130,10 @@ abstract class TrackUtils {
 		if (typeof query === "undefined") throw new RangeError('Argument "query" must be present.');
 
 		let unresolvedTrack: Partial<UnresolvedTrack> = {
-			requester,
+			...(requester !== undefined ? { requester } : {}),
 			async resolve(): Promise<void> {
-				const resolved = await TrackUtils.getClosestTrack(this);
-				Object.getOwnPropertyNames(this).forEach((prop) => delete this[prop]);
+				const resolved = await TrackUtils.getClosestTrack(this as UnresolvedTrack);
+				Object.getOwnPropertyNames(this).forEach((prop) => delete (this as Record<string, unknown>)[prop]);
 				Object.assign(this, resolved);
 			},
 		};
@@ -148,8 +154,10 @@ abstract class TrackUtils {
 
 		if (!TrackUtils.isUnresolvedTrack(unresolvedTrack)) throw new RangeError("Provided track is not a UnresolvedTrack.");
 
-		const query = unresolvedTrack.uri ? unresolvedTrack.uri : [unresolvedTrack.author, unresolvedTrack.title].filter(Boolean).join(" - ");
-		const res = await TrackUtils.manager.search(query, unresolvedTrack.requester);
+		const query = unresolvedTrack.uri
+			? unresolvedTrack.uri
+			: [unresolvedTrack.author, unresolvedTrack.title].filter(Boolean).join(" - ");
+		const res = await TrackUtils.manager.search(query, unresolvedTrack.requester ?? undefined);
 
 		if (unresolvedTrack.author) {
 			const channelNames = [unresolvedTrack.author, `${unresolvedTrack.author} - Topic`];
@@ -164,14 +172,18 @@ abstract class TrackUtils {
 			if (originalAudio) return originalAudio;
 		}
 
-		if (unresolvedTrack.duration) {
-			const sameDuration = res.tracks.find((track) => track.duration >= unresolvedTrack.duration - 1500 && track.duration <= unresolvedTrack.duration + 1500);
+		if (unresolvedTrack.duration !== undefined) {
+			const dur = unresolvedTrack.duration;
+			const sameDuration = res.tracks.find(
+				(track) => track.duration >= dur - 1500 && track.duration <= dur + 1500
+			);
 
 			if (sameDuration) return sameDuration;
 		}
 
 		const finalTrack = res.tracks[0];
-		finalTrack.customData = unresolvedTrack.customData;
+		if (!finalTrack) throw new RangeError("No matching tracks found for unresolved track.");
+		finalTrack.customData = unresolvedTrack.customData ?? {};
 		return finalTrack;
 	}
 }
