@@ -53,7 +53,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	private initiated = false;
 	public caches = new Collection<string, CachedResult>();
 	/** The Lyrics Manager */
-	public lyrics: LyricsManager;
+	public lyrics: LyricsManager | undefined;
 	/** The Queue Manager */
 	public queues: QueueManager;
 	/** The Analytics System */
@@ -76,12 +76,12 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	}
 
 	/** Returns a node based on priority. */
-	private get priorityNode(): LithiumXNode {
-		const filteredNodes = this.nodes.filter((node) => node.connected && node.options.priority > 0);
-		const totalWeight = filteredNodes.reduce((total, node) => total + node.options.priority, 0);
+	private get priorityNode(): LithiumXNode | undefined {
+		const filteredNodes = this.nodes.filter((node) => node.connected && (node.options.priority ?? 0) > 0);
+		const totalWeight = filteredNodes.reduce((total, node) => total + (node.options.priority ?? 0), 0);
 		const weightedNodes = filteredNodes.map((node) => ({
 			node,
-			weight: node.options.priority / totalWeight,
+			weight: (node.options.priority ?? 0) / totalWeight,
 		}));
 		const randomNumber = Math.random();
 
@@ -94,12 +94,18 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			}
 		}
 
-		return this.options.useNode === "leastLoad" ? this.leastLoadNode.first() : this.leastPlayersNode.first();
+		return this.options.useNode === "leastLoad"
+			? this.leastLoadNode.first()
+			: this.leastPlayersNode.first();
 	}
 
 	/** Returns the node to use. */
-	public get useableNodes(): LithiumXNode {
-		return this.options.usePriority ? this.priorityNode : this.options.useNode === "leastLoad" ? this.leastLoadNode.first() : this.leastPlayersNode.first();
+	public get useableNodes(): LithiumXNode | undefined {
+		return this.options.usePriority
+			? this.priorityNode
+			: this.options.useNode === "leastLoad"
+				? this.leastLoadNode.first()
+				: this.leastPlayersNode.first();
 	}
 
 	/**
@@ -149,7 +155,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		if (this.options.nodes) {
 			for (const nodeOptions of this.options.nodes) {
 				const node = new (Structure.get("Node"))(nodeOptions);
-				this.nodes.set(node.options.identifier, node);
+				this.nodes.set(node.options.identifier ?? node.options.host, node);
 			}
 		}
 		this.on('NodeDisconnect', (disconnectedNode) => {
@@ -188,8 +194,8 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		for (const node of this.nodes.values()) {
 			try {
 				node.connect();
-			} catch (err) {
-				this.emit("NodeError", node, err);
+			} catch (err: unknown) {
+				this.emit("NodeError", node, err instanceof Error ? err : new Error(String(err)));
 			}
 		}
 
@@ -210,7 +216,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			throw new Error("No available nodes.");
 		}
 		const _query: SearchQuery = typeof query === "string" ? { query } : query;
-		const _source = LithiumXManager.DEFAULT_SOURCES[_query.source ?? this.options.defaultSearchPlatform] ?? _query.source;
+		const _source = LithiumXManager.DEFAULT_SOURCES[(_query.source ?? this.options.defaultSearchPlatform) as SearchPlatform] ?? _query.source;
 		let search = _query.query;
 
 		if (!/^https?:\/\//.test(search)) {
@@ -230,7 +236,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			const res = (await node.rest.get(`/v4/loadtracks?identifier=${encodeURIComponent(search)}`)) as LavalinkResponse;
 			if (!res) throw new Error("Query not found.");
 
-			let searchData = [];
+			let searchData: TrackData[] = [];
 			let playlistData: PlaylistRawData | undefined;
 
 			switch (res.loadType) {
@@ -238,7 +244,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 					searchData = res.data as TrackData[];
 					break;
 				case "track":
-					searchData = [res.data as TrackData[]];
+					searchData = [res.data as unknown as TrackData];
 					break;
 				case "playlist":
 					playlistData = res.data as PlaylistRawData;
@@ -246,7 +252,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			}
 
 			const tracks = searchData.map((track) => TrackUtils.build(track, requester));
-			let playlist = null;
+			let playlist: PlaylistData | undefined;
 
 			if (res.loadType === "playlist") {
 				playlist = {
@@ -259,13 +265,13 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			const result: SearchResult = {
 				loadType: res.loadType,
 				tracks,
-				playlist,
+				...(playlist !== undefined ? { playlist } : {}),
 			};
 
 			if (this.options.replaceYouTubeCredentials) {
 				let tracksToReplace: Track[] = [];
 				if (result.loadType === "playlist") {
-					tracksToReplace = result.playlist.tracks;
+					tracksToReplace = result.playlist?.tracks ?? [];
 				} else {
 					tracksToReplace = result.tracks;
 				}
@@ -276,9 +282,9 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 						track.title = track.title.replace("Topic -", "");
 					}
 					if (track.title.includes("-")) {
-						const [author, title] = track.title.split("-").map((str: string) => str.trim());
-						track.author = author;
-						track.title = title;
+						const parts = track.title.split("-").map((str: string) => str.trim());
+						track.author = parts[0] ?? track.author;
+						track.title = parts[1] ?? track.title;
 					}
 				}
 			}
@@ -286,8 +292,8 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 				this.caches.set(search, { result, expiresAt: Date.now() + this.options.caches.time });
 			}
 			return result;
-		} catch (err) {
-			throw new Error(err);
+		} catch (err: unknown) {
+			throw new Error(err instanceof Error ? err.message : String(err));
 		}
 
 		function isYouTubeURL(uri: string): boolean {
@@ -305,19 +311,14 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	 * @param tracks
 	 */
 	public decodeTracks(tracks: string[]): Promise<TrackData[]> {
-		return new Promise(async (resolve, reject) => {
-			const node = this.nodes.first();
-			if (!node) {
-				return reject(new Error("No available nodes."));
-			}
+		const node = this.nodes.first();
+		if (!node) return Promise.reject(new Error("No available nodes."));
 
-			await node.rest.post("/v4/decodetracks", JSON.stringify(tracks))
-				.then((res) => {
-					if (!res) return reject(new Error("No data returned from query."));
-					resolve(res as TrackData[]);
-				})
-				.catch((err) => reject(err));
-		});
+		return node.rest.post<TrackData[]>("/v4/decodetracks", JSON.stringify(tracks))
+			.then((res) => {
+				if (!res) throw new Error("No data returned from query.");
+				return res;
+			});
 	}
 
 	/**
@@ -326,7 +327,9 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	 */
 	public async decodeTrack(track: string): Promise<TrackData> {
 		const res = await this.decodeTracks([track]);
-		return res[0];
+		const data = res[0];
+		if (!data) throw new Error("No track data returned.");
+		return data;
 	}
 
 	/**
@@ -335,7 +338,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	 */
 	public create(options: PlayerOptions): LithiumXPlayer {
 		if (this.players.has(options.guild)) {
-			return this.players.get(options.guild);
+			return this.players.get(options.guild)!;
 		}
 
 		return new (Structure.get("Player"))(options);
@@ -363,7 +366,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	 */
 	public createNode(options: NodeOptions): LithiumXNode {
 		if (this.nodes.has(options.identifier || options.host)) {
-			return this.nodes.get(options.identifier || options.host);
+			return this.nodes.get(options.identifier || options.host)!;
 		}
 
 		return new (Structure.get("Node"))(options);
@@ -404,7 +407,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 
 			await player.node.rest.updatePlayer({
 				guildId: player.guild,
-				data: { voice: { token, endpoint, sessionId } },
+				data: { voice: { token, endpoint, sessionId: sessionId ?? '' } },
 			});
 
 			return;
@@ -413,15 +416,15 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		if (update.user_id !== this.options.clientId) return;
 		if (update.channel_id) {
 			if (player.voiceChannel !== update.channel_id) {
-				this.emit("PlayerMove", player, player.voiceChannel, update.channel_id);
+				this.emit("PlayerMove", player, player.voiceChannel ?? '', update.channel_id);
 			}
 
-			player.voiceState.sessionId = update.session_id;
+			player.voiceState.sessionId = update.session_id ?? '';
 			player.voiceChannel = update.channel_id;
 			return;
 		}
 
-		this.emit("PlayerDisconnect", player, player.voiceChannel);
+		this.emit("PlayerDisconnect", player, player.voiceChannel ?? '');
 		player.voiceChannel = null;
 		player.voiceState = Object.assign({});
 		player.destroy();
