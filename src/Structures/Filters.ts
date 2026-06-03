@@ -180,7 +180,7 @@ class Filters {
 	 * @param bands - The equalizer bands.
 	 */
 	public setEqualizer(bands?: Band[]): this {
-		return this.applyFilter({ property: "equalizer", value: bands });
+		return this.applyFilter({ property: "equalizer", value: bands ?? [] });
 	}
 
 	/** Applies the distortion audio effect. */
@@ -201,28 +201,28 @@ class Filters {
 	public setKaraoke(status: boolean, karaoke?: KaraokeOptions): this {
 		return this.applyFilter({
 			property: "karaoke",
-			value: karaoke,
+			value: karaoke ?? null,
 		}).setFilterStatus("karaoke", status);
 	}
 
 	/** Applies the timescale options specified by the filter. */
-	public setTimescale(timescale?: TimescaleOptions): this {
-		return this.applyFilter({ property: "timescale", value: timescale });
+	public setTimescale(timescale?: TimescaleOptions | null): this {
+		return this.applyFilter({ property: "timescale", value: timescale ?? null });
 	}
 
 	/** Applies the vibrato options specified by the filter. */
-	public setVibrato(vibrato?: VibratoOptions): this {
-		return this.applyFilter({ property: "vibrato", value: vibrato });
+	public setVibrato(vibrato?: VibratoOptions | null): this {
+		return this.applyFilter({ property: "vibrato", value: vibrato ?? null });
 	}
 
 	/** Applies the rotation options specified by the filter. */
-	public setRotation(rotation?: RotationOptions): this {
-		return this.applyFilter({ property: "rotation", value: rotation });
+	public setRotation(rotation?: RotationOptions | null): this {
+		return this.applyFilter({ property: "rotation", value: rotation ?? null });
 	}
 
 	/** Applies the distortion options specified by the filter. */
-	public setDistortion(distortion?: DistortionOptions): this {
-		return this.applyFilter({ property: "distortion", value: distortion });
+	public setDistortion(distortion?: DistortionOptions | null): this {
+		return this.applyFilter({ property: "distortion", value: distortion ?? null });
 	}
 	/**
 	 * Set the 8D options
@@ -428,7 +428,7 @@ class Filters {
 
 	/** Returns the status of the specified filter . */
 	public getFilterStatus(filter: keyof AvailableFilters): boolean {
-		return this.filterStatus[filter];
+		return this.filterStatus[filter] ?? false;
 	}
 }
 

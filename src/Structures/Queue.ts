@@ -93,16 +93,19 @@ export class LithiumXQueue extends Array<Track | UnresolvedTrack> {
 	public shuffle(): void {
 		for (let i = this.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
-			[this[i], this[j]] = [this[j], this[i]];
+			const a = this[i] as Track | UnresolvedTrack;
+			const b = this[j] as Track | UnresolvedTrack;
+			this[i] = b;
+			this[j] = a;
 		}
 	}
 
 	public equalizedShuffle() {
 		const userTracks = new Map<string, Array<Track | UnresolvedTrack>>();
 		this.forEach((track) => {
-			const user = track.requester;
+			const user = track.requester ?? 'unknown';
 			if (!userTracks.has(user)) userTracks.set(user, []);
-			userTracks.get(user).push(track);
+			userTracks.get(user)!.push(track);
 		});
 
 		const shuffledQueue: Array<Track | UnresolvedTrack> = [];

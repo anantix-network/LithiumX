@@ -140,7 +140,7 @@ export class QueueManager {
                 savedBy,
                 savedAt: Date.now(),
                 sourceGuild: player.guild,
-                metadata: options.metadata
+                ...(options.metadata !== undefined ? { metadata: options.metadata } : {}),
             };
 
             // Check if queue with same name exists for this guild
@@ -170,11 +170,11 @@ export class QueueManager {
                 queue: savedQueue,
                 trackCount: tracks.length
             };
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Error saving queue:", error);
             return {
                 success: false,
-                error: `Failed to save queue: ${error.message}`
+                error: `Failed to save queue: ${error instanceof Error ? error.message : String(error)}`
             };
         }
     }
@@ -223,7 +223,10 @@ export class QueueManager {
             if (options.shuffle) {
                 for (let i = tracks.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
-                    [tracks[i], tracks[j]] = [tracks[j], tracks[i]];
+                    const a = tracks[i] as Track | UnresolvedTrack;
+                    const b = tracks[j] as Track | UnresolvedTrack;
+                    tracks[i] = b;
+                    tracks[j] = a;
                 }
             }
 
@@ -235,7 +238,8 @@ export class QueueManager {
                 // Add tracks before position
                 for (let i = 0; i < options.position; i++) {
                     if (i < currentQueue.length) {
-                        player.queue.add(currentQueue[i]);
+                        const track = currentQueue[i];
+                        if (track) player.queue.add(track);
                     }
                 }
 
@@ -246,7 +250,8 @@ export class QueueManager {
 
                 // Add remaining tracks
                 for (let i = options.position; i < currentQueue.length; i++) {
-                    player.queue.add(currentQueue[i]);
+                    const track = currentQueue[i];
+                    if (track) player.queue.add(track);
                 }
             } else {
                 // Add tracks to the end
@@ -267,11 +272,11 @@ export class QueueManager {
                 queue: savedQueue,
                 trackCount: tracks.length
             };
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Error loading queue:", error);
             return {
                 success: false,
-                error: `Failed to load queue: ${error.message}`
+                error: `Failed to load queue: ${error instanceof Error ? error.message : String(error)}`
             };
         }
     }
@@ -315,11 +320,11 @@ export class QueueManager {
             return {
                 success: true
             };
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Error deleting queue:", error);
             return {
                 success: false,
-                error: `Failed to delete queue: ${error.message}`
+                error: `Failed to delete queue: ${error instanceof Error ? error.message : String(error)}`
             };
         }
     }
@@ -437,11 +442,11 @@ export class QueueManager {
                 queue: sharedQueue,
                 trackCount: sharedQueue.tracks.length
             };
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Error sharing queue:", error);
             return {
                 success: false,
-                error: `Failed to share queue: ${error.message}`
+                error: `Failed to share queue: ${error instanceof Error ? error.message : String(error)}`
             };
         }
     }
