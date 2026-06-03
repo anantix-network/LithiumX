@@ -79,6 +79,11 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	private get priorityNode(): LithiumXNode | undefined {
 		const filteredNodes = this.nodes.filter((node) => node.connected && (node.options.priority ?? 0) > 0);
 		const totalWeight = filteredNodes.reduce((total, node) => total + (node.options.priority ?? 0), 0);
+		if (totalWeight === 0) {
+			return this.options.useNode === "leastLoad"
+				? this.leastLoadNode.first()
+				: this.leastPlayersNode.first();
+		}
 		const weightedNodes = filteredNodes.map((node) => ({
 			node,
 			weight: (node.options.priority ?? 0) / totalWeight,
@@ -254,11 +259,11 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			const tracks = searchData.map((track) => TrackUtils.build(track, requester));
 			let playlist: PlaylistData | undefined;
 
-			if (res.loadType === "playlist") {
+			if (res.loadType === "playlist" && playlistData) {
 				playlist = {
-					name: playlistData!.info.name,
-					tracks: playlistData!.tracks.map((track) => TrackUtils.build(track, requester)),
-					duration: playlistData!.tracks.reduce((acc, cur) => acc + (cur.info.length || 0), 0),
+					name: playlistData.info.name,
+					tracks: playlistData.tracks.map((track) => TrackUtils.build(track, requester)),
+					duration: playlistData.tracks.reduce((acc, cur) => acc + (cur.info.length || 0), 0),
 				};
 			}
 

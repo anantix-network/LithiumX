@@ -444,7 +444,8 @@ class LithiumXNode {
 		const hasSpotifyURL = ["spotify.com", "open.spotify.com"].some((url) => previousTrack.uri.includes(url));
 		if (hasSpotifyURL) {
 			const node = this.manager.useableNodes;
-			const res = await node.rest.get(`/v4/info`);
+			if (!node) return;
+			const res = await node.rest.get<LavalinkInfo>(`/v4/info`);
 			const info = res as LavalinkInfo;
 			const isSpotifyPluginEnabled = info.plugins.some((plugin: { name: string }) => plugin.name === "lavasrc-plugin");
 			const isSpotifySourceManagerEnabled = info.sourceManagers.includes("spotify");
