@@ -2,7 +2,7 @@ import { Filters } from "./Filters";
 import { LavalinkResponse, LithiumXManager, PlaylistRawData, SearchQuery, SearchResult } from "./Manager";
 import { LavalinkInfo, LithiumXNode } from "./Node";
 import { LithiumXQueue } from "./Queue";
-import { Sizes, State, Structure, TrackSourceName, TrackUtils, VoiceState } from "./Utils";
+import { Sizes, State, Structure, TrackExceptionEvent, TrackSourceName, TrackUtils, VoiceState } from "./Utils";
 import playerCheck from "../Utils/PlayerCheck";
 import { FilterOptions, FilterPresets } from "./Filters";
 import { LyricsData, LyricsOptions } from "./Lyrics";
@@ -12,7 +12,7 @@ export class LithiumXPlayer {
 	/** The Queue for the Player. */
 	public readonly queue = new (Structure.get("Queue"))() as LithiumXQueue;
 	/** The filters applied to the audio. */
-	public filters: Filters;
+	public filters!: Filters;
 	/** Whether the queue repeats the track. */
 	public trackRepeat = false;
 	/** Whether the queue repeats the queue. */
@@ -26,11 +26,11 @@ export class LithiumXPlayer {
 	/** Whether the player is paused. */
 	public paused = false;
 	/** The volume for the player */
-	public volume: number;
+	public volume!: number;
 	/** The Node for the Player. */
-	public node: LithiumXNode;
+	public node!: LithiumXNode;
 	/** The guild for the player. */
-	public guild: string;
+	public guild!: string;
 	/** The voice channel for the player. */
 	public voiceChannel: string | null = null;
 	/** The text channel for the player. */
@@ -40,15 +40,15 @@ export class LithiumXPlayer {
 	/** The equalizer bands array. */
 	public bands = new Array<number>(15).fill(0.0);
 	/** The voice state object from Discord. */
-	public voiceState: VoiceState;
+	public voiceState!: VoiceState;
 	/** The Manager. */
-	public manager: LithiumXManager;
+	public manager!: LithiumXManager;
 	/** The autoplay state of the player. */
 	public isAutoplay: boolean = false;
 
 	private static _manager: LithiumXManager;
 	private readonly data: Record<string, unknown> = {};
-	private dynamicLoopInterval: NodeJS.Timeout;
+	private dynamicLoopInterval: NodeJS.Timeout | undefined = undefined;
 
 	/**
 	 * Currently applied filters
@@ -84,7 +84,9 @@ export class LithiumXPlayer {
 		if (!this.manager) this.manager = Structure.get("Player")._manager;
 		if (!this.manager) throw new RangeError("Manager has not been initiated.");
 
-		if (this.manager.players.has(options.guild)) return this.manager.players.get(options.guild);
+		if (this.manager.players.has(options.guild)) {
+			return this.manager.players.get(options.guild) as LithiumXPlayer;
+		}
 		playerCheck(options);
 		this.guild = options.guild;
 		this.voiceState = Object.assign({
@@ -93,8 +95,8 @@ export class LithiumXPlayer {
 		});
 		if (options.voiceChannel) this.voiceChannel = options.voiceChannel;
 		if (options.textChannel) this.textChannel = options.textChannel;
-		const node = this.manager.nodes.get(options.node);
-		this.node = node || this.manager.useableNodes;
+		const nodeById = options.node ? this.manager.nodes.get(options.node) : undefined;
+		this.node = nodeById ?? this.manager.useableNodes!;
 
 		if (!this.node) throw new RangeError("No available nodes.");
 
@@ -138,29 +140,31 @@ export class LithiumXPlayer {
 	 * @returns {this} - The player instance.
 	 */
 	public async moveNode(node?: string): Promise<this> {
-		node = node || this.manager.leastLoadNode.first().options.identifier || this.manager.nodes.filter((n) => n.connected).first().options.identifier;
-		if (!this.manager.nodes.has(node)) throw new RangeError("No nodes available.");
+		node = node
+			|| this.manager.leastLoadNode.first()?.options.identifier
+			|| this.manager.nodes.filter((n) => n.connected).first()?.options.identifier;
+
+		if (!node || !this.manager.nodes.has(node)) throw new RangeError("No nodes available.");
 		if (this.node.options.identifier === node) return this;
 
-		const destroyOldNode = async (node: LithiumXNode) => {
-			this.state = "MOVING";
-			if (this.manager.nodes.get(node.options.identifier) && this.manager.nodes.get(node.options.identifier).connected) await node.rest.destroyPlayer(this.guild);
-			setTimeout(() => (this.state = "CONNECTED"), 5000);
-		};
 		const currentNode = this.node;
 		const destinationNode = this.manager.nodes.get(node);
+		if (!destinationNode) throw new RangeError(`Node "${node}" not found.`);
+
 		let position = this.position;
 		if (currentNode.connected) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const fetchedPlayer: any = await currentNode.rest.get(`/v4/sessions/${currentNode.sessionId}/players/${this.guild}`);
-			position = fetchedPlayer.track.info.position;
+			const fetchedPlayer = await currentNode.rest.get<{ track: { info: { position: number } } }>(
+				`/v4/sessions/${currentNode.sessionId}/players/${this.guild}`
+			);
+			if (fetchedPlayer) position = fetchedPlayer.track.info.position;
 		}
 
+		const encodedTrack = this.queue.current?.track;
 		await destinationNode.rest.updatePlayer({
 			guildId: this.guild,
 			data: {
-				encodedTrack: this.queue.current?.track,
-				position: position,
+				...(encodedTrack !== undefined ? { encodedTrack } : {}),
+				position,
 				volume: this.volume,
 				paused: this.paused,
 				filters: {
@@ -175,19 +179,25 @@ export class LithiumXPlayer {
 			},
 		});
 
-		if (this.voiceState?.sessionId) await destinationNode.rest.updatePlayer({
-			guildId: this.guild,
-			data: {
-				voice: {
-					token: this.voiceState.event.token,
-					endpoint: this.voiceState.event.endpoint,
-					sessionId: this.voiceState.sessionId,
+		if (this.voiceState?.sessionId) {
+			await destinationNode.rest.updatePlayer({
+				guildId: this.guild,
+				data: {
+					voice: {
+						token: this.voiceState.event.token,
+						endpoint: this.voiceState.event.endpoint,
+						sessionId: this.voiceState.sessionId,
+					},
 				},
-			},
-		});
+			});
+		}
 
 		this.node = destinationNode;
-		destroyOldNode(currentNode);
+		this.state = "MOVING";
+		if (currentNode.connected) {
+			await currentNode.rest.destroyPlayer(this.guild);
+		}
+		setTimeout(() => (this.state = "CONNECTED"), 5000);
 		return this;
 	}
 
@@ -277,16 +287,17 @@ export class LithiumXPlayer {
 		if (TrackUtils.isUnresolvedTrack(this.queue.current)) {
 			try {
 				this.queue.current = await TrackUtils.getClosestTrack(this.queue.current as UnresolvedTrack);
-			} catch (error) {
-				this.manager.emit("TrackError", this, this.queue.current, error);
+			} catch (error: unknown) {
+				this.manager.emit("TrackError", this, this.queue.current, error as TrackExceptionEvent);
 				if (this.queue[0]) return this.play(this.queue[0]);
 				return;
 			}
 		}
+		const encodedTrack = this.queue.current?.track;
 		await this.node.rest.updatePlayer({
 			guildId: this.guild,
 			data: {
-				encodedTrack: this.queue.current?.track,
+				...(encodedTrack !== undefined ? { encodedTrack } : {}),
 				...finalOptions,
 			},
 		});
@@ -342,7 +353,7 @@ export class LithiumXPlayer {
 
 			if (isSpotifyPluginEnabled && isSpotifySourceManagerEnabled) {
 				const trackID = node.extractSpotifyTrackID(track.uri);
-				const artistID = node.extractSpotifyArtistID(track.pluginInfo.artistUrl);
+				const artistID = node.extractSpotifyArtistID(track.pluginInfo.artistUrl ?? '');
 
 				let identifier = "";
 				if (trackID && artistID) {
@@ -367,22 +378,25 @@ export class LithiumXPlayer {
 		let videoID = track.uri.substring(track.uri.indexOf("=") + 1);
 		if (!hasYouTubeURL) {
 			const res = await this.manager.search(`${track.author} - ${track.title}`);
-			videoID = res.tracks[0].uri.substring(res.tracks[0].uri.indexOf("=") + 1);
+			const track0 = res.tracks[0];
+			const track1 = res.tracks[1];
+			if (track0) videoID = track0.uri.substring(track0.uri.indexOf("=") + 1);
+			else if (track1) videoID = track1.uri.substring(track1.uri.indexOf("=") + 1);
 		}
 		const searchURI = `https://www.youtube.com/watch?v=${videoID}&list=RD${videoID}`;
 		const res = await this.manager.search(searchURI);
 		if (res.loadType === "empty" || res.loadType === "error") return;
 		let tracks = res.tracks;
-		if (res.loadType === "playlist") tracks = res.playlist.tracks;
+		if (res.loadType === "playlist") tracks = res.playlist?.tracks ?? [];
 		const filteredTracks = tracks.filter((track) => track.uri !== `https://www.youtube.com/watch?v=${videoID}`);
 		if (this.manager.options.replaceYouTubeCredentials) {
 			for (const track of filteredTracks) {
 				track.author = track.author.replace("- Topic", "");
 				track.title = track.title.replace("Topic -", "");
 				if (track.title.includes("-")) {
-					const [author, title] = track.title.split("-").map((str: string) => str.trim());
-					track.author = author;
-					track.title = title;
+					const parts = track.title.split("-").map((str: string) => str.trim());
+					track.author = parts[0] ?? track.author;
+					track.title = parts[1] ?? track.title;
 				}
 			}
 		}
@@ -513,9 +527,7 @@ export class LithiumXPlayer {
 
 		this.node.rest.updatePlayer({
 			guildId: this.guild,
-			data: {
-				encodedTrack: null,
-			},
+			data: {},
 		});
 
 		return this;
@@ -548,7 +560,9 @@ export class LithiumXPlayer {
 
 	/** Go back to the previous song. */
 	public previous(): this {
-		this.queue.unshift(this.queue.previous);
+		if (this.queue.previous) {
+			this.queue.unshift(this.queue.previous);
+		}
 		this.stop();
 
 		return this;
@@ -559,11 +573,12 @@ export class LithiumXPlayer {
 	 * @param position
 	 */
 	public seek(position: number): this {
-		if (!this.queue.current) return undefined;
+		if (!this.queue.current) return this;
 		position = Number(position);
 
 		if (isNaN(position)) throw new RangeError("Position must be a number.");
-		if (position < 0 || position > this.queue.current.duration) position = Math.max(Math.min(position, this.queue.current.duration), 0);
+		const duration = this.queue.current.duration ?? 0;
+		if (position < 0 || position > duration) position = Math.max(Math.min(position, duration), 0);
 
 		this.position = position;
 
@@ -584,8 +599,10 @@ export class LithiumXPlayer {
 	public setFilters(filters: FilterOptions): Promise<this> {
 		// Convert FilterOptions to actual filter properties
 		Object.keys(filters).forEach(key => {
-			if (this.filters[key] !== undefined) {
-				this.filters[key] = filters[key];
+			const filtersRecord = this.filters as unknown as Record<string, unknown>;
+			const filtersOptions = filters as unknown as Record<string, unknown>;
+			if (filtersRecord[key] !== undefined) {
+				filtersRecord[key] = filtersOptions[key];
 			}
 		});
 
@@ -686,12 +703,12 @@ export class LithiumXPlayer {
 			Object.entries(filter).forEach(([key, value]) => {
 				if (key === 'equalizer' && acc.equalizer) {
 					// For equalizer, merge bands by band number
-					const existing = new Map(acc.equalizer.map(band => [band.band, band]));
-					value.forEach(band => existing.set(band.band, band));
+					const existing = new Map(acc.equalizer.map((band: EqualizerBand) => [band.band, band]));
+					(value as EqualizerBand[]).forEach((band: EqualizerBand) => existing.set(band.band, band));
 					acc.equalizer = Array.from(existing.values());
 				} else {
 					// For other filters, just replace
-					acc[key] = value;
+					(acc as unknown as Record<string, unknown>)[key] = value;
 				}
 			});
 			return acc;
