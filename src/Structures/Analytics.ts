@@ -114,7 +114,7 @@ export interface AnalyticsOptions {
     /** Path to store analytics data */
     storagePath?: string;
     /** Custom storage implementation */
-    storage?: StorageStrategy;
+    storage?: StorageStrategy | null;
     /** How often to save analytics data in ms */
     saveInterval?: number;
     /** How much history to keep (in days) */
@@ -134,7 +134,7 @@ export class Analytics {
     private sessions: Map<string, SessionData> = new Map();
     private storage: StorageStrategy;
     private storagePath: string;
-    private saveInterval: NodeJS.Timeout;
+    private saveInterval: NodeJS.Timeout | undefined = undefined;
     private options: Required<AnalyticsOptions>;
     private trackEndListeners: Map<string, number> = new Map();
 
@@ -272,7 +272,9 @@ export class Analytics {
             this.data.set(guildId, newData);
         }
 
-        return this.data.get(guildId);
+        const result = this.data.get(guildId);
+        if (!result) throw new Error(`Guild data not found for ${guildId}`);
+        return result;
     }
 
     /**
@@ -310,7 +312,7 @@ export class Analytics {
             title: track.title,
             author: track.author,
             playedAt: Date.now(),
-            requestedBy: track.requester
+            requestedBy: track.requester ?? null
         };
 
         // Keep only the last 50 tracks
@@ -330,12 +332,13 @@ export class Analytics {
                 analytics.users.favorites[userId] = [];
             }
 
-            analytics.users.requestCount[userId]++;
+            analytics.users.requestCount[userId] = (analytics.users.requestCount[userId] ?? 0) + 1;
 
             // Add to user favorites if not already there
-            if (!analytics.users.favorites[userId].includes(trackId) &&
-                analytics.users.favorites[userId].length < 20) {
-                analytics.users.favorites[userId].push(trackId);
+            const userFavorites = analytics.users.favorites[userId] ?? [];
+            analytics.users.favorites[userId] = userFavorites;
+            if (!userFavorites.includes(trackId) && userFavorites.length < 20) {
+                userFavorites.push(trackId);
             }
         }
 
@@ -506,7 +509,8 @@ export class Analytics {
             // Load data for each guild
             for (const key of guildKeys) {
                 try {
-                    const guildId = key.split('/')[1];
+                    const guildId = key.split('/')[1] ?? null;
+                    if (!guildId) continue;
                     const data = await this.storage.load(key);
                     if (data && this.isValidAnalyticsData(data)) {
                         this.data.set(guildId, data);

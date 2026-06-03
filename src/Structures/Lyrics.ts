@@ -239,9 +239,9 @@ class DefaultLyricsProvider implements LyricsProvider {
                 title: title,
                 artist: artist
             };
-        } catch (error) {
+        } catch (error: unknown) {
             // Don't log AbortError which is expected when timeout happens
-            if (error.name !== 'AbortError') {
+            if (!(error instanceof Error) || error.name !== 'AbortError') {
                 console.error("Error fetching lyrics:", error);
             }
             return null;
@@ -303,7 +303,12 @@ class GeniusLyricsProvider implements LyricsProvider {
             }
 
             // Get the first hit
-            const hit = searchData.response.hits[0].result;
+            const firstHit = searchData.response.hits[0];
+            if (!firstHit) {
+                clearTimeout(timeoutId);
+                return null;
+            }
+            const hit = firstHit.result;
             if (!hit) {
                 clearTimeout(timeoutId);
                 return null;
@@ -321,18 +326,19 @@ class GeniusLyricsProvider implements LyricsProvider {
 
             if (!lyrics) return null;
 
+            const thumbnail = hit.song_art_image_url;
             return {
                 lyrics: lyrics.trim(),
                 source: "Genius",
                 synced: false,
                 title: hit.title,
                 artist: hit.primary_artist?.name || artist,
-                thumbnail: hit.song_art_image_url,
+                ...(thumbnail !== undefined ? { thumbnail } : {}),
                 url: songUrl
             };
-        } catch (error) {
+        } catch (error: unknown) {
             // Don't log AbortError which is expected when timeout happens
-            if (error.name !== 'AbortError') {
+            if (!(error instanceof Error) || error.name !== 'AbortError') {
                 console.error("Error fetching lyrics from Genius:", error);
             }
             return null;

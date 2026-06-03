@@ -16,8 +16,10 @@ export default function ManagerCheck(options: ManagerOptions) {
 	if (typeof trackPartial !== "undefined" && !Array.isArray(trackPartial)) throw new TypeError('Manager option "trackPartial" must be a string array.');
 	if (typeof usePriority !== "undefined" && typeof usePriority !== "boolean") throw new TypeError('Manager option "usePriority" must be a boolean.');
 	if (usePriority) {
+		if (!nodes || nodes.length === 0) throw new TypeError('Manager option "nodes" must be provided when usePriority is true.');
 		for (let index = 0; index < nodes.length; index++) {
-			if (!nodes[index].priority) throw new TypeError(`Missing node option "priority" at position ${index}`);
+			const nodeAtIndex = nodes[index];
+			if (!nodeAtIndex?.priority) throw new TypeError(`Missing node option "priority" at position ${index}`);
 		}
 	}
 	if (typeof useNode !== "undefined") {

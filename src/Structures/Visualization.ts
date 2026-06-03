@@ -53,7 +53,7 @@ export class Visualization {
 
             for (let col = 0; col < 6; col++) {
                 const hour = row + col * 4;
-                const value = hourlyData[hour];
+                const value = hourlyData[hour] ?? 0;
                 const intensity = Math.floor((value / max) * (intensityChars.length - 1));
                 const char = intensityChars[intensity] || ' ';
 
