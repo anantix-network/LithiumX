@@ -34,7 +34,7 @@ interface PlayerSaveData {
 	playing: boolean;
 	position: number;
 	track: import('./Player').Track | null;
-	queue: import('./Player').Track[];
+	queue: (import('./Player').Track | import('./Player').UnresolvedTrack)[];
 	queueRepeat: boolean;
 	trackRepeat: boolean;
 	isAutoplay: boolean;
@@ -719,7 +719,7 @@ class LithiumXNode {
 					// Restore player state
 					player.queue.clear();
 					if (data.queue && Array.isArray(data.queue)) {
-						data.queue.forEach((track: Track) => {
+						data.queue.forEach((track: import('./Player').Track | import('./Player').UnresolvedTrack) => {
 							player!.queue.add(TrackUtils.build(track as unknown as import('./Utils').TrackData, data.requester));
 						});
 					}
