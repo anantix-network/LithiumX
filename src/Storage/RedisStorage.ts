@@ -44,7 +44,7 @@ export class RedisStorage implements StorageStrategy {
         if (d['autoResumeMaxAge']) await this.client.expire(fullKey, Math.floor((d['autoResumeMaxAge'] as number) / 1000));
     }
 
-    async load(key: string): Promise<any> {
+    async load(key: string): Promise<unknown> {
         await this.ensureConnection();
         const data = await this.client.get(`${this.prefix}${key}`);
         return data ? JSON.parse(data) : null;

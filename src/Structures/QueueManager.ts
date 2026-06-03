@@ -21,7 +21,7 @@ export interface SavedQueue {
     /** Guild ID where the queue was saved from */
     sourceGuild: string;
     /** Custom metadata for the queue */
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
 }
 
 /**
@@ -33,7 +33,7 @@ export interface SaveQueueOptions {
     /** Whether to include the current playing track */
     includeCurrentTrack?: boolean;
     /** Custom metadata to store with the queue */
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
     /** Whether this is a global queue (available to all guilds) */
     global?: boolean;
     /** Override existing queue with same ID */
@@ -192,11 +192,11 @@ export class QueueManager {
 
             try {
                 // Try guild-specific queue first
-                savedQueue = await this.storage.load(`${player.guild}/${queueId}`);
+                savedQueue = await this.storage.load(`${player.guild}/${queueId}`) as SavedQueue;
             } catch {
                 try {
                     // Try global queue if guild-specific not found
-                    savedQueue = await this.storage.load(`global/${queueId}`);
+                    savedQueue = await this.storage.load(`global/${queueId}`) as SavedQueue;
                 } catch {
                     return {
                         success: false,
@@ -347,7 +347,7 @@ export class QueueManager {
 
                 for (const queueId of guildQueues) {
                     try {
-                        const queue = await this.storage.load(`${guildId}/${queueId}`);
+                        const queue = await this.storage.load(`${guildId}/${queueId}`) as SavedQueue;
                         if (queue) queues.push(queue);
                     } catch {
                         // Skip invalid entries
@@ -367,7 +367,7 @@ export class QueueManager {
 
                     for (const queueId of globalQueues) {
                         try {
-                            const queue = await this.storage.load(`global/${queueId}`);
+                            const queue = await this.storage.load(`global/${queueId}`) as SavedQueue;
                             if (queue) queues.push(queue);
                         } catch {
                             // Skip invalid entries
@@ -399,11 +399,11 @@ export class QueueManager {
 
             try {
                 // Try guild-specific queue first
-                savedQueue = await this.storage.load(`${sourceGuildId}/${queueId}`);
+                savedQueue = await this.storage.load(`${sourceGuildId}/${queueId}`) as SavedQueue;
             } catch {
                 try {
                     // Try global queue if guild-specific not found
-                    savedQueue = await this.storage.load(`global/${queueId}`);
+                    savedQueue = await this.storage.load(`global/${queueId}`) as SavedQueue;
                 } catch {
                     return {
                         success: false,
@@ -484,7 +484,7 @@ class FileQueueStorage implements StorageStrategy {
         await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2));
     }
 
-    async load(key: string): Promise<any> {
+    async load(key: string): Promise<unknown> {
         const filePath = this.getFilePath(key);
         if (!fs.existsSync(filePath)) {
             throw new Error(`File not found: ${filePath}`);

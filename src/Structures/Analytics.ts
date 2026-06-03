@@ -854,7 +854,7 @@ class FileAnalyticsStorage implements StorageStrategy {
         await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2));
     }
 
-    async load(key: string): Promise<any> {
+    async load(key: string): Promise<unknown> {
         const filePath = this.getFilePath(key);
         if (!fs.existsSync(filePath)) return null;
 
