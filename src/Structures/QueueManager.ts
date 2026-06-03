@@ -380,7 +380,7 @@ export class QueueManager {
 
             // Sort by date, newest first
             return queues.sort((a, b) => b.savedAt - a.savedAt);
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Error listing queues:", error);
             return [];
         }
