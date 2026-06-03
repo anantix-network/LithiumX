@@ -19,7 +19,7 @@ import path from "path";
 
 // Storage strategy interface
 interface StorageStrategy {
-	save(key: string, data: any): Promise<void>;
+	save(key: string, data: unknown): Promise<void>;
 	load(key: string): Promise<any>;
 	delete(key: string): Promise<void>;
 	getAll(): Promise<string[]>;
@@ -50,7 +50,7 @@ class FileStorage implements StorageStrategy {
 		}
 	}
 
-	async save(key: string, data: any): Promise<void> {
+	async save(key: string, data: unknown): Promise<void> {
 		const filePath = path.join(this.basePath, `${key}.json`);
 		await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2));
 	}
@@ -81,7 +81,7 @@ class FileStorage implements StorageStrategy {
 class MemoryStorage implements StorageStrategy {
 	private data = new Map<string, any>();
 
-	async save(key: string, data: any): Promise<void> {
+	async save(key: string, data: unknown): Promise<void> {
 		this.data.set(key, data);
 	}
 

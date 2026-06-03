@@ -541,13 +541,13 @@ export class Analytics {
      * Type guard for analytics data
      * @param data Data to validate
      */
-    private isValidAnalyticsData(data: any): data is AnalyticsData {
-        return data &&
-            typeof data.guildId === 'string' &&
-            data.tracks &&
-            data.artists &&
-            data.users &&
-            data.sessions;
+    private isValidAnalyticsData(data: unknown): data is AnalyticsData {
+        return typeof data === 'object' && data !== null &&
+            typeof (data as any).guildId === 'string' &&
+            (data as any).tracks &&
+            (data as any).artists &&
+            (data as any).users &&
+            (data as any).sessions;
     }
 
     /**
@@ -841,7 +841,7 @@ class FileAnalyticsStorage implements StorageStrategy {
         }
     }
 
-    async save(key: string, data: any): Promise<void> {
+    async save(key: string, data: unknown): Promise<void> {
         const filePath = this.getFilePath(key);
 
         // Create directories if needed

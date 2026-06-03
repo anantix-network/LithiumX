@@ -472,7 +472,7 @@ class FileQueueStorage implements StorageStrategy {
         }
     }
 
-    async save(key: string, data: any): Promise<void> {
+    async save(key: string, data: unknown): Promise<void> {
         const filePath = this.getFilePath(key);
 
         // Create directory if needed

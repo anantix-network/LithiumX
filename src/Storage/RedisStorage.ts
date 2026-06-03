@@ -36,11 +36,11 @@ export class RedisStorage implements StorageStrategy {
         }
     }
 
-    async save(key: string, data: any): Promise<void> {
+    async save(key: string, data: unknown): Promise<void> {
         await this.ensureConnection();
         const fullKey = `${this.prefix}${key}`;
         await this.client.set(fullKey, JSON.stringify(data));
-        if (data.autoResumeMaxAge) await this.client.expire(fullKey, Math.floor(data.autoResumeMaxAge / 1000));
+        if ((data as any).autoResumeMaxAge) await this.client.expire(fullKey, Math.floor((data as any).autoResumeMaxAge / 1000));
     }
 
     async load(key: string): Promise<any> {
