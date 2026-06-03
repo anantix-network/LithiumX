@@ -542,12 +542,13 @@ export class Analytics {
      * @param data Data to validate
      */
     private isValidAnalyticsData(data: unknown): data is AnalyticsData {
-        return typeof data === 'object' && data !== null &&
-            typeof (data as any).guildId === 'string' &&
-            (data as any).tracks &&
-            (data as any).artists &&
-            (data as any).users &&
-            (data as any).sessions;
+        if (typeof data !== 'object' || data === null) return false;
+        const d = data as Record<string, unknown>;
+        return typeof d['guildId'] === 'string' &&
+            !!d['tracks'] &&
+            !!d['artists'] &&
+            !!d['users'] &&
+            !!d['sessions'];
     }
 
     /**
