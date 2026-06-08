@@ -187,6 +187,7 @@ export class LithiumXPlayer {
 						token: this.voiceState.event.token,
 						endpoint: this.voiceState.event.endpoint,
 						sessionId: this.voiceState.sessionId,
+						channelId: this.voiceChannel ?? '',
 					},
 				},
 			});

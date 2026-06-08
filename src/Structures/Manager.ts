@@ -412,7 +412,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 
 			await player.node.rest.updatePlayer({
 				guildId: player.guild,
-				data: { voice: { token, endpoint, sessionId: sessionId ?? '' } },
+				data: { voice: { token, endpoint, sessionId: sessionId ?? '', channelId: player.voiceChannel ?? '' } },
 			});
 
 			return;

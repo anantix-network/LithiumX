@@ -128,6 +128,7 @@ interface playOptions {
 			token: string;
 			sessionId: string;
 			endpoint: string;
+			channelId: string;
 		};
 		/** Whether to not replace the track if a play payload is sent. */
 		noReplace?: boolean;
