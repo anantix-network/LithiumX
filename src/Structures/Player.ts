@@ -2,7 +2,7 @@ import { Filters } from "./Filters";
 import { LavalinkResponse, LithiumXManager, PlaylistRawData, SearchQuery, SearchResult } from "./Manager";
 import { LavalinkInfo, LithiumXNode } from "./Node";
 import { LithiumXQueue } from "./Queue";
-import { Sizes, State, Structure, TrackExceptionEvent, TrackSourceName, TrackUtils, VoiceState } from "./Utils";
+import { Sizes, State, TrackExceptionEvent, TrackSourceName, TrackUtils, VoiceState } from "./Utils";
 import playerCheck from "../Utils/PlayerCheck";
 import { FilterOptions, FilterPresets } from "./Filters";
 import { LyricsData, LyricsOptions } from "./Lyrics";
@@ -10,7 +10,7 @@ import { SaveQueueOptions, LoadQueueOptions, QueueOperationResult } from "./Queu
 
 export class LithiumXPlayer {
 	/** The Queue for the Player. */
-	public readonly queue = new (Structure.get("Queue"))() as LithiumXQueue;
+	public readonly queue = new LithiumXQueue();
 	/** The filters applied to the audio. */
 	public filters!: Filters;
 	/** Whether the queue repeats the track. */
@@ -81,7 +81,7 @@ export class LithiumXPlayer {
 	 * @param options
 	 */
 	constructor(public options: PlayerOptions) {
-		if (!this.manager) this.manager = Structure.get("Player")._manager;
+		if (!this.manager) this.manager = LithiumXPlayer._manager;
 		if (!this.manager) throw new RangeError("Manager has not been initiated.");
 
 		if (this.manager.players.has(options.guild)) {

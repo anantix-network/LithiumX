@@ -188,41 +188,10 @@ abstract class TrackUtils {
 	}
 }
 
-/** Gets or extends structures to extend the built in, or already extended, classes to add more functionality. */
-abstract class Structure {
-	/**
-	 * Extends a class.
-	 * @param name
-	 * @param extender
-	 */
-	public static extend<K extends keyof Extendable, T extends Extendable[K]>(name: K, extender: (target: Extendable[K]) => T): T {
-		if (!structures[name]) throw new TypeError(`"${name} is not a valid structure`);
-		const extended = extender(structures[name]);
-		structures[name] = extended;
-		return extended;
-	}
-
-	/**
-	 * Get a structure from available structures by name.
-	 * @param name
-	 */
-	public static get<K extends keyof Extendable>(name: K): Extendable[K] {
-		const structure = structures[name];
-		if (!structure) throw new TypeError('"structure" must be provided.');
-		return structure;
-	}
-}
-
 class Plugin {
 	public load(manager: LithiumXManager): void { }
 	public unload(manager: LithiumXManager): void { }
 }
-
-const structures = {
-	Player: LithiumXPlayer,
-	Queue: LithiumXQueue,
-	Node: LithiumXNode,
-};
 
 interface UnresolvedQuery {
 	/** The title of the unresolved track. */
@@ -270,12 +239,6 @@ interface TrackDataInfo {
 }
 
 type TrackSourceName = "deezer" | "spotify" | "soundcloud" | "youtube";
-
-interface Extendable {
-	Player: typeof LithiumXPlayer;
-	Queue: typeof LithiumXQueue;
-	Node: typeof LithiumXNode;
-}
 
 interface VoiceState {
 	op: "voiceUpdate";
@@ -368,7 +331,6 @@ interface PlayerUpdate {
 
 export {
 	TrackUtils,
-	Structure,
 	Plugin,
 	UnresolvedQuery,
 	Sizes,
@@ -381,7 +343,6 @@ export {
 	TrackData,
 	TrackDataInfo,
 	TrackSourceName,
-	Extendable,
 	VoiceState,
 	VoiceServer,
 	VoicePacket,

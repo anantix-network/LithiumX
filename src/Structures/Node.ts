@@ -1,7 +1,6 @@
 import {
 	PlayerEvent,
 	PlayerEvents,
-	Structure,
 	TrackEndEvent,
 	TrackExceptionEvent,
 	TrackStartEvent,
@@ -139,7 +138,7 @@ class LithiumXNode {
 	 * @param options
 	 */
 	constructor(public options: NodeOptions) {
-		if (!this.manager) this.manager = Structure.get("Node")._manager;
+		if (!this.manager) this.manager = LithiumXNode._manager;
 		if (!this.manager) throw new RangeError("Manager has not been initiated.");
 
 		if (this.manager.nodes.has(options.identifier || options.host)) {

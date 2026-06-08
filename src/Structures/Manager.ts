@@ -2,7 +2,6 @@
 import {
 	LoadType,
 	Plugin,
-	Structure,
 	TrackData,
 	TrackEndEvent,
 	TrackExceptionEvent,
@@ -28,9 +27,7 @@ interface CachedResult {
   expiresAt: number;
 }
 
-/**
- * The main hub for interacting with Lavalink and using Magmastream,
- */
+/** The main hub for interacting with Lavalink nodes and players. */
 class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	public static readonly DEFAULT_SOURCES: Record<SearchPlatform, string> = {
 		"youtube music": "ytmsearch",
@@ -121,9 +118,11 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		super();
 
 		managerCheck(options);
-		Structure.get("Player").init(this);
-		Structure.get("Node").init(this);
+		LithiumXPlayer.init(this);
+		LithiumXNode.init(this);
 		TrackUtils.init(this);
+		if (options.PlayerClass) options.PlayerClass.init(this);
+		if (options.NodeClass) options.NodeClass.init(this);
 
 		if (options.trackPartial) {
 			TrackUtils.setTrackPartial(options.trackPartial);
@@ -158,8 +157,9 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		}
 
 		if (this.options.nodes) {
+			const NodeClass = this.options.NodeClass ?? LithiumXNode;
 			for (const nodeOptions of this.options.nodes) {
-				const node = new (Structure.get("Node"))(nodeOptions);
+				const node = new NodeClass(nodeOptions);
 				this.nodes.set(node.options.identifier ?? node.options.host, node);
 			}
 		}
@@ -346,7 +346,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			return this.players.get(options.guild)!;
 		}
 
-		return new (Structure.get("Player"))(options);
+		return new (this.options.PlayerClass ?? LithiumXPlayer)(options);
 	}
 
 	/**
@@ -374,7 +374,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			return this.nodes.get(options.identifier || options.host)!;
 		}
 
-		return new (Structure.get("Node"))(options);
+		return new (this.options.NodeClass ?? LithiumXNode)(options);
 	}
 
 	/**
@@ -449,6 +449,10 @@ interface Payload {
 }
 
 interface ManagerOptions {
+	/** Custom Player class extending LithiumXPlayer. Pass instead of using Structure.extend(). */
+	PlayerClass?: typeof LithiumXPlayer;
+	/** Custom Node class extending LithiumXNode. Pass instead of using Structure.extend(). */
+	NodeClass?: typeof LithiumXNode;
 	/** Use priority mode over least amount of player or load? */
 	usePriority?: boolean;
 	/** Use the least amount of players or least load? */
