@@ -119,6 +119,10 @@ export interface AnalyticsOptions {
 	trackUsers?: boolean;
 	/** Whether to anonymize user data */
 	anonymizeUsers?: boolean;
+	/** Max number of guilds to keep analytics data for. Default: 1000 */
+	maxGuilds?: number;
+	/** How often to run old-data cleanup (in ms). Default: 3600000 (1 hour) */
+	cleanupInterval?: number;
 }
 
 /**
@@ -130,6 +134,7 @@ export class Analytics {
 	private sessions: Map<string, SessionData> = new Map();
 	private storage: StorageStrategy;
 	private saveInterval: NodeJS.Timeout | undefined = undefined;
+	private cleanupTimer: NodeJS.Timeout | undefined = undefined;
 	private options: Required<AnalyticsOptions>;
 	private trackEndListeners: Map<string, number> = new Map();
 
@@ -149,6 +154,8 @@ export class Analytics {
 			historyRetention: 30, // 30 days
 			trackUsers: true,
 			anonymizeUsers: false,
+			maxGuilds: 1000,
+			cleanupInterval: 3600000, // 1 hour
 			...options,
 		};
 
@@ -163,6 +170,11 @@ export class Analytics {
 			this.saveInterval = setInterval(() => {
 				this.saveData();
 			}, this.options.saveInterval);
+
+			// Periodic cleanup of old data
+			this.cleanupTimer = setInterval(() => {
+				this.cleanupOldData();
+			}, this.options.cleanupInterval);
 		}
 	}
 
@@ -785,12 +797,23 @@ export class Analytics {
 	public cleanupOldData(): void {
 		const cutoffDate = Date.now() - this.options.historyRetention * 24 * 60 * 60 * 1000;
 
-		// Clean up recent tracks older than cutoff
 		for (const [_guildId, analytics] of this.data.entries()) {
+			// Remove recently played tracks older than retention
 			analytics.tracks.recentlyPlayed = analytics.tracks.recentlyPlayed.filter((track) => track.playedAt >= cutoffDate);
 
-			// Update last updated timestamp
 			analytics.lastUpdated = Date.now();
+		}
+
+		// Evict stale guilds when exceeding maxGuilds limit
+		if (this.data.size > this.options.maxGuilds) {
+			const sorted = [...this.data.entries()].sort((a, b) => a[1].lastUpdated - b[1].lastUpdated);
+			const toRemove = this.data.size - this.options.maxGuilds;
+			for (let i = 0; i < toRemove; i++) {
+				const entry = sorted[i];
+				if (entry) {
+					this.data.delete(entry[0]);
+				}
+			}
 		}
 	}
 
@@ -799,6 +822,7 @@ export class Analytics {
 	 */
 	public async shutdown(): Promise<void> {
 		clearInterval(this.saveInterval);
+		clearInterval(this.cleanupTimer);
 		await this.saveData();
 	}
 }
