@@ -140,6 +140,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			useNode: 'leastPlayers',
 			prefetch: false,
 			reconnectOnDisconnect: false,
+			autoFailover: true,
 			...options,
 		};
 
@@ -158,15 +159,31 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			}
 		}
 		this.on('NodeDisconnect', (disconnectedNode) => {
-			const target = this.useableNodes;
-			if (!target || target === disconnectedNode) return;
-			this.players
-				.filter((p) => p.node === disconnectedNode)
-				.forEach((p) => {
-					p.moveNode(target.options.identifier)
-						.then(() => this.emit('PlayerMigrated', p, disconnectedNode, target))
-						.catch(() => {});
-				});
+			if (!this.options.autoFailover) return;
+
+			const availableNodes = [...this.nodes.filter((n) => n.connected && n !== disconnectedNode).values()];
+			if (availableNodes.length === 0) return;
+
+			availableNodes.sort((a, b) => {
+				const aLoad = a.stats?.cpu?.lavalinkLoad ?? 0;
+				const bLoad = b.stats?.cpu?.lavalinkLoad ?? 0;
+				return aLoad - bLoad;
+			});
+
+			const migratePlayer = async (player: LithiumXPlayer, attempt = 0): Promise<void> => {
+				if (attempt >= availableNodes.length) return;
+				const target = availableNodes[attempt]!;
+				try {
+					await player.moveNode(target.options.identifier ?? target.options.host);
+					this.emit('PlayerMigrated', player, disconnectedNode, target);
+				} catch {
+					await migratePlayer(player, attempt + 1);
+				}
+			};
+
+			for (const player of [...this.players.filter((p) => p.node === disconnectedNode).values()]) {
+				migratePlayer(player);
+			}
 		});
 
 		// Initialize lyrics manager if enabled
@@ -490,6 +507,8 @@ interface ManagerOptions {
 	analytics?: AnalyticsOptions;
 	/** Whether to keep players alive when the bot disconnects from voice (supports auto-reconnect). */
 	reconnectOnDisconnect?: boolean;
+	/** Whether to automatically migrate players to a working node when a node disconnects. Default: true */
+	autoFailover?: boolean;
 	/** Whether to prefetch the next UnresolvedTrack in the queue when a track ends. */
 	prefetch?: boolean;
 	/**
