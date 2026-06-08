@@ -1,5 +1,5 @@
-import { LithiumXNode } from "./Node";
-import { FilterOptions } from "./Filters";
+import type { FilterOptions } from './Filters';
+import type { LithiumXNode } from './Node';
 
 /** Handles the requests sent to the Lavalink REST API. */
 class LithiumXRest {
@@ -45,8 +45,8 @@ class LithiumXRest {
 		await this.updatePlayer({
 			guildId,
 			data: {
-				filters
-			}
+				filters,
+			},
 		});
 	}
 
@@ -55,16 +55,16 @@ class LithiumXRest {
 		const config: RequestInit = {
 			method,
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 				Authorization: this.password,
 			},
 			body: body ? JSON.stringify(body) : null,
 		};
 		try {
-			const response = await fetch(`http${this.node.options.secure ? "s" : ""}://${this.node.options.host}:${this.node.options.port}${endpoint}`, config);
+			const response = await fetch(`http${this.node.options.secure ? 's' : ''}://${this.node.options.host}:${this.node.options.port}${endpoint}`, config);
 			const contentType = response.headers.get('content-type');
-			if (!contentType || !contentType.includes('application/json')) {
-				return (response.status >= 200 && response.status < 300) ? ({} as T) : null;
+			if (!contentType?.includes('application/json')) {
+				return response.status >= 200 && response.status < 300 ? ({} as T) : null;
 			}
 			const text = await response.text();
 			if (!text || text.trim() === '') return {} as T;
@@ -85,22 +85,22 @@ class LithiumXRest {
 
 	/* Sends a GET request to the specified endpoint and returns the response data. */
 	public async get<T = unknown>(endpoint: string): Promise<T | null> {
-		return await this.request<T>("GET", endpoint);
+		return await this.request<T>('GET', endpoint);
 	}
 
 	/* Sends a PATCH request to the specified endpoint and returns the response data. */
 	public async patch<T = unknown>(endpoint: string, body: unknown): Promise<T | null> {
-		return await this.request<T>("PATCH", endpoint, body);
+		return await this.request<T>('PATCH', endpoint, body);
 	}
 
 	/* Sends a POST request to the specified endpoint and returns the response data. */
 	public async post<T = unknown>(endpoint: string, body: unknown): Promise<T | null> {
-		return await this.request<T>("POST", endpoint, body);
+		return await this.request<T>('POST', endpoint, body);
 	}
 
 	/* Sends a DELETE request to the specified endpoint and returns the response data. */
 	public async delete<T = unknown>(endpoint: string): Promise<T | null> {
-		return await this.request<T>("DELETE", endpoint);
+		return await this.request<T>('DELETE', endpoint);
 	}
 }
 
@@ -135,27 +135,6 @@ interface playOptions {
 	};
 }
 
-/**
- * Interface for player update options including filters
- */
-interface PlayerUpdateOptions {
-	guildId: string;
-	data: {
-		encodedTrack?: string;
-		identifier?: string;
-		position?: number;
-		endTime?: number;
-		volume?: number;
-		paused?: boolean;
-		filters?: FilterOptions;
-		voice?: {
-			token: string;
-			endpoint: string;
-			sessionId: string;
-		};
-	};
-}
+type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
-type Method = "GET" | "POST" | "PATCH" | "DELETE";
-
-export { Method, LithiumXRest };
+export { LithiumXRest, type Method };

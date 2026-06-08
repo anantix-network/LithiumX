@@ -1,12 +1,11 @@
-import { Filters } from "./Filters";
-import { LavalinkResponse, LithiumXManager, PlaylistRawData, SearchQuery, SearchResult } from "./Manager";
-import { LavalinkInfo, LithiumXNode } from "./Node";
-import { LithiumXQueue } from "./Queue";
-import { Sizes, State, TrackExceptionEvent, TrackSourceName, TrackUtils, VoiceState } from "./Utils";
-import playerCheck from "../Utils/PlayerCheck";
-import { FilterOptions, FilterPresets } from "./Filters";
-import { LyricsData, LyricsOptions } from "./Lyrics";
-import { SaveQueueOptions, LoadQueueOptions, QueueOperationResult } from "./QueueManager";
+import playerCheck from '../Utils/PlayerCheck';
+import { type FilterOptions, FilterPresets, Filters } from './Filters';
+import type { LyricsData, LyricsOptions } from './Lyrics';
+import type { LavalinkResponse, LithiumXManager, PlaylistRawData, SearchQuery, SearchResult } from './Manager';
+import type { LavalinkInfo, LithiumXNode } from './Node';
+import { LithiumXQueue } from './Queue';
+import type { LoadQueueOptions, QueueOperationResult, SaveQueueOptions } from './QueueManager';
+import { type Sizes, type State, type TrackExceptionEvent, type TrackSourceName, TrackUtils, type VoiceState } from './Utils';
 
 export class LithiumXPlayer {
 	/** The Queue for the Player. */
@@ -36,7 +35,7 @@ export class LithiumXPlayer {
 	/** The text channel for the player. */
 	public textChannel: string | null = null;
 	/** The current state of the player. */
-	public state: State = "DISCONNECTED";
+	public state: State = 'DISCONNECTED';
 	/** The equalizer bands array. */
 	public bands = new Array<number>(15).fill(0.0);
 	/** The voice state object from Discord. */
@@ -73,7 +72,7 @@ export class LithiumXPlayer {
 
 	/** @hidden */
 	public static init(manager: LithiumXManager): void {
-		this._manager = manager;
+		LithiumXPlayer._manager = manager;
 	}
 
 	/**
@@ -82,7 +81,7 @@ export class LithiumXPlayer {
 	 */
 	constructor(public options: PlayerOptions) {
 		if (!this.manager) this.manager = LithiumXPlayer._manager;
-		if (!this.manager) throw new RangeError("Manager has not been initiated.");
+		if (!this.manager) throw new RangeError('Manager has not been initiated.');
 
 		if (this.manager.players.has(options.guild)) {
 			return this.manager.players.get(options.guild) as LithiumXPlayer;
@@ -90,7 +89,7 @@ export class LithiumXPlayer {
 		playerCheck(options);
 		this.guild = options.guild;
 		this.voiceState = Object.assign({
-			op: "voiceUpdate",
+			op: 'voiceUpdate',
 			guild_id: options.guild,
 		});
 		if (options.voiceChannel) this.voiceChannel = options.voiceChannel;
@@ -98,10 +97,10 @@ export class LithiumXPlayer {
 		const nodeById = options.node ? this.manager.nodes.get(options.node) : undefined;
 		this.node = nodeById ?? this.manager.useableNodes!;
 
-		if (!this.node) throw new RangeError("No available nodes.");
+		if (!this.node) throw new RangeError('No available nodes.');
 
 		this.manager.players.set(options.guild, this);
-		this.manager.emit("PlayerCreate", this);
+		this.manager.emit('PlayerCreate', this);
 		this.setVolume(options.volume ?? 100);
 		this.filters = new Filters(this);
 	}
@@ -117,8 +116,8 @@ export class LithiumXPlayer {
 
 	/** Connect to the voice channel. */
 	public connect(): this {
-		if (!this.voiceChannel) throw new RangeError("No voice channel has been set.");
-		this.state = "CONNECTING";
+		if (!this.voiceChannel) throw new RangeError('No voice channel has been set.');
+		this.state = 'CONNECTING';
 		this.manager.options.send(this.guild, {
 			op: 4,
 			d: {
@@ -129,7 +128,7 @@ export class LithiumXPlayer {
 			},
 		});
 
-		this.state = "CONNECTED";
+		this.state = 'CONNECTED';
 		return this;
 	}
 
@@ -140,11 +139,9 @@ export class LithiumXPlayer {
 	 * @returns {this} - The player instance.
 	 */
 	public async moveNode(node?: string): Promise<this> {
-		node = node
-			|| this.manager.leastLoadNode.first()?.options.identifier
-			|| this.manager.nodes.filter((n) => n.connected).first()?.options.identifier;
+		node = node || this.manager.leastLoadNode.first()?.options.identifier || this.manager.nodes.filter((n) => n.connected).first()?.options.identifier;
 
-		if (!node || !this.manager.nodes.has(node)) throw new RangeError("No nodes available.");
+		if (!node || !this.manager.nodes.has(node)) throw new RangeError('No nodes available.');
 		if (this.node.options.identifier === node) return this;
 
 		const currentNode = this.node;
@@ -153,9 +150,7 @@ export class LithiumXPlayer {
 
 		let position = this.position;
 		if (currentNode.connected) {
-			const fetchedPlayer = await currentNode.rest.get<{ track: { info: { position: number } } }>(
-				`/v4/sessions/${currentNode.sessionId}/players/${this.guild}`
-			);
+			const fetchedPlayer = await currentNode.rest.get<{ track: { info: { position: number } } }>(`/v4/sessions/${currentNode.sessionId}/players/${this.guild}`);
 			if (fetchedPlayer) position = fetchedPlayer.track.info.position;
 		}
 
@@ -194,18 +189,18 @@ export class LithiumXPlayer {
 		}
 
 		this.node = destinationNode;
-		this.state = "MOVING";
+		this.state = 'MOVING';
 		if (currentNode.connected) {
 			await currentNode.rest.destroyPlayer(this.guild);
 		}
-		setTimeout(() => (this.state = "CONNECTED"), 5000);
+		setTimeout(() => (this.state = 'CONNECTED'), 5000);
 		return this;
 	}
 
 	/** Disconnect from the voice channel. */
 	public disconnect(): this {
 		if (this.voiceChannel === null) return this;
-		this.state = "DISCONNECTING";
+		this.state = 'DISCONNECTING';
 
 		this.pause(true);
 		this.manager.options.send(this.guild, {
@@ -219,16 +214,16 @@ export class LithiumXPlayer {
 		});
 
 		this.voiceChannel = null;
-		this.state = "DISCONNECTED";
+		this.state = 'DISCONNECTED';
 		return this;
 	}
 
 	/** Destroys the player. */
 	public destroy(disconnect = true): void {
-		this.state = "DESTROYING";
+		this.state = 'DESTROYING';
 		if (disconnect) this.disconnect();
 		this.node.rest.destroyPlayer(this.guild);
-		this.manager.emit("PlayerDestroy", this);
+		this.manager.emit('PlayerDestroy', this);
 		this.manager.players.delete(this.guild);
 	}
 
@@ -237,7 +232,7 @@ export class LithiumXPlayer {
 	 * @param channel
 	 */
 	public setVoiceChannel(channel: string): this {
-		if (typeof channel !== "string") throw new TypeError("Channel must be a non-empty string.");
+		if (typeof channel !== 'string') throw new TypeError('Channel must be a non-empty string.');
 		this.voiceChannel = channel;
 		this.connect();
 		return this;
@@ -248,7 +243,7 @@ export class LithiumXPlayer {
 	 * @param channel
 	 */
 	public setTextChannel(channel: string): this {
-		if (typeof channel !== "string") throw new TypeError("Channel must be a non-empty string.");
+		if (typeof channel !== 'string') throw new TypeError('Channel must be a non-empty string.');
 		this.textChannel = channel;
 		return this;
 	}
@@ -275,21 +270,17 @@ export class LithiumXPlayer {
 	 */
 	public async play(track: Track | UnresolvedTrack, options: PlayOptions): Promise<void>;
 	public async play(optionsOrTrack?: PlayOptions | Track | UnresolvedTrack, playOptions?: PlayOptions): Promise<void> {
-		if (typeof optionsOrTrack !== "undefined" && TrackUtils.validate(optionsOrTrack)) {
+		if (typeof optionsOrTrack !== 'undefined' && TrackUtils.validate(optionsOrTrack)) {
 			if (this.queue.current) this.queue.previous = this.queue.current;
 			this.queue.current = optionsOrTrack as Track;
 		}
-		if (!this.queue.current) throw new RangeError("No current track.");
-		const finalOptions = playOptions
-			? playOptions
-			: ["startTime", "endTime", "noReplace"].every((v) => Object.keys(optionsOrTrack || {}).includes(v))
-				? (optionsOrTrack as PlayOptions)
-				: {};
+		if (!this.queue.current) throw new RangeError('No current track.');
+		const finalOptions = playOptions ? playOptions : ['startTime', 'endTime', 'noReplace'].every((v) => Object.keys(optionsOrTrack || {}).includes(v)) ? (optionsOrTrack as PlayOptions) : {};
 		if (TrackUtils.isUnresolvedTrack(this.queue.current)) {
 			try {
 				this.queue.current = await TrackUtils.getClosestTrack(this.queue.current as UnresolvedTrack);
 			} catch (error: unknown) {
-				this.manager.emit("TrackError", this, this.queue.current, error as TrackExceptionEvent);
+				this.manager.emit('TrackError', this, this.queue.current, error as TrackExceptionEvent);
 				if (this.queue[0]) return this.play(this.queue[0]);
 				return;
 			}
@@ -311,10 +302,10 @@ export class LithiumXPlayer {
 	 * @param botUser
 	 */
 	public setAutoplay(autoplayState: boolean, botUser: object) {
-		if (typeof autoplayState !== "boolean") throw new TypeError("autoplayState must be a boolean.");
-		if (typeof botUser !== "object") throw new TypeError("botUser must be a user-object.");
+		if (typeof autoplayState !== 'boolean') throw new TypeError('autoplayState must be a boolean.');
+		if (typeof botUser !== 'object') throw new TypeError('botUser must be a user-object.');
 		this.isAutoplay = autoplayState;
-		this.set("Internal_BotUser", botUser);
+		this.set('Internal_BotUser', botUser);
 		return this;
 	}
 
@@ -340,23 +331,23 @@ export class LithiumXPlayer {
 	public async getRecommended(track: Track, requester?: string) {
 		const node = this.manager.useableNodes;
 
-		if (!node) throw new Error("No available nodes.");
+		if (!node) throw new Error('No available nodes.');
 
-		const hasSpotifyURL = ["spotify.com", "open.spotify.com"].some((url) => track.uri.includes(url));
-		const hasYouTubeURL = ["youtube.com", "youtu.be"].some((url) => track.uri.includes(url));
+		const hasSpotifyURL = ['spotify.com', 'open.spotify.com'].some((url) => track.uri.includes(url));
+		const hasYouTubeURL = ['youtube.com', 'youtu.be'].some((url) => track.uri.includes(url));
 
 		if (hasSpotifyURL) {
 			const res = await node.rest.get(`/v4/info`);
 			const info = res as LavalinkInfo;
 
-			const isSpotifyPluginEnabled = info.plugins.some((plugin: { name: string }) => plugin.name === "lavasrc-plugin");
-			const isSpotifySourceManagerEnabled = info.sourceManagers.includes("spotify");
+			const isSpotifyPluginEnabled = info.plugins.some((plugin: { name: string }) => plugin.name === 'lavasrc-plugin');
+			const isSpotifySourceManagerEnabled = info.sourceManagers.includes('spotify');
 
 			if (isSpotifyPluginEnabled && isSpotifySourceManagerEnabled) {
 				const trackID = node.extractSpotifyTrackID(track.uri);
 				const artistID = node.extractSpotifyArtistID(track.pluginInfo.artistUrl ?? '');
 
-				let identifier = "";
+				let identifier = '';
 				if (trackID && artistID) {
 					identifier = `sprec:seed_artists=${artistID}&seed_tracks=${trackID}`;
 				} else if (trackID) {
@@ -367,7 +358,7 @@ export class LithiumXPlayer {
 
 				if (identifier) {
 					const recommendedResult = (await node.rest.get(`/v4/loadtracks?identifier=${encodeURIComponent(identifier)}`)) as LavalinkResponse;
-					if (recommendedResult.loadType === "playlist") {
+					if (recommendedResult.loadType === 'playlist') {
 						const playlistData = recommendedResult.data as PlaylistRawData;
 						const recommendedTracks = playlistData.tracks;
 						if (recommendedTracks) return recommendedTracks.map((track) => TrackUtils.build(track, requester));
@@ -376,26 +367,26 @@ export class LithiumXPlayer {
 			}
 		}
 
-		let videoID = track.uri.substring(track.uri.indexOf("=") + 1);
+		let videoID = track.uri.substring(track.uri.indexOf('=') + 1);
 		if (!hasYouTubeURL) {
 			const res = await this.manager.search(`${track.author} - ${track.title}`);
 			const track0 = res.tracks[0];
 			const track1 = res.tracks[1];
-			if (track0) videoID = track0.uri.substring(track0.uri.indexOf("=") + 1);
-			else if (track1) videoID = track1.uri.substring(track1.uri.indexOf("=") + 1);
+			if (track0) videoID = track0.uri.substring(track0.uri.indexOf('=') + 1);
+			else if (track1) videoID = track1.uri.substring(track1.uri.indexOf('=') + 1);
 		}
 		const searchURI = `https://www.youtube.com/watch?v=${videoID}&list=RD${videoID}`;
 		const res = await this.manager.search(searchURI);
-		if (res.loadType === "empty" || res.loadType === "error") return;
+		if (res.loadType === 'empty' || res.loadType === 'error') return;
 		let tracks = res.tracks;
-		if (res.loadType === "playlist") tracks = res.playlist?.tracks ?? [];
+		if (res.loadType === 'playlist') tracks = res.playlist?.tracks ?? [];
 		const filteredTracks = tracks.filter((track) => track.uri !== `https://www.youtube.com/watch?v=${videoID}`);
 		if (this.manager.options.replaceYouTubeCredentials) {
 			for (const track of filteredTracks) {
-				track.author = track.author.replace("- Topic", "");
-				track.title = track.title.replace("Topic -", "");
-				if (track.title.includes("-")) {
-					const parts = track.title.split("-").map((str: string) => str.trim());
+				track.author = track.author.replace('- Topic', '');
+				track.title = track.title.replace('Topic -', '');
+				if (track.title.includes('-')) {
+					const parts = track.title.split('-').map((str: string) => str.trim());
 					track.author = parts[0] ?? track.author;
 					track.title = parts[1] ?? track.title;
 				}
@@ -409,7 +400,7 @@ export class LithiumXPlayer {
 	 * @param volume
 	 */
 	public setVolume(volume: number): this {
-		if (isNaN(volume)) throw new TypeError("Volume must be a number.");
+		if (Number.isNaN(volume)) throw new TypeError('Volume must be a number.');
 		this.node.rest.updatePlayer({
 			guildId: this.options.guild,
 			data: {
@@ -425,7 +416,7 @@ export class LithiumXPlayer {
 	 * @param repeat
 	 */
 	public setTrackRepeat(repeat: boolean): this {
-		if (typeof repeat !== "boolean") throw new TypeError('Repeat can only be "true" or "false".');
+		if (typeof repeat !== 'boolean') throw new TypeError('Repeat can only be "true" or "false".');
 		const oldPlayer = { ...this };
 		if (repeat) {
 			this.trackRepeat = true;
@@ -436,7 +427,7 @@ export class LithiumXPlayer {
 			this.queueRepeat = false;
 			this.dynamicRepeat = false;
 		}
-		this.manager.emit("PlayerStateUpdate", oldPlayer, this);
+		this.manager.emit('PlayerStateUpdate', oldPlayer, this);
 		return this;
 	}
 
@@ -445,7 +436,7 @@ export class LithiumXPlayer {
 	 * @param repeat
 	 */
 	public setQueueRepeat(repeat: boolean): this {
-		if (typeof repeat !== "boolean") throw new TypeError('Repeat can only be "true" or "false".');
+		if (typeof repeat !== 'boolean') throw new TypeError('Repeat can only be "true" or "false".');
 
 		const oldPlayer = { ...this };
 
@@ -459,7 +450,7 @@ export class LithiumXPlayer {
 			this.dynamicRepeat = false;
 		}
 
-		this.manager.emit("PlayerStateUpdate", oldPlayer, this);
+		this.manager.emit('PlayerStateUpdate', oldPlayer, this);
 		return this;
 	}
 
@@ -469,12 +460,12 @@ export class LithiumXPlayer {
 	 * @param ms After how many milliseconds to trigger dynamic repeat.
 	 */
 	public setDynamicRepeat(repeat: boolean, ms: number): this {
-		if (typeof repeat !== "boolean") {
+		if (typeof repeat !== 'boolean') {
 			throw new TypeError('Repeat can only be "true" or "false".');
 		}
 
 		if (this.queue.size <= 1) {
-			throw new RangeError("The queue size must be greater than 1.");
+			throw new RangeError('The queue size must be greater than 1.');
 		}
 
 		const oldPlayer = { ...this };
@@ -499,7 +490,7 @@ export class LithiumXPlayer {
 			this.dynamicRepeat = false;
 		}
 
-		this.manager.emit("PlayerStateUpdate", oldPlayer, this);
+		this.manager.emit('PlayerStateUpdate', oldPlayer, this);
 		return this;
 	}
 
@@ -521,8 +512,8 @@ export class LithiumXPlayer {
 
 	/** Stops the current track, optionally give an amount to skip to, e.g 5 would play the 5th song. */
 	public stop(amount?: number): this {
-		if (typeof amount === "number" && amount > 1) {
-			if (amount > this.queue.length) throw new RangeError("Cannot skip more than the queue length.");
+		if (typeof amount === 'number' && amount > 1) {
+			if (amount > this.queue.length) throw new RangeError('Cannot skip more than the queue length.');
 			this.queue.splice(0, amount - 1);
 		}
 
@@ -539,7 +530,7 @@ export class LithiumXPlayer {
 	 * @param pause
 	 */
 	public pause(pause: boolean): this {
-		if (typeof pause !== "boolean") throw new RangeError('Pause can only be "true" or "false".');
+		if (typeof pause !== 'boolean') throw new RangeError('Pause can only be "true" or "false".');
 
 		if (this.paused === pause || !this.queue.totalSize) return this;
 
@@ -555,7 +546,7 @@ export class LithiumXPlayer {
 			},
 		});
 
-		this.manager.emit("PlayerStateUpdate", oldPlayer, this);
+		this.manager.emit('PlayerStateUpdate', oldPlayer, this);
 		return this;
 	}
 
@@ -577,7 +568,7 @@ export class LithiumXPlayer {
 		if (!this.queue.current) return this;
 		position = Number(position);
 
-		if (isNaN(position)) throw new RangeError("Position must be a number.");
+		if (Number.isNaN(position)) throw new RangeError('Position must be a number.');
 		const duration = this.queue.current.duration ?? 0;
 		if (position < 0 || position > duration) position = Math.max(Math.min(position, duration), 0);
 
@@ -599,7 +590,7 @@ export class LithiumXPlayer {
 	 */
 	public setFilters(filters: FilterOptions): Promise<this> {
 		// Convert FilterOptions to actual filter properties
-		Object.keys(filters).forEach(key => {
+		Object.keys(filters).forEach((key) => {
 			const filtersRecord = this.filters as unknown as Record<string, unknown>;
 			const filtersOptions = filters as unknown as Record<string, unknown>;
 			if (filtersRecord[key] !== undefined) {
@@ -663,7 +654,7 @@ export class LithiumXPlayer {
 			level: options.level ?? 1.0,
 			monoLevel: options.monoLevel ?? 1.0,
 			filterBand: options.filterBand ?? 220.0,
-			filterWidth: options.filterWidth ?? 100.0
+			filterWidth: options.filterWidth ?? 100.0,
 		};
 
 		return this.setFilters({ karaoke: karaokeOptions });
@@ -728,7 +719,7 @@ export class LithiumXPlayer {
 		}
 
 		if (!this.manager.lyrics) {
-			throw new Error("Lyrics system is not enabled. Enable it in the manager options.");
+			throw new Error('Lyrics system is not enabled. Enable it in the manager options.');
 		}
 
 		try {
@@ -736,14 +727,14 @@ export class LithiumXPlayer {
 			const lyrics = await this.manager.lyrics.search(this.queue.current, options);
 
 			if (lyrics) {
-				this.manager.emit("LyricsFound", this, lyrics);
+				this.manager.emit('LyricsFound', this, lyrics);
 				return lyrics;
 			} else {
-				this.manager.emit("LyricsNotFound", this, this.queue.current);
+				this.manager.emit('LyricsNotFound', this, this.queue.current);
 				return null;
 			}
 		} catch (error) {
-			console.error("Error fetching lyrics:", error);
+			console.error('Error fetching lyrics:', error);
 			return null;
 		}
 	}
@@ -759,7 +750,7 @@ export class LithiumXPlayer {
 		}
 
 		if (!this.manager.lyrics) {
-			throw new Error("Lyrics system is not enabled. Enable it in the manager options.");
+			throw new Error('Lyrics system is not enabled. Enable it in the manager options.');
 		}
 
 		try {
@@ -767,10 +758,10 @@ export class LithiumXPlayer {
 			const lyrics = await this.manager.lyrics.searchWithProvider(providerName, this.queue.current, options);
 
 			if (lyrics) {
-				this.manager.emit("LyricsFound", this, lyrics);
+				this.manager.emit('LyricsFound', this, lyrics);
 				return lyrics;
 			} else {
-				this.manager.emit("LyricsNotFound", this, this.queue.current);
+				this.manager.emit('LyricsNotFound', this, this.queue.current);
 				return null;
 			}
 		} catch (error) {
@@ -784,7 +775,7 @@ export class LithiumXPlayer {
 	 */
 	public getLyricsProviders(): string[] {
 		if (!this.manager.lyrics) {
-			throw new Error("Lyrics system is not enabled. Enable it in the manager options.");
+			throw new Error('Lyrics system is not enabled. Enable it in the manager options.');
 		}
 
 		return this.manager.lyrics.getProviders();
@@ -796,7 +787,7 @@ export class LithiumXPlayer {
 	 */
 	public saveQueue(options: SaveQueueOptions = {}): Promise<QueueOperationResult> {
 		if (!this.manager.queues) {
-			throw new Error("Queue manager is not available");
+			throw new Error('Queue manager is not available');
 		}
 
 		return this.manager.queues.saveQueue(this, options);
@@ -809,7 +800,7 @@ export class LithiumXPlayer {
 	 */
 	public loadQueue(queueId: string, options: LoadQueueOptions = {}): Promise<QueueOperationResult> {
 		if (!this.manager.queues) {
-			throw new Error("Queue manager is not available");
+			throw new Error('Queue manager is not available');
 		}
 
 		return this.manager.queues.loadQueue(queueId, this, options);
@@ -819,9 +810,9 @@ export class LithiumXPlayer {
 	 * List all available saved queues for this guild
 	 * @param includeGlobal Whether to include global queues
 	 */
-	public listSavedQueues(includeGlobal = true): Promise<import("./QueueManager").SavedQueue[]> {
+	public listSavedQueues(includeGlobal = true): Promise<import('./QueueManager').SavedQueue[]> {
 		if (!this.manager.queues) {
-			throw new Error("Queue manager is not available");
+			throw new Error('Queue manager is not available');
 		}
 
 		return this.manager.queues.listQueues(this.guild, includeGlobal);

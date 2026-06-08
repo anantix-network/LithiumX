@@ -1,44 +1,45 @@
 /* eslint-disable no-async-promise-executor */
+
+import { Collection } from '@discordjs/collection';
+import { TypedEmitter } from 'tiny-typed-emitter';
+import type { VoiceState } from '..';
+import managerCheck from '../Utils/ManagerCheck';
+import { Analytics, type AnalyticsOptions } from './Analytics';
+import { LyricsManager, type LyricsManagerOptions } from './Lyrics';
+import { LithiumXNode, type NodeOptions } from './Node';
+import { LithiumXPlayer, type PlayerOptions, type Track, type UnresolvedTrack } from './Player';
+import { QueueManager } from './QueueManager';
 import {
-	LoadType,
+	type LoadType,
 	Plugin,
-	TrackData,
-	TrackEndEvent,
-	TrackExceptionEvent,
-	TrackStartEvent,
-	TrackStuckEvent,
+	type TrackData,
+	type TrackEndEvent,
+	type TrackExceptionEvent,
+	type TrackStartEvent,
+	type TrackStuckEvent,
 	TrackUtils,
-	VoicePacket,
-	VoiceServer,
-	WebSocketClosedEvent,
-} from "./Utils";
-import { Collection } from "@discordjs/collection";
-import { LithiumXNode, NodeOptions } from "./Node";
-import { LithiumXPlayer, PlayerOptions, Track, UnresolvedTrack } from "./Player";
-import { VoiceState } from "..";
-import managerCheck from "../Utils/ManagerCheck";
-import { TypedEmitter } from "tiny-typed-emitter";
-import { LyricsManager, LyricsManagerOptions, LyricsProvider } from "./Lyrics";
-import { QueueManager } from "./QueueManager";
-import { Analytics, AnalyticsOptions } from "./Analytics";
+	type VoicePacket,
+	type VoiceServer,
+	type WebSocketClosedEvent,
+} from './Utils';
 
 interface CachedResult {
-  result: SearchResult;
-  expiresAt: number;
+	result: SearchResult;
+	expiresAt: number;
 }
 
 /** The main hub for interacting with Lavalink nodes and players. */
 class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	public static readonly DEFAULT_SOURCES: Record<SearchPlatform, string> = {
-		"youtube music": "ytmsearch",
-		youtube: "ytsearch",
-		spotify: "spsearch",
-		jiosaavn: "jssearch",
-		soundcloud: "scsearch",
-		deezer: "dzsearch",
-		tidal: "tdsearch",
-		applemusic: "amsearch",
-		bandcamp: "bcsearch",
+		'youtube music': 'ytmsearch',
+		youtube: 'ytsearch',
+		spotify: 'spsearch',
+		jiosaavn: 'jssearch',
+		soundcloud: 'scsearch',
+		deezer: 'dzsearch',
+		tidal: 'tdsearch',
+		applemusic: 'amsearch',
+		bandcamp: 'bcsearch',
 	};
 
 	/** The map of players. */
@@ -77,9 +78,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		const filteredNodes = this.nodes.filter((node) => node.connected && (node.options.priority ?? 0) > 0);
 		const totalWeight = filteredNodes.reduce((total, node) => total + (node.options.priority ?? 0), 0);
 		if (totalWeight === 0) {
-			return this.options.useNode === "leastLoad"
-				? this.leastLoadNode.first()
-				: this.leastPlayersNode.first();
+			return this.options.useNode === 'leastLoad' ? this.leastLoadNode.first() : this.leastPlayersNode.first();
 		}
 		const weightedNodes = filteredNodes.map((node) => ({
 			node,
@@ -96,18 +95,12 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			}
 		}
 
-		return this.options.useNode === "leastLoad"
-			? this.leastLoadNode.first()
-			: this.leastPlayersNode.first();
+		return this.options.useNode === 'leastLoad' ? this.leastLoadNode.first() : this.leastPlayersNode.first();
 	}
 
 	/** Returns the node to use. */
 	public get useableNodes(): LithiumXNode | undefined {
-		return this.options.usePriority
-			? this.priorityNode
-			: this.options.useNode === "leastLoad"
-				? this.leastLoadNode.first()
-				: this.leastPlayersNode.first();
+		return this.options.usePriority ? this.priorityNode : this.options.useNode === 'leastLoad' ? this.leastLoadNode.first() : this.leastPlayersNode.first();
 	}
 
 	/**
@@ -133,8 +126,8 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			plugins: [],
 			nodes: [
 				{
-					identifier: "default",
-					host: "localhost",
+					identifier: 'default',
+					host: 'localhost',
 					resumeStatus: false,
 					resumeTimeout: 1000,
 				},
@@ -142,9 +135,9 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			shards: 1,
 			autoPlay: true,
 			usePriority: false,
-			clientName: "LithiumX (https://github.com/anantix-network/LithiumX)",
-			defaultSearchPlatform: "youtube",
-			useNode: "leastPlayers",
+			clientName: 'LithiumX (https://github.com/anantix-network/LithiumX)',
+			defaultSearchPlatform: 'youtube',
+			useNode: 'leastPlayers',
 			prefetch: false,
 			...options,
 		};
@@ -182,7 +175,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 
 		// Initialize queue manager
 		this.queues = new QueueManager(this, options.queueManager);
-		
+
 		// Initialize analytics system
 		this.analytics = new Analytics(this, options.analytics);
 	}
@@ -193,14 +186,14 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	 */
 	public init(clientId?: string): this {
 		if (this.initiated) return this;
-		if (typeof clientId !== "undefined") this.options.clientId = clientId;
-		if (typeof this.options.clientId !== "string") throw new Error('"clientId" set is not type of "string"');
+		if (typeof clientId !== 'undefined') this.options.clientId = clientId;
+		if (typeof this.options.clientId !== 'string') throw new Error('"clientId" set is not type of "string"');
 		if (!this.options.clientId) throw new Error('"clientId" is not set. Pass it in Manager#init() or as a option in the constructor.');
 		for (const node of this.nodes.values()) {
 			try {
 				node.connect();
 			} catch (err: unknown) {
-				this.emit("NodeError", node, err instanceof Error ? err : new Error(String(err)));
+				this.emit('NodeError', node, err instanceof Error ? err : new Error(String(err)));
 			}
 		}
 
@@ -218,9 +211,9 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		const node = this.useableNodes;
 
 		if (!node) {
-			throw new Error("No available nodes.");
+			throw new Error('No available nodes.');
 		}
-		const _query: SearchQuery = typeof query === "string" ? { query } : query;
+		const _query: SearchQuery = typeof query === 'string' ? { query } : query;
 		const _source = LithiumXManager.DEFAULT_SOURCES[(_query.source ?? this.options.defaultSearchPlatform) as SearchPlatform] ?? _query.source;
 		let search = _query.query;
 
@@ -239,19 +232,19 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 
 		try {
 			const res = (await node.rest.get(`/v4/loadtracks?identifier=${encodeURIComponent(search)}`)) as LavalinkResponse;
-			if (!res) throw new Error("Query not found.");
+			if (!res) throw new Error('Query not found.');
 
 			let searchData: TrackData[] = [];
 			let playlistData: PlaylistRawData | undefined;
 
 			switch (res.loadType) {
-				case "search":
+				case 'search':
 					searchData = res.data as TrackData[];
 					break;
-				case "track":
+				case 'track':
 					searchData = [res.data as unknown as TrackData];
 					break;
-				case "playlist":
+				case 'playlist':
 					playlistData = res.data as PlaylistRawData;
 					break;
 			}
@@ -259,7 +252,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			const tracks = searchData.map((track) => TrackUtils.build(track, requester));
 			let playlist: PlaylistData | undefined;
 
-			if (res.loadType === "playlist" && playlistData) {
+			if (res.loadType === 'playlist' && playlistData) {
 				playlist = {
 					name: playlistData.info.name,
 					tracks: playlistData.tracks.map((track) => TrackUtils.build(track, requester)),
@@ -275,7 +268,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 
 			if (this.options.replaceYouTubeCredentials) {
 				let tracksToReplace: Track[] = [];
-				if (result.loadType === "playlist") {
+				if (result.loadType === 'playlist') {
 					tracksToReplace = result.playlist?.tracks ?? [];
 				} else {
 					tracksToReplace = result.tracks;
@@ -283,11 +276,11 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 
 				for (const track of tracksToReplace) {
 					if (isYouTubeURL(track.uri)) {
-						track.author = track.author.replace("- Topic", "");
-						track.title = track.title.replace("Topic -", "");
+						track.author = track.author.replace('- Topic', '');
+						track.title = track.title.replace('Topic -', '');
 					}
-					if (track.title.includes("-")) {
-						const parts = track.title.split("-").map((str: string) => str.trim());
+					if (track.title.includes('-')) {
+						const parts = track.title.split('-').map((str: string) => str.trim());
 						track.author = parts[0] ?? track.author;
 						track.title = parts[1] ?? track.title;
 					}
@@ -302,7 +295,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		}
 
 		function isYouTubeURL(uri: string): boolean {
-			return uri.includes("youtube.com") || uri.includes("youtu.be");
+			return uri.includes('youtube.com') || uri.includes('youtu.be');
 		}
 	}
 
@@ -317,13 +310,12 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	 */
 	public decodeTracks(tracks: string[]): Promise<TrackData[]> {
 		const node = this.nodes.first();
-		if (!node) return Promise.reject(new Error("No available nodes."));
+		if (!node) return Promise.reject(new Error('No available nodes.'));
 
-		return node.rest.post<TrackData[]>("/v4/decodetracks", JSON.stringify(tracks))
-			.then((res) => {
-				if (!res) throw new Error("No data returned from query.");
-				return res;
-			});
+		return node.rest.post<TrackData[]>('/v4/decodetracks', JSON.stringify(tracks)).then((res) => {
+			if (!res) throw new Error('No data returned from query.');
+			return res;
+		});
 	}
 
 	/**
@@ -333,7 +325,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	public async decodeTrack(track: string): Promise<TrackData> {
 		const res = await this.decodeTracks([track]);
 		const data = res[0];
-		if (!data) throw new Error("No track data returned.");
+		if (!data) throw new Error('No track data returned.');
 		return data;
 	}
 
@@ -393,16 +385,16 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	 * @param data
 	 */
 	public async updateVoiceState(data: VoicePacket | VoiceServer | VoiceState): Promise<void> {
-		if ("t" in data && !["VOICE_STATE_UPDATE", "VOICE_SERVER_UPDATE"].includes(data.t)) return;
+		if ('t' in data && !['VOICE_STATE_UPDATE', 'VOICE_SERVER_UPDATE'].includes(data.t)) return;
 
-		const update = "d" in data ? data.d : data;
+		const update = 'd' in data ? data.d : data;
 
-		if (!update || (!("token" in update) && !("session_id" in update))) return;
+		if (!update || (!('token' in update) && !('session_id' in update))) return;
 
 		const player = this.players.get(update.guild_id);
 
 		if (!player) return;
-		if ("token" in update) {
+		if ('token' in update) {
 			player.voiceState.event = update;
 
 			const {
@@ -421,7 +413,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		if (update.user_id !== this.options.clientId) return;
 		if (update.channel_id) {
 			if (player.voiceChannel !== update.channel_id) {
-				this.emit("PlayerMove", player, player.voiceChannel ?? '', update.channel_id);
+				this.emit('PlayerMove', player, player.voiceChannel ?? '', update.channel_id);
 			}
 
 			player.voiceState.sessionId = update.session_id ?? '';
@@ -429,7 +421,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			return;
 		}
 
-		this.emit("PlayerDisconnect", player, player.voiceChannel ?? '');
+		this.emit('PlayerDisconnect', player, player.voiceChannel ?? '');
 		player.voiceChannel = null;
 		player.voiceState = Object.assign({});
 		player.destroy();
@@ -456,7 +448,7 @@ interface ManagerOptions {
 	/** Use priority mode over least amount of player or load? */
 	usePriority?: boolean;
 	/** Use the least amount of players or least load? */
-	useNode?: "leastLoad" | "leastPlayers";
+	useNode?: 'leastLoad' | 'leastPlayers';
 	/** The array of nodes to connect to. */
 	nodes?: NodeOptions[];
 	/** The client ID to use. */
@@ -480,14 +472,14 @@ interface ManagerOptions {
 		enabled: boolean;
 		/** The time to cache the search results. */
 		time: number;
-	}
+	};
 	/** Lyrics configuration */
 	lyrics?: {
 		/** Whether to enable the lyrics system */
 		enabled?: boolean;
 	} & LyricsManagerOptions;
 	/** Queue manager configuration */
-	queueManager?: import("./QueueManager").QueueManagerOptions;
+	queueManager?: import('./QueueManager').QueueManagerOptions;
 	/** Analytics configuration */
 	analytics?: AnalyticsOptions;
 	/** Whether to prefetch the next UnresolvedTrack in the queue when a track ends. */
@@ -500,7 +492,7 @@ interface ManagerOptions {
 	send(id: string, payload: Payload): void;
 }
 
-type SearchPlatform = "deezer" | "soundcloud" | "youtube music" | "youtube" | "spotify" | "jiosaavn" | "tidal" | "applemusic" | "bandcamp";
+type SearchPlatform = 'deezer' | 'soundcloud' | 'youtube music' | 'youtube' | 'spotify' | 'jiosaavn' | 'tidal' | 'applemusic' | 'bandcamp';
 
 interface SearchQuery {
 	/** The source to search from. */
@@ -566,24 +558,24 @@ interface ManagerEvents {
 	TrackStuck: (player: LithiumXPlayer, track: Track, payload: TrackStuckEvent) => void;
 	TrackError: (player: LithiumXPlayer, track: Track | UnresolvedTrack, payload: TrackExceptionEvent) => void;
 	/** Emitted when lyrics are found for a track */
-	LyricsFound: (player: LithiumXPlayer, lyrics: import("./Lyrics").LyricsData) => void;
+	LyricsFound: (player: LithiumXPlayer, lyrics: import('./Lyrics').LyricsData) => void;
 	/** Emitted when lyrics could not be found for a track */
 	LyricsNotFound: (player: LithiumXPlayer, track: Track | UnresolvedTrack) => void;
 	/** Emitted when a queue is saved */
-	QueueSaved: (player: LithiumXPlayer, queue: import("./QueueManager").SavedQueue) => void;
+	QueueSaved: (player: LithiumXPlayer, queue: import('./QueueManager').SavedQueue) => void;
 	/** Emitted when a queue is loaded */
-	QueueLoaded: (player: LithiumXPlayer, queue: import("./QueueManager").SavedQueue) => void;
+	QueueLoaded: (player: LithiumXPlayer, queue: import('./QueueManager').SavedQueue) => void;
 }
 
 export {
+	type LavalinkResponse,
 	LithiumXManager,
-	ManagerOptions,
-	SearchPlatform,
-	SearchQuery,
-	LavalinkResponse,
-	SearchResult,
-	PlaylistRawData,
-	PlaylistData,
-	ManagerEvents,
-	Payload
-}
+	type ManagerEvents,
+	type ManagerOptions,
+	type Payload,
+	type PlaylistData,
+	type PlaylistRawData,
+	type SearchPlatform,
+	type SearchQuery,
+	type SearchResult,
+};

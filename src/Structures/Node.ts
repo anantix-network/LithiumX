@@ -1,20 +1,11 @@
-import {
-	PlayerEvent,
-	PlayerEvents,
-	TrackEndEvent,
-	TrackExceptionEvent,
-	TrackStartEvent,
-	TrackStuckEvent,
-	TrackUtils,
-	WebSocketClosedEvent,
-} from "./Utils";
-import { LavalinkResponse, LithiumXManager, PlaylistRawData } from "./Manager";
-import { LithiumXPlayer, Track, UnresolvedTrack } from "./Player";
-import { LithiumXRest } from "./Rest";
-import nodeCheck from "../Utils/NodeCheck";
-import WebSocket from "ws";
-import fs from "fs";
-import path from "path";
+import fs from 'node:fs';
+import path from 'node:path';
+import WebSocket from 'ws';
+import nodeCheck from '../Utils/NodeCheck';
+import type { LavalinkResponse, LithiumXManager, PlaylistRawData } from './Manager';
+import type { LithiumXPlayer, Track, UnresolvedTrack } from './Player';
+import { LithiumXRest } from './Rest';
+import { type PlayerEvent, type PlayerEvents, type TrackEndEvent, type TrackExceptionEvent, type TrackStartEvent, type TrackStuckEvent, TrackUtils, type WebSocketClosedEvent } from './Utils';
 
 // Storage strategy interface
 interface StorageStrategy {
@@ -70,9 +61,7 @@ class FileStorage implements StorageStrategy {
 
 	async getAll(): Promise<string[]> {
 		const files = await fs.promises.readdir(this.basePath);
-		return files
-			.filter(file => file.endsWith('.json'))
-			.map(file => file.replace('.json', ''));
+		return files.filter((file) => file.endsWith('.json')).map((file) => file.replace('.json', ''));
 	}
 }
 
@@ -130,7 +119,7 @@ class LithiumXNode {
 
 	/** @hidden */
 	public static init(manager: LithiumXManager): void {
-		this._manager = manager;
+		LithiumXNode._manager = manager;
 	}
 
 	/**
@@ -139,7 +128,7 @@ class LithiumXNode {
 	 */
 	constructor(public options: NodeOptions) {
 		if (!this.manager) this.manager = LithiumXNode._manager;
-		if (!this.manager) throw new RangeError("Manager has not been initiated.");
+		if (!this.manager) throw new RangeError('Manager has not been initiated.');
 
 		if (this.manager.nodes.has(options.identifier || options.host)) {
 			return this.manager.nodes.get(options.identifier || options.host) as LithiumXNode;
@@ -149,14 +138,14 @@ class LithiumXNode {
 
 		this.options = {
 			port: 2333,
-			password: "youshallnotpass",
+			password: 'youshallnotpass',
 			secure: false,
 			retryAmount: 30,
 			retryDelay: 60000,
 			priority: 0,
 			autoResume: false,
 			autoResumeInterval: 60000,
-			autoResumeStoragePath: "./playerStorage",
+			autoResumeStoragePath: './playerStorage',
 			...options,
 		};
 
@@ -199,7 +188,7 @@ class LithiumXNode {
 		}
 
 		this.manager.nodes.set(this.options.identifier, this);
-		this.manager.emit("NodeCreate", this);
+		this.manager.emit('NodeCreate', this);
 		this.rest = new LithiumXRest(this);
 	}
 
@@ -209,16 +198,16 @@ class LithiumXNode {
 
 		const headers = Object.assign({
 			Authorization: this.options.password,
-			"Num-Shards": String(this.manager.options.shards),
-			"User-Id": this.manager.options.clientId,
-			"Client-Name": this.manager.options.clientName,
+			'Num-Shards': String(this.manager.options.shards),
+			'User-Id': this.manager.options.clientId,
+			'Client-Name': this.manager.options.clientName,
 		});
 
-		this.socket = new WebSocket(`ws${this.options.secure ? "s" : ""}://${this.address}/v4/websocket`, { headers });
-		this.socket.on("open", this.open.bind(this));
-		this.socket.on("close", this.close.bind(this));
-		this.socket.on("message", this.message.bind(this));
-		this.socket.on("error", this.error.bind(this));
+		this.socket = new WebSocket(`ws${this.options.secure ? 's' : ''}://${this.address}/v4/websocket`, { headers });
+		this.socket.on('open', this.open.bind(this));
+		this.socket.on('close', this.close.bind(this));
+		this.socket.on('message', this.message.bind(this));
+		this.socket.on('error', this.error.bind(this));
 	}
 
 	/** Destroys the Node and all players connected with it. */
@@ -238,17 +227,17 @@ class LithiumXNode {
 
 		this.stopHeartbeat();
 
-		const players = this.manager.players.filter((p) => p.node == this);
+		const players = this.manager.players.filter((p) => p.node === this);
 		if (players.size) players.forEach((p) => p.destroy());
 
-		this.socket?.close(1000, "destroy");
+		this.socket?.close(1000, 'destroy');
 		this.socket?.removeAllListeners();
 		this.socket = null;
 
 		this.reconnectAttempts = 1;
 		clearTimeout(this.reconnectTimeout);
 
-		this.manager.emit("NodeDestroy", this);
+		this.manager.emit('NodeDestroy', this);
 		this.manager.destroyNode(this.options.identifier ?? this.options.host);
 	}
 
@@ -258,12 +247,12 @@ class LithiumXNode {
 			if (this.reconnectAttempts >= (this.options.retryAmount ?? 30)) {
 				const error = new Error(`Unable to connect after ${this.options.retryAmount ?? 30} attempts.`);
 
-				this.manager.emit("NodeError", this, error);
+				this.manager.emit('NodeError', this, error);
 				return this.destroy();
 			}
 			this.socket?.removeAllListeners();
 			this.socket = null;
-			this.manager.emit("NodeReconnect", this);
+			this.manager.emit('NodeReconnect', this);
 			this.connect();
 			this.reconnectAttempts++;
 		}, this.options.retryDelay ?? 60000);
@@ -304,7 +293,7 @@ class LithiumXNode {
 			clearTimeout(this.reconnectTimeout);
 			this.reconnectTimeout = undefined;
 		}
-		this.manager.emit("NodeConnect", this);
+		this.manager.emit('NodeConnect', this);
 
 		// Setup auto-resume if enabled
 		if (this.options.autoResume) {
@@ -319,7 +308,7 @@ class LithiumXNode {
 			}
 		}
 
-		this.stopHeartbeat();    // clear any stale timer before starting
+		this.stopHeartbeat(); // clear any stale timer before starting
 		this.startHeartbeat();
 	}
 
@@ -336,13 +325,13 @@ class LithiumXNode {
 		}
 
 		this.stopHeartbeat();
-		this.manager.emit("NodeDisconnect", this, { code, reason });
-		if (code !== 1000 || reason !== "destroy") this.reconnect();
+		this.manager.emit('NodeDisconnect', this, { code, reason });
+		if (code !== 1000 || reason !== 'destroy') this.reconnect();
 	}
 
 	protected error(error: Error): void {
 		if (!error) return;
-		this.manager.emit("NodeError", this, error);
+		this.manager.emit('NodeError', this, error);
 	}
 
 	protected message(d: Buffer | string): void {
@@ -350,21 +339,21 @@ class LithiumXNode {
 		else if (d instanceof ArrayBuffer) d = Buffer.from(d);
 		const payload = JSON.parse(d.toString());
 		if (!payload.op) return;
-		this.manager.emit("NodeRaw", payload);
+		this.manager.emit('NodeRaw', payload);
 		let player: LithiumXPlayer | undefined;
 		switch (payload.op) {
-			case "stats":
+			case 'stats':
 				delete payload.op;
 				this.stats = { ...payload } as unknown as NodeStats;
 				break;
-			case "playerUpdate":
+			case 'playerUpdate':
 				player = this.manager.players.get(payload.guildId);
 				if (player) player.position = payload.state.position || 0;
 				break;
-			case "event":
+			case 'event':
 				this.handleEvent(payload);
 				break;
-			case "ready":
+			case 'ready':
 				this.rest.setSessionId(payload.sessionId);
 				this.sessionId = payload.sessionId;
 				if (this.options.resumeStatus) {
@@ -375,7 +364,7 @@ class LithiumXNode {
 				}
 				break;
 			default:
-				this.manager.emit("NodeError", this, new Error(`Unexpected op "${payload.op}" with data: ${payload.message}`));
+				this.manager.emit('NodeError', this, new Error(`Unexpected op "${payload.op}" with data: ${payload.message}`));
 				return;
 		}
 	}
@@ -387,28 +376,28 @@ class LithiumXNode {
 		const track = player.queue.current;
 		const type = payload.type;
 
-		if (!track && type !== "WebSocketClosedEvent") return;
+		if (!track && type !== 'WebSocketClosedEvent') return;
 
 		let error: Error;
 		switch (type) {
-			case "TrackStartEvent":
+			case 'TrackStartEvent':
 				this.trackStart(player, track as Track, payload);
 				break;
-			case "TrackEndEvent":
+			case 'TrackEndEvent':
 				this.trackEnd(player, track as Track, payload);
 				break;
-			case "TrackStuckEvent":
+			case 'TrackStuckEvent':
 				this.trackStuck(player, track as Track, payload);
 				break;
-			case "TrackExceptionEvent":
+			case 'TrackExceptionEvent':
 				this.trackError(player, track as Track | UnresolvedTrack, payload);
 				break;
-			case "WebSocketClosedEvent":
+			case 'WebSocketClosedEvent':
 				this.socketClosed(player, payload);
 				break;
 			default:
 				error = new Error(`Node#event unknown event '${type}'.`);
-				this.manager.emit("NodeError", this, error);
+				this.manager.emit('NodeError', this, error);
 				break;
 		}
 	}
@@ -416,19 +405,19 @@ class LithiumXNode {
 	protected trackStart(player: LithiumXPlayer, track: Track, payload: TrackStartEvent): void {
 		player.playing = true;
 		player.paused = false;
-		this.manager.emit("TrackStart", player, track, payload);
+		this.manager.emit('TrackStart', player, track, payload);
 	}
 
 	protected async trackEnd(player: LithiumXPlayer, track: Track, payload: TrackEndEvent): Promise<void> {
 		const { reason } = payload;
 
 		// If the track failed to load or was cleaned up
-		if (["loadFailed", "cleanup"].includes(reason)) {
+		if (['loadFailed', 'cleanup'].includes(reason)) {
 			this.handleFailedTrack(player, track, payload);
 		}
 		// If the track was forcibly replaced
-		else if (reason === "replaced") {
-			this.manager.emit("TrackEnd", player, track, payload);
+		else if (reason === 'replaced') {
+			this.manager.emit('TrackEnd', player, track, payload);
 			player.queue.previous = player.queue.current;
 		}
 		// If the track ended and it's set to repeat (track or queue)
@@ -446,35 +435,33 @@ class LithiumXNode {
 	public extractSpotifyTrackID(url: string): string | null {
 		const regex = /https:\/\/open\.spotify\.com\/track\/([a-zA-Z0-9]+)/;
 		const match = url.match(regex);
-		return match ? match[1] ?? null : null;
+		return match ? (match[1] ?? null) : null;
 	}
 
 	public extractSpotifyArtistID(url: string): string | null {
 		const regex = /https:\/\/open\.spotify\.com\/artist\/([a-zA-Z0-9]+)/;
 		const match = url.match(regex);
-		return match ? match[1] ?? null : null;
+		return match ? (match[1] ?? null) : null;
 	}
 
 	// Handle autoplay
 	private async handleAutoplay(player: LithiumXPlayer, track: Track) {
 		const previousTrack = player.queue.previous;
 		if (!player.isAutoplay || !previousTrack) return;
-		const hasSpotifyURL = ["spotify.com", "open.spotify.com"].some((url) =>
-			previousTrack.uri?.includes(url) ?? false
-		);
+		const hasSpotifyURL = ['spotify.com', 'open.spotify.com'].some((url) => previousTrack.uri?.includes(url) ?? false);
 		if (hasSpotifyURL) {
 			const node = this.manager.useableNodes;
 			if (!node) return;
 			const res = await node.rest.get<LavalinkInfo>(`/v4/info`);
 			const info = res as LavalinkInfo;
-			const isSpotifyPluginEnabled = info.plugins.some((plugin: { name: string }) => plugin.name === "lavasrc-plugin");
-			const isSpotifySourceManagerEnabled = info.sourceManagers.includes("spotify");
+			const isSpotifyPluginEnabled = info.plugins.some((plugin: { name: string }) => plugin.name === 'lavasrc-plugin');
+			const isSpotifySourceManagerEnabled = info.sourceManagers.includes('spotify');
 
 			if (isSpotifyPluginEnabled && isSpotifySourceManagerEnabled) {
 				const trackID = this.extractSpotifyTrackID(previousTrack.uri ?? '');
 				const artistID = this.extractSpotifyArtistID(previousTrack.pluginInfo?.artistUrl ?? '');
 
-				let identifier = "";
+				let identifier = '';
 				if (trackID && artistID) {
 					identifier = `sprec:seed_artists=${artistID}&seed_tracks=${trackID}`;
 				} else if (trackID) {
@@ -486,12 +473,12 @@ class LithiumXNode {
 				if (identifier) {
 					const recommendedResult = (await node.rest.get(`/v4/loadtracks?identifier=${encodeURIComponent(identifier)}`)) as LavalinkResponse;
 
-					if (recommendedResult.loadType === "playlist") {
+					if (recommendedResult.loadType === 'playlist') {
 						const playlistData = recommendedResult.data as PlaylistRawData;
 						const recommendedTrack = playlistData.tracks[0];
 
 						if (recommendedTrack) {
-							player.queue.add(TrackUtils.build(recommendedTrack, player.get("Internal_BotUser")));
+							player.queue.add(TrackUtils.build(recommendedTrack, player.get('Internal_BotUser')));
 							player.play();
 							return;
 						}
@@ -500,20 +487,18 @@ class LithiumXNode {
 			}
 		}
 
-		const hasYouTubeURL = ["youtube.com", "youtu.be"].some((url) =>
-			previousTrack.uri?.includes(url) ?? false
-		);
+		const hasYouTubeURL = ['youtube.com', 'youtu.be'].some((url) => previousTrack.uri?.includes(url) ?? false);
 
-		let videoID = previousTrack.uri?.substring((previousTrack.uri?.indexOf("=") ?? -1) + 1) ?? '';
+		let videoID = previousTrack.uri?.substring((previousTrack.uri?.indexOf('=') ?? -1) + 1) ?? '';
 
 		if (!hasYouTubeURL) {
-			const res = await player.search(`${previousTrack.author} - ${previousTrack.title}`, player.get("Internal_BotUser"));
+			const res = await player.search(`${previousTrack.author} - ${previousTrack.title}`, player.get('Internal_BotUser'));
 
 			const firstTrack = res.tracks[0];
 			const secondTrack = res.tracks[1];
 			const fallbackTrack = firstTrack ?? secondTrack;
 			if (fallbackTrack) {
-				videoID = fallbackTrack.uri.substring(fallbackTrack.uri.indexOf("=") + 1);
+				videoID = fallbackTrack.uri.substring(fallbackTrack.uri.indexOf('=') + 1);
 			}
 		}
 
@@ -525,13 +510,13 @@ class LithiumXNode {
 			searchURI = `https://www.youtube.com/watch?v=${videoID}&list=RD${videoID}&index=${randomIndex}`;
 		} while (track.uri.includes(searchURI));
 
-		const res = await player.search(searchURI, player.get("Internal_BotUser"));
+		const res = await player.search(searchURI, player.get('Internal_BotUser'));
 
-		if (res.loadType === "empty" || res.loadType === "error") return;
+		if (res.loadType === 'empty' || res.loadType === 'error') return;
 
 		let tracks = res.tracks;
 
-		if (res.loadType === "playlist") {
+		if (res.loadType === 'playlist') {
 			tracks = res.playlist?.tracks ?? [];
 		}
 
@@ -539,11 +524,11 @@ class LithiumXNode {
 
 		if (foundTrack) {
 			if (this.manager.options.replaceYouTubeCredentials) {
-				foundTrack.author = foundTrack.author.replace("- Topic", "");
-				foundTrack.title = foundTrack.title.replace("Topic -", "");
+				foundTrack.author = foundTrack.author.replace('- Topic', '');
+				foundTrack.title = foundTrack.title.replace('Topic -', '');
 
-				if (foundTrack.title.includes("-")) {
-					const parts = foundTrack.title.split("-").map((str: string) => str.trim());
+				if (foundTrack.title.includes('-')) {
+					const parts = foundTrack.title.split('-').map((str: string) => str.trim());
 					foundTrack.author = parts[0] ?? foundTrack.author;
 					foundTrack.title = parts[1] ?? foundTrack.title;
 				}
@@ -563,7 +548,7 @@ class LithiumXNode {
 			return;
 		}
 
-		this.manager.emit("TrackEnd", player, track, payload);
+		this.manager.emit('TrackEnd', player, track, payload);
 		if (this.manager.options.autoPlay) player.play();
 	}
 
@@ -581,9 +566,9 @@ class LithiumXNode {
 		queue.previous = queue.current;
 		queue.current = queue.shift() ?? null;
 
-		this.manager.emit("TrackEnd", player, track, payload);
+		this.manager.emit('TrackEnd', player, track, payload);
 
-		if (payload.reason === "stopped" && !(queue.current = queue.shift() ?? null)) {
+		if (payload.reason === 'stopped' && !(queue.current = queue.shift() ?? null)) {
 			this.queueEnd(player, track, payload);
 			return;
 		}
@@ -596,7 +581,7 @@ class LithiumXNode {
 		player.queue.previous = player.queue.current;
 		player.queue.current = player.queue.shift() ?? null;
 
-		this.manager.emit("TrackEnd", player, track, payload);
+		this.manager.emit('TrackEnd', player, track, payload);
 		if (this.manager.options.autoPlay) player.play();
 		if (this.manager.options.prefetch) player.prefetchNext();
 	}
@@ -609,7 +594,7 @@ class LithiumXNode {
 			player.queue.previous = player.queue.current;
 			player.queue.current = null;
 			player.playing = false;
-			this.manager.emit("QueueEnd", player, track, payload);
+			this.manager.emit('QueueEnd', player, track, payload);
 			return;
 		}
 
@@ -618,16 +603,16 @@ class LithiumXNode {
 
 	protected trackStuck(player: LithiumXPlayer, track: Track, payload: TrackStuckEvent): void {
 		player.stop();
-		this.manager.emit("TrackStuck", player, track, payload);
+		this.manager.emit('TrackStuck', player, track, payload);
 	}
 
 	protected trackError(player: LithiumXPlayer, track: Track | UnresolvedTrack, payload: TrackExceptionEvent): void {
 		player.stop();
-		this.manager.emit("TrackError", player, track, payload);
+		this.manager.emit('TrackError', player, track, payload);
 	}
 
 	protected socketClosed(player: LithiumXPlayer, payload: WebSocketClosedEvent): void {
-		this.manager.emit("SocketClosed", player, payload);
+		this.manager.emit('SocketClosed', player, payload);
 	}
 
 	/**
@@ -636,7 +621,7 @@ class LithiumXNode {
 	private async saveAllPlayers(): Promise<void> {
 		if (!this.storage) return;
 		try {
-			const players = this.manager.players.filter(player => player.node === this);
+			const players = this.manager.players.filter((player) => player.node === this);
 			if (players.size) {
 				for (const player of players.values()) {
 					await this.savePlayer(player);
@@ -644,7 +629,7 @@ class LithiumXNode {
 			}
 		} catch (error: unknown) {
 			const msg = error instanceof Error ? error.message : String(error);
-			this.manager.emit("NodeError", this, new Error(`Error saving player states: ${msg}`));
+			this.manager.emit('NodeError', this, new Error(`Error saving player states: ${msg}`));
 		}
 	}
 
@@ -663,17 +648,17 @@ class LithiumXNode {
 				playing: player.playing,
 				position: player.position,
 				track: player.queue.current,
-				queue: player.queue.map(track => track),
+				queue: player.queue.map((track) => track),
 				queueRepeat: player.queueRepeat,
 				trackRepeat: player.trackRepeat,
 				isAutoplay: player.isAutoplay,
-				timestamp: Date.now()
+				timestamp: Date.now(),
 			};
 
 			await this.storage.save(`player-${player.guild}`, playerData);
 		} catch (error: unknown) {
 			const msg = error instanceof Error ? error.message : String(error);
-			this.manager.emit("NodeError", this, new Error(`Failed to save player state: ${msg}`));
+			this.manager.emit('NodeError', this, new Error(`Failed to save player state: ${msg}`));
 		}
 	}
 
@@ -746,15 +731,15 @@ class LithiumXNode {
 					// Delete the saved state after restoring
 					await this.storage.delete(key);
 
-					this.manager.emit("PlayerResume", player, data);
+					this.manager.emit('PlayerResume', player, data);
 				} catch (error: unknown) {
 					const msg = error instanceof Error ? error.message : String(error);
-					this.manager.emit("NodeError", this, new Error(`Error restoring player from ${key}: ${msg}`));
+					this.manager.emit('NodeError', this, new Error(`Error restoring player from ${key}: ${msg}`));
 				}
 			}
 		} catch (error: unknown) {
 			const msg = error instanceof Error ? error.message : String(error);
-			this.manager.emit("NodeError", this, new Error(`Failed to load player states: ${msg}`));
+			this.manager.emit('NodeError', this, new Error(`Failed to load player states: ${msg}`));
 		}
 	}
 }
@@ -853,14 +838,4 @@ interface LavalinkInfo {
 	plugins: { name: string; version: string }[];
 }
 
-
-export {
-	LithiumXNode,
-	NodeOptions,
-	NodeStats,
-	MemoryStats,
-	CPUStats,
-	FrameStats,
-	LavalinkInfo,
-	StorageStrategy
-}
+export { type CPUStats, type FrameStats, type LavalinkInfo, LithiumXNode, type MemoryStats, type NodeOptions, type NodeStats, type StorageStrategy };

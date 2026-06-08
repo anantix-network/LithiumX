@@ -1,5 +1,5 @@
-import { Track, UnresolvedTrack } from "./Player";
-import { TrackUtils } from "./Utils";
+import type { Track, UnresolvedTrack } from './Player';
+import { TrackUtils } from './Utils';
 
 /**
  * The player's queue, the `current` property is the currently playing track, think of the rest as the up-coming tracks.
@@ -43,8 +43,8 @@ export class LithiumXQueue extends Array<Track | UnresolvedTrack> {
 				this.current = track;
 			}
 		} else {
-			if (typeof offset !== "undefined" && typeof offset === "number") {
-				if (isNaN(offset)) throw new RangeError("Offset must be a number.");
+			if (typeof offset !== 'undefined' && typeof offset === 'number') {
+				if (Number.isNaN(offset)) throw new RangeError('Offset must be a number.');
 
 				if (offset < 0 || offset > this.length) throw new RangeError(`Offset must be between 0 and ${this.length}.`);
 				if (Array.isArray(track)) {
@@ -76,9 +76,9 @@ export class LithiumXQueue extends Array<Track | UnresolvedTrack> {
 	public remove(start: number, end: number): (Track | UnresolvedTrack)[];
 
 	public remove(startOrPosition = 0, end?: number): (Track | UnresolvedTrack)[] {
-		if (typeof end !== "undefined") {
-			if (isNaN(Number(startOrPosition)) || isNaN(Number(end))) throw new RangeError(`Missing "start" or "end" parameter.`);
-			if (startOrPosition >= end || startOrPosition >= this.length) throw new RangeError("Invalid start or end values.");
+		if (typeof end !== 'undefined') {
+			if (Number.isNaN(Number(startOrPosition)) || Number.isNaN(Number(end))) throw new RangeError(`Missing "start" or "end" parameter.`);
+			if (startOrPosition >= end || startOrPosition >= this.length) throw new RangeError('Invalid start or end values.');
 			return this.splice(startOrPosition, end - startOrPosition);
 		}
 		return this.splice(startOrPosition, 1);

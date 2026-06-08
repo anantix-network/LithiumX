@@ -1,5 +1,5 @@
-import { Band, bassBoostEqualizer, softEqualizer, trebleBassEqualizer, tvEqualizer, vaporwaveEqualizer } from "../Utils/FiltersEqualizers";
-import { LithiumXPlayer } from "./Player";
+import { type Band, bassBoostEqualizer, softEqualizer, trebleBassEqualizer, tvEqualizer, vaporwaveEqualizer } from '../Utils/FiltersEqualizers';
+import type { LithiumXPlayer } from './Player';
 
 // Filter options interfaces
 export interface TimescaleOptions {
@@ -180,7 +180,7 @@ class Filters {
 	 * @param bands - The equalizer bands.
 	 */
 	public setEqualizer(bands?: Band[]): this {
-		return this.applyFilter({ property: "equalizer", value: bands ?? [] });
+		return this.applyFilter({ property: 'equalizer', value: bands ?? [] });
 	}
 
 	/** Applies the distortion audio effect. */
@@ -194,35 +194,35 @@ class Filters {
 			tanScale: 0.2,
 			offset: 0,
 			scale: 1.2,
-		}).setFilterStatus("distort", true);
+		}).setFilterStatus('distort', true);
 	}
 
 	/** Applies the karaoke options specified by the filter. */
 	public setKaraoke(status: boolean, karaoke?: KaraokeOptions): this {
 		return this.applyFilter({
-			property: "karaoke",
+			property: 'karaoke',
 			value: karaoke ?? null,
-		}).setFilterStatus("karaoke", status);
+		}).setFilterStatus('karaoke', status);
 	}
 
 	/** Applies the timescale options specified by the filter. */
 	public setTimescale(timescale?: TimescaleOptions | null): this {
-		return this.applyFilter({ property: "timescale", value: timescale ?? null });
+		return this.applyFilter({ property: 'timescale', value: timescale ?? null });
 	}
 
 	/** Applies the vibrato options specified by the filter. */
 	public setVibrato(vibrato?: VibratoOptions | null): this {
-		return this.applyFilter({ property: "vibrato", value: vibrato ?? null });
+		return this.applyFilter({ property: 'vibrato', value: vibrato ?? null });
 	}
 
 	/** Applies the rotation options specified by the filter. */
 	public setRotation(rotation?: RotationOptions | null): this {
-		return this.applyFilter({ property: "rotation", value: rotation ?? null });
+		return this.applyFilter({ property: 'rotation', value: rotation ?? null });
 	}
 
 	/** Applies the distortion options specified by the filter. */
 	public setDistortion(distortion?: DistortionOptions | null): this {
-		return this.applyFilter({ property: "distortion", value: distortion ?? null });
+		return this.applyFilter({ property: 'distortion', value: distortion ?? null });
 	}
 	/**
 	 * Set the 8D options
@@ -231,48 +231,48 @@ class Filters {
 	 */
 	public setEightD(status: boolean): this {
 		if (status) {
-			return this.setRotation({ rotationHz: 0.2 }).setFilterStatus("eightD", status);
+			return this.setRotation({ rotationHz: 0.2 }).setFilterStatus('eightD', status);
 		} else {
-			return this.setRotation(null).setFilterStatus("eightD", status);
+			return this.setRotation(null).setFilterStatus('eightD', status);
 		}
 	}
 	/**
 	 * Set the nightcore options
 	 * @param {boolean} status - The status to set.
 	 * @returns {this}
-	*/
+	 */
 	public setNightcore(status: boolean): this {
 		if (status) {
 			return this.setTimescale({
 				speed: 1.1,
 				pitch: 1.125,
 				rate: 1.05,
-			}).setFilterStatus("nightcore", status);
+			}).setFilterStatus('nightcore', status);
 		} else {
-			return this.setTimescale(null).setFilterStatus("nightcore", status);
+			return this.setTimescale(null).setFilterStatus('nightcore', status);
 		}
 	}
 	/**
 	 * Set the slowmo options
 	 * @param {boolean} status - The status to set.
 	 * @returns {this}
-	*/
+	 */
 	public setSlowmo(status: boolean): this {
 		if (status) {
 			return this.setTimescale({
 				speed: 0.7,
 				pitch: 1.0,
 				rate: 0.8,
-			}).setFilterStatus("slowmo", status);
+			}).setFilterStatus('slowmo', status);
 		} else {
-			return this.setTimescale(null).setFilterStatus("slowmo", status);
+			return this.setTimescale(null).setFilterStatus('slowmo', status);
 		}
 	}
 	/**
 	 * Set the high speed options
 	 * @param {HighSpeedOptions | false} opts - Options to configure timescale, or false to disable.
 	 * @returns {this}
-	*/
+	 */
 	public setHighSpeed(opts?: HighSpeedOptions | false): this {
 		if (opts === false) {
 			return this.setTimescale(null).setFilterStatus('highSpeed', false);
@@ -288,9 +288,9 @@ class Filters {
 	 * Set the soft options
 	 * @param {boolean} status - The status to set.
 	 * @returns {this}
-	*/
+	 */
 	public setSoft(status: boolean): this {
-		return this.setEqualizer(softEqualizer).setFilterStatus("soft", status);
+		return this.setEqualizer(softEqualizer).setFilterStatus('soft', status);
 	}
 	/**
 	 * Set the treble bass options
@@ -298,7 +298,7 @@ class Filters {
 	 * @returns {this}
 	 */
 	public setTrebleBass(status: boolean): this {
-		return this.setEqualizer(trebleBassEqualizer).setFilterStatus("trebleBass", status);
+		return this.setEqualizer(trebleBassEqualizer).setFilterStatus('trebleBass', status);
 	}
 	/**
 	 * Set the TV options
@@ -306,7 +306,7 @@ class Filters {
 	 * @returns {this}
 	 */
 	public setTV(status: boolean): this {
-		return this.setEqualizer(tvEqualizer).setFilterStatus("tv", status);
+		return this.setEqualizer(tvEqualizer).setFilterStatus('tv', status);
 	}
 
 	/**
@@ -316,9 +316,9 @@ class Filters {
 	 */
 	public setVaporwave(status: boolean): this {
 		if (status) {
-			return this.setEqualizer(vaporwaveEqualizer).setTimescale({ pitch: 0.55 }).setFilterStatus("vaporwave", status);
+			return this.setEqualizer(vaporwaveEqualizer).setTimescale({ pitch: 0.55 }).setFilterStatus('vaporwave', status);
 		} else {
-			return this.setEqualizer([]).setTimescale(null).setFilterStatus("vaporwave", status);
+			return this.setEqualizer([]).setTimescale(null).setFilterStatus('vaporwave', status);
 		}
 	}
 
@@ -326,9 +326,9 @@ class Filters {
 	 * Set the treble bass options
 	 * @param {boolean} status - The status to set.
 	 * @returns {this}
-	*/
+	 */
 	public setBassBoost(status: boolean): this {
-		return this.setEqualizer(bassBoostEqualizer).setFilterStatus("bassboost", status);
+		return this.setEqualizer(bassBoostEqualizer).setFilterStatus('bassboost', status);
 	}
 
 	/**
@@ -347,55 +347,59 @@ class Filters {
 				tanScale: 0.2,
 				offset: 0,
 				scale: 1.2,
-			}).setFilterStatus("distort", status);
+			}).setFilterStatus('distort', status);
 		} else {
-			return this.setDistortion(null).setFilterStatus("distort", status);
+			return this.setDistortion(null).setFilterStatus('distort', status);
 		}
 	}
 
 	/**
-	 * Set filter 
+	 * Set filter
 	 * @param {keyof AvailableFilters} filter
-	 * @param {boolean} status 
+	 * @param {boolean} status
 	 * @returns {this}
 	 */
 	public async setFilter(filter: keyof AvailableFilters | string, status: boolean) {
-		if (!status && typeof status !== "boolean") throw new Error("Status must be a boolean");
+		if (!status && typeof status !== 'boolean') throw new Error('Status must be a boolean');
 		switch (filter) {
-			case "bassboost":
+			case 'bassboost':
 				this.setBassBoost(status);
 				break;
-			case "distort":
+			case 'distort':
 				this.setDistort(status);
 				break;
-			case "eightD":
+			case 'eightD':
 				this.setEightD(status);
 				break;
-			case "highSpeed":
+			case 'highSpeed':
 				this.setHighSpeed(status ? undefined : false);
 				break;
-			case "nightcore":
+			case 'nightcore':
 				this.setNightcore(status);
 				break;
-			case "slowmo":
+			case 'slowmo':
 				this.setSlowmo(status);
 				break;
-			case "soft":
+			case 'soft':
 				this.setSoft(status);
 				break;
-			case "trebleBass":
+			case 'trebleBass':
 				this.setTrebleBass(status);
 				break;
-			case "tv":
+			case 'tv':
 				this.setTV(status);
 				break;
-			case "vaporwave":
+			case 'vaporwave':
 				this.setVaporwave(status);
 				break;
 			default:
-				throw new Error("Invalid filter provided");
+				throw new Error('Invalid filter provided');
 		}
-		await this.updateFilters().then(() => this).catch((e) => { throw new Error(e) });
+		await this.updateFilters()
+			.then(() => this)
+			.catch((e) => {
+				throw new Error(e);
+			});
 		return this;
 	}
 
@@ -449,7 +453,7 @@ export class FilterPresets {
 			{ band: 0, gain: normalizedGain * 0.6 },
 			{ band: 1, gain: normalizedGain * 0.67 },
 			{ band: 2, gain: normalizedGain * 0.67 },
-			{ band: 3, gain: normalizedGain * 0.4 }
+			{ band: 3, gain: normalizedGain * 0.4 },
 		];
 
 		return { equalizer: bands };
@@ -465,8 +469,8 @@ export class FilterPresets {
 			timescale: {
 				speed,
 				pitch,
-				rate: 1
-			}
+				rate: 1,
+			},
 		};
 	}
 
@@ -478,8 +482,8 @@ export class FilterPresets {
 			timescale: {
 				speed: 0.8,
 				pitch: 0.8,
-				rate: 1
-			}
+				rate: 1,
+			},
 		};
 	}
 
@@ -503,8 +507,8 @@ export class FilterPresets {
 				{ band: 11, gain: 0 },
 				{ band: 12, gain: 0 },
 				{ band: 13, gain: 0 },
-				{ band: 14, gain: 0 }
-			]
+				{ band: 14, gain: 0 },
+			],
 		};
 	}
 
@@ -527,8 +531,8 @@ export class FilterPresets {
 				{ band: 10, gain: -0.25 },
 				{ band: 11, gain: -0.25 },
 				{ band: 12, gain: -0.25 },
-				{ band: 13, gain: -0.25 }
-			]
+				{ band: 13, gain: -0.25 },
+			],
 		};
 	}
 
