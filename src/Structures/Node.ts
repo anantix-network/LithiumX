@@ -281,7 +281,7 @@ class LithiumXNode {
 			});
 
 			try {
-				await Promise.race([this.rest.get('/v4/version'), timeoutPromise]);
+				await Promise.race([this.rest.get('/version'), timeoutPromise]);
 				clearTimeout(timeoutId!);
 				this.manager.emit('NodeHealthCheck', this, { latency: Date.now() - start, healthy: true });
 			} catch {
