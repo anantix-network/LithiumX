@@ -838,4 +838,4 @@ interface LavalinkInfo {
 	plugins: { name: string; version: string }[];
 }
 
-export { type CPUStats, type FrameStats, type LavalinkInfo, LithiumXNode, type MemoryStats, type NodeOptions, type NodeStats, type StorageStrategy };
+export { type CPUStats, type FrameStats, type LavalinkInfo, LithiumXNode, type MemoryStats, MemoryStorage, type NodeOptions, type NodeStats, type StorageStrategy };

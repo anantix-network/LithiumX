@@ -1,7 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import type { LithiumXManager } from './Manager';
-import type { StorageStrategy } from './Node';
+import { MemoryStorage, type StorageStrategy } from './Node';
 import type { LithiumXPlayer, Track, UnresolvedTrack } from './Player';
 
 /**
@@ -73,7 +71,6 @@ export interface QueueOperationResult {
  */
 export class QueueManager {
 	private manager: LithiumXManager;
-	private baseStoragePath: string;
 	private storage: StorageStrategy;
 
 	/**
@@ -83,19 +80,7 @@ export class QueueManager {
 	 */
 	constructor(manager: LithiumXManager, options: QueueManagerOptions = {}) {
 		this.manager = manager;
-		this.baseStoragePath = options.storagePath || path.resolve('./queueStorage');
-
-		// Create storage directory if it doesn't exist
-		if (!fs.existsSync(this.baseStoragePath)) {
-			fs.mkdirSync(this.baseStoragePath, { recursive: true });
-		}
-
-		// Initialize storage strategy
-		if (options.storage) {
-			this.storage = options.storage;
-		} else {
-			this.storage = new FileQueueStorage(this.baseStoragePath);
-		}
+		this.storage = options.storage ?? new MemoryStorage();
 	}
 
 	/**
@@ -452,78 +437,6 @@ export class QueueManager {
  * Options for the Queue Manager
  */
 export interface QueueManagerOptions {
-	/** Path to store saved queues */
-	storagePath?: string;
 	/** Custom storage implementation */
 	storage?: StorageStrategy;
-}
-
-/**
- * File-based storage implementation for queues
- */
-class FileQueueStorage implements StorageStrategy {
-	constructor(private basePath: string) {
-		if (!fs.existsSync(basePath)) {
-			fs.mkdirSync(basePath, { recursive: true });
-		}
-	}
-
-	async save(key: string, data: unknown): Promise<void> {
-		const filePath = this.getFilePath(key);
-
-		// Create directory if needed
-		const dir = path.dirname(filePath);
-		if (!fs.existsSync(dir)) {
-			fs.mkdirSync(dir, { recursive: true });
-		}
-
-		await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2));
-	}
-
-	async load(key: string): Promise<unknown> {
-		const filePath = this.getFilePath(key);
-		if (!fs.existsSync(filePath)) {
-			throw new Error(`File not found: ${filePath}`);
-		}
-		const data = await fs.promises.readFile(filePath, 'utf8');
-		return JSON.parse(data);
-	}
-
-	async delete(key: string): Promise<void> {
-		const filePath = this.getFilePath(key);
-		if (fs.existsSync(filePath)) {
-			await fs.promises.unlink(filePath);
-		} else {
-			throw new Error(`File not found: ${filePath}`);
-		}
-	}
-
-	async getAll(): Promise<string[]> {
-		const results: string[] = [];
-
-		await this.walkDirectory(this.basePath, '', (key) => {
-			results.push(key);
-		});
-
-		return results;
-	}
-
-	private getFilePath(key: string): string {
-		return path.join(this.basePath, `${key}.json`);
-	}
-
-	private async walkDirectory(dir: string, prefix: string, callback: (key: string) => void): Promise<void> {
-		const files = await fs.promises.readdir(dir);
-
-		for (const file of files) {
-			const filePath = path.join(dir, file);
-			const stat = await fs.promises.stat(filePath);
-
-			if (stat.isDirectory()) {
-				await this.walkDirectory(filePath, `${prefix}${file}/`, callback);
-			} else if (file.endsWith('.json')) {
-				callback(`${prefix}${file.replace('.json', '')}`);
-			}
-		}
-	}
 }

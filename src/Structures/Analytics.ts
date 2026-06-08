@@ -1,7 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import type { LithiumXManager } from './Manager';
-import type { StorageStrategy } from './Node';
+import { MemoryStorage, type StorageStrategy } from './Node';
 import type { LithiumXPlayer, Track } from './Player';
 
 /**
@@ -111,8 +109,6 @@ export interface SessionData {
 export interface AnalyticsOptions {
 	/** Whether to enable analytics */
 	enabled?: boolean;
-	/** Path to store analytics data */
-	storagePath?: string;
 	/** Custom storage implementation */
 	storage?: StorageStrategy | null;
 	/** How often to save analytics data in ms */
@@ -133,7 +129,6 @@ export class Analytics {
 	private data: Map<string, AnalyticsData> = new Map();
 	private sessions: Map<string, SessionData> = new Map();
 	private storage: StorageStrategy;
-	private storagePath: string;
 	private saveInterval: NodeJS.Timeout | undefined = undefined;
 	private options: Required<AnalyticsOptions>;
 	private trackEndListeners: Map<string, number> = new Map();
@@ -149,7 +144,6 @@ export class Analytics {
 		// Default options
 		this.options = {
 			enabled: true,
-			storagePath: path.resolve('./analytics'),
 			storage: null,
 			saveInterval: 300000, // 5 minutes
 			historyRetention: 30, // 30 days
@@ -158,17 +152,7 @@ export class Analytics {
 			...options,
 		};
 
-		this.storagePath = this.options.storagePath;
-
-		// Create storage directory if needed
-		if (!this.options.storage) {
-			if (!fs.existsSync(this.storagePath)) {
-				fs.mkdirSync(this.storagePath, { recursive: true });
-			}
-			this.storage = new FileAnalyticsStorage(this.storagePath);
-		} else {
-			this.storage = this.options.storage;
-		}
+		this.storage = this.options.storage ?? new MemoryStorage();
 
 		// Initialize data and set up event listeners
 		if (this.options.enabled) {
@@ -816,74 +800,5 @@ export class Analytics {
 	public async shutdown(): Promise<void> {
 		clearInterval(this.saveInterval);
 		await this.saveData();
-	}
-}
-
-/**
- * File storage implementation for analytics
- */
-class FileAnalyticsStorage implements StorageStrategy {
-	constructor(private basePath: string) {
-		if (!fs.existsSync(basePath)) {
-			fs.mkdirSync(basePath, { recursive: true });
-		}
-	}
-
-	async save(key: string, data: unknown): Promise<void> {
-		const filePath = this.getFilePath(key);
-
-		// Create directories if needed
-		const dir = path.dirname(filePath);
-		if (!fs.existsSync(dir)) {
-			fs.mkdirSync(dir, { recursive: true });
-		}
-
-		await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2));
-	}
-
-	async load(key: string): Promise<unknown> {
-		const filePath = this.getFilePath(key);
-		if (!fs.existsSync(filePath)) return null;
-
-		const data = await fs.promises.readFile(filePath, 'utf8');
-		return JSON.parse(data);
-	}
-
-	async delete(key: string): Promise<void> {
-		const filePath = this.getFilePath(key);
-		if (fs.existsSync(filePath)) {
-			await fs.promises.unlink(filePath);
-		}
-	}
-
-	async getAll(): Promise<string[]> {
-		const results: string[] = [];
-
-		await this.walkDirectory(this.basePath, '', (key) => {
-			results.push(key);
-		});
-
-		return results;
-	}
-
-	private getFilePath(key: string): string {
-		return path.join(this.basePath, `${key}.json`);
-	}
-
-	private async walkDirectory(dir: string, prefix: string, callback: (key: string) => void): Promise<void> {
-		if (!fs.existsSync(dir)) return;
-
-		const files = await fs.promises.readdir(dir);
-
-		for (const file of files) {
-			const filePath = path.join(dir, file);
-			const stat = await fs.promises.stat(filePath);
-
-			if (stat.isDirectory()) {
-				await this.walkDirectory(filePath, `${prefix}${file}/`, callback);
-			} else if (file.endsWith('.json')) {
-				callback(`${prefix}${file.replace('.json', '')}`);
-			}
-		}
 	}
 }
