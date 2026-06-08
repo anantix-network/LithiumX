@@ -636,7 +636,7 @@ class LithiumXNode {
 	/**
 	 * Save a single player's state to storage
 	 */
-	private async savePlayer(player: LithiumXPlayer): Promise<void> {
+	public async savePlayer(player: LithiumXPlayer): Promise<void> {
 		if (!this.storage) return;
 		try {
 			const playerData = {
@@ -725,6 +725,15 @@ class LithiumXNode {
 
 						if (data.paused) {
 							player.pause(true);
+						}
+					}
+
+					// Reconnect to voice channel if we have one
+					if (player.voiceChannel) {
+						try {
+							player.connect();
+						} catch {
+							// Voice channel may no longer exist — user can handle via event
 						}
 					}
 

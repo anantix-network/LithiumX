@@ -139,6 +139,7 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			defaultSearchPlatform: 'youtube',
 			useNode: 'leastPlayers',
 			prefetch: false,
+			reconnectOnDisconnect: false,
 			...options,
 		};
 
@@ -424,6 +425,11 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 		this.emit('PlayerDisconnect', player, player.voiceChannel ?? '');
 		player.voiceChannel = null;
 		player.voiceState = Object.assign({});
+
+		if (this.options.reconnectOnDisconnect) {
+			return;
+		}
+
 		player.destroy();
 		return;
 	}
@@ -482,6 +488,8 @@ interface ManagerOptions {
 	queueManager?: import('./QueueManager').QueueManagerOptions;
 	/** Analytics configuration */
 	analytics?: AnalyticsOptions;
+	/** Whether to keep players alive when the bot disconnects from voice (supports auto-reconnect). */
+	reconnectOnDisconnect?: boolean;
 	/** Whether to prefetch the next UnresolvedTrack in the queue when a track ends. */
 	prefetch?: boolean;
 	/**
