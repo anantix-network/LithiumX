@@ -243,9 +243,16 @@ interface VoiceServer {
 	endpoint: string;
 }
 
+interface DiscordVoiceState {
+	guild_id: string;
+	channel_id: string | null;
+	user_id: string;
+	session_id: string;
+}
+
 interface VoicePacket {
 	t?: 'VOICE_SERVER_UPDATE' | 'VOICE_STATE_UPDATE';
-	d: VoiceState | VoiceServer;
+	d: DiscordVoiceState | VoiceServer;
 }
 
 interface NodeMessage extends NodeStats {
@@ -333,6 +340,7 @@ export {
 	type TrackStuckEvent,
 	TrackUtils,
 	type UnresolvedQuery,
+	type DiscordVoiceState,
 	type VoicePacket,
 	type VoiceServer,
 	type VoiceState,

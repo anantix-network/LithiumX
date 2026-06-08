@@ -62,6 +62,8 @@ export class LyricsManager {
 	private cache: Map<string, LyricsData> = new Map();
 	/** Cache duration in ms */
 	private cacheDuration: number;
+	/** Reference to the LithiumX manager */
+	private manager: LithiumXManager;
 
 	/**
 	 * Create a new lyrics manager

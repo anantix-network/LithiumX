@@ -388,15 +388,15 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 	public async updateVoiceState(data: VoicePacket | VoiceServer | VoiceState): Promise<void> {
 		if ('t' in data && !['VOICE_STATE_UPDATE', 'VOICE_SERVER_UPDATE'].includes(data.t)) return;
 
-		const update = 'd' in data ? data.d : data;
+		const update = ('d' in data ? data.d : data) as unknown as Record<string, unknown>;
 
 		if (!update || (!('token' in update) && !('session_id' in update))) return;
 
-		const player = this.players.get(update.guild_id);
+		const player = this.players.get(update['guild_id'] as string);
 
 		if (!player) return;
 		if ('token' in update) {
-			player.voiceState.event = update;
+			player.voiceState.event = update as unknown as VoiceServer;
 
 			const {
 				sessionId,
@@ -411,14 +411,14 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			return;
 		}
 
-		if (update.user_id !== this.options.clientId) return;
-		if (update.channel_id) {
-			if (player.voiceChannel !== update.channel_id) {
-				this.emit('PlayerMove', player, player.voiceChannel ?? '', update.channel_id);
+		if (update['user_id'] !== this.options.clientId) return;
+		if (update['channel_id']) {
+			if (player.voiceChannel !== update['channel_id']) {
+				this.emit('PlayerMove', player, player.voiceChannel ?? '', update['channel_id'] as string);
 			}
 
-			player.voiceState.sessionId = update.session_id ?? '';
-			player.voiceChannel = update.channel_id;
+			player.voiceState.sessionId = (update['session_id'] as string) ?? '';
+			player.voiceChannel = update['channel_id'] as string;
 			return;
 		}
 

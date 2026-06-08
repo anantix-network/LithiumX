@@ -523,7 +523,7 @@ export class Analytics {
 	private isValidAnalyticsData(data: unknown): data is AnalyticsData {
 		if (typeof data !== 'object' || data === null) return false;
 		const d = data as Record<string, unknown>;
-		return typeof d.guildId === 'string' && !!d.tracks && !!d.artists && !!d.users && !!d.sessions;
+		return typeof d['guildId'] === 'string' && !!d['tracks'] && !!d['artists'] && !!d['users'] && !!d['sessions'];
 	}
 
 	/**
