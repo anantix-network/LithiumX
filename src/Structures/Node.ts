@@ -708,8 +708,9 @@ class LithiumXNode {
 					}
 
 					player.setVolume(data.volume);
-					player.queueRepeat = data.queueRepeat;
-					player.trackRepeat = data.trackRepeat;
+					if (data.trackRepeat) player.setRepeatMode(RepeatMode.Track);
+					else if (data.queueRepeat) player.setRepeatMode(RepeatMode.Queue);
+					else player.setRepeatMode(RepeatMode.None);
 					player.isAutoplay = data.isAutoplay;
 
 					// If there was a current track, attempt to play it from the position
