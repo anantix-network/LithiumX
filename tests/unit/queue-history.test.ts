@@ -88,3 +88,16 @@ describe('LithiumXQueue history size limit', () => {
     expect(queue.maxHistorySize).toBe(50);
   });
 });
+
+describe('LithiumXQueue.popHistory multi-step', () => {
+  it('allows stepping back through multiple entries', () => {
+    const queue = new LithiumXQueue();
+    const tracks = ['a', 'b', 'c'].map(t => ({ title: t } as unknown as Track));
+    for (const t of tracks) queue.pushHistory(t);
+    // history is [c, b, a]
+    expect(queue.popHistory()?.title).toBe('c');
+    expect(queue.popHistory()?.title).toBe('b');
+    expect(queue.popHistory()?.title).toBe('a');
+    expect(queue.popHistory()).toBeNull();
+  });
+});

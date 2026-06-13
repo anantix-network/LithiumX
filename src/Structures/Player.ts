@@ -544,11 +544,9 @@ export class LithiumXPlayer {
 
 	/** Go back to the previous song. */
 	public previous(): this {
-		if (this.queue.previous) {
-			this.queue.unshift(this.queue.previous);
-		}
+		const prev = this.queue.popHistory();
+		if (prev) this.queue.unshift(prev);
 		this.stop();
-
 		return this;
 	}
 
