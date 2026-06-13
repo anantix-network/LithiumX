@@ -40,7 +40,7 @@ export class LithiumXQueue extends Array<Track | UnresolvedTrack> {
 
 	public pushHistory(track: Track | UnresolvedTrack): void {
 		this.history.unshift(track);
-		if (this.history.length > this.maxHistorySize) this.history.pop();
+		if (this.history.length > Math.max(0, this.maxHistorySize)) this.history.pop();
 	}
 
 	public popHistory(): Track | UnresolvedTrack | null {
