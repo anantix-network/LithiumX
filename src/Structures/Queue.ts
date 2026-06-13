@@ -1,6 +1,12 @@
 import type { Track, UnresolvedTrack } from './Player';
 import { TrackUtils } from './Utils';
 
+export enum RepeatMode {
+  None  = 'none',
+  Track = 'track',
+  Queue = 'queue',
+}
+
 /**
  * The player's queue, the `current` property is the currently playing track, think of the rest as the up-coming tracks.
  */
@@ -24,8 +30,22 @@ export class LithiumXQueue extends Array<Track | UnresolvedTrack> {
 	/** The current track */
 	public current: Track | UnresolvedTrack | null = null;
 
-	/** The previous track */
-	public previous: Track | UnresolvedTrack | null = null;
+	public repeatMode: RepeatMode = RepeatMode.None;
+	public history: (Track | UnresolvedTrack)[] = [];
+	public maxHistorySize: number = 50;
+
+	public get previous(): Track | UnresolvedTrack | null {
+		return this.history[0] ?? null;
+	}
+
+	public pushHistory(track: Track | UnresolvedTrack): void {
+		this.history.unshift(track);
+		if (this.history.length > this.maxHistorySize) this.history.pop();
+	}
+
+	public popHistory(): Track | UnresolvedTrack | null {
+		return this.history.shift() ?? null;
+	}
 
 	/**
 	 * Adds a track to the queue.
