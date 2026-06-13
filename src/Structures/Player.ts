@@ -271,7 +271,7 @@ export class LithiumXPlayer {
 	public async play(track: Track | UnresolvedTrack, options: PlayOptions): Promise<void>;
 	public async play(optionsOrTrack?: PlayOptions | Track | UnresolvedTrack, playOptions?: PlayOptions): Promise<void> {
 		if (typeof optionsOrTrack !== 'undefined' && TrackUtils.validate(optionsOrTrack)) {
-			if (this.queue.current) this.queue.previous = this.queue.current;
+			if (this.queue.current) this.queue.pushHistory(this.queue.current);
 			this.queue.current = optionsOrTrack as Track;
 		}
 		if (!this.queue.current) throw new RangeError('No current track.');
