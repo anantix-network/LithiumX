@@ -92,4 +92,4 @@ const vaporwaveEqualizer: Band[] = [
 	{ band: 13, gain: 0.15 },
 ];
 
-export { Band, bassBoostEqualizer, softEqualizer, tvEqualizer, trebleBassEqualizer, vaporwaveEqualizer };
+export { type Band, bassBoostEqualizer, softEqualizer, trebleBassEqualizer, tvEqualizer, vaporwaveEqualizer };

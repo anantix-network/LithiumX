@@ -181,3 +181,5 @@ test
 dist/
 docs/.vitepress/dist
 docs/.vitepress/cache
+docs/superpowers/
+test-debug.mjs
