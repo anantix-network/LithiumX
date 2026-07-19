@@ -5,6 +5,7 @@ import nodeCheck from '../Utils/NodeCheck';
 import type { LavalinkResponse, LithiumXManager, PlaylistRawData } from './Manager';
 import type { LithiumXPlayer, Track, UnresolvedTrack } from './Player';
 import { LithiumXRest } from './Rest';
+import { RepeatMode } from './Queue';
 import { type PlayerEvent, type PlayerEvents, type TrackEndEvent, type TrackExceptionEvent, type TrackStartEvent, type TrackStuckEvent, TrackUtils, type WebSocketClosedEvent } from './Utils';
 
 // Storage strategy interface
@@ -418,10 +419,10 @@ class LithiumXNode {
 		// If the track was forcibly replaced
 		else if (reason === 'replaced') {
 			this.manager.emit('TrackEnd', player, track, payload);
-			player.queue.previous = player.queue.current;
+			if (player.queue.current) player.queue.pushHistory(player.queue.current);
 		}
 		// If the track ended and it's set to repeat (track or queue)
-		else if (track && (player.trackRepeat || player.queueRepeat)) {
+		else if (track && player.queue.repeatMode !== RepeatMode.None) {
 			this.handleRepeatedTrack(player, track, payload);
 		}
 		// If there's another track in the queue
@@ -540,7 +541,7 @@ class LithiumXNode {
 
 	// Handle the case when a track failed to load or was cleaned up
 	private handleFailedTrack(player: LithiumXPlayer, track: Track, payload: TrackEndEvent): void {
-		player.queue.previous = player.queue.current;
+		if (player.queue.current) player.queue.pushHistory(player.queue.current);
 		player.queue.current = player.queue.shift() ?? null;
 
 		if (!player.queue.current) {
@@ -554,16 +555,16 @@ class LithiumXNode {
 
 	// Handle the case when a track ended and it's set to repeat (track or queue)
 	private handleRepeatedTrack(player: LithiumXPlayer, track: Track, payload: TrackEndEvent): void {
-		const { queue, trackRepeat, queueRepeat } = player;
+		const { queue } = player;
 		const { autoPlay } = this.manager.options;
 
-		if (trackRepeat) {
+		if (queue.repeatMode === RepeatMode.Track) {
 			if (queue.current) queue.unshift(queue.current);
-		} else if (queueRepeat) {
+		} else if (queue.repeatMode === RepeatMode.Queue) {
 			if (queue.current) queue.add(queue.current);
 		}
 
-		queue.previous = queue.current;
+		if (queue.current) queue.pushHistory(queue.current);
 		queue.current = queue.shift() ?? null;
 
 		this.manager.emit('TrackEnd', player, track, payload);
@@ -578,7 +579,7 @@ class LithiumXNode {
 
 	// Handle the case when there's another track in the queue
 	private playNextTrack(player: LithiumXPlayer, track: Track, payload: TrackEndEvent): void {
-		player.queue.previous = player.queue.current;
+		if (player.queue.current) player.queue.pushHistory(player.queue.current);
 		player.queue.current = player.queue.shift() ?? null;
 
 		this.manager.emit('TrackEnd', player, track, payload);
@@ -587,12 +588,10 @@ class LithiumXNode {
 	}
 
 	protected async queueEnd(player: LithiumXPlayer, track: Track, payload: TrackEndEvent): Promise<void> {
-		player.queue.previous = player.queue.current;
+		if (player.queue.current) player.queue.pushHistory(player.queue.current);
 		player.queue.current = null;
 
 		if (!player.isAutoplay) {
-			player.queue.previous = player.queue.current;
-			player.queue.current = null;
 			player.playing = false;
 			this.manager.emit('QueueEnd', player, track, payload);
 			return;
@@ -709,8 +708,9 @@ class LithiumXNode {
 					}
 
 					player.setVolume(data.volume);
-					player.queueRepeat = data.queueRepeat;
-					player.trackRepeat = data.trackRepeat;
+					if (data.trackRepeat) player.setRepeatMode(RepeatMode.Track);
+					else if (data.queueRepeat) player.setRepeatMode(RepeatMode.Queue);
+					else player.setRepeatMode(RepeatMode.None);
 					player.isAutoplay = data.isAutoplay;
 
 					// If there was a current track, attempt to play it from the position

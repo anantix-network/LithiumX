@@ -3,7 +3,7 @@ import { type FilterOptions, FilterPresets, Filters } from './Filters';
 import type { LyricsData, LyricsOptions } from './Lyrics';
 import type { LavalinkResponse, LithiumXManager, PlaylistRawData, SearchQuery, SearchResult } from './Manager';
 import type { LavalinkInfo, LithiumXNode } from './Node';
-import { LithiumXQueue } from './Queue';
+import { LithiumXQueue, RepeatMode } from './Queue';
 import type { LoadQueueOptions, QueueOperationResult, SaveQueueOptions } from './QueueManager';
 import { type Sizes, type State, type TrackExceptionEvent, type TrackSourceName, TrackUtils, type VoiceState } from './Utils';
 
@@ -271,7 +271,7 @@ export class LithiumXPlayer {
 	public async play(track: Track | UnresolvedTrack, options: PlayOptions): Promise<void>;
 	public async play(optionsOrTrack?: PlayOptions | Track | UnresolvedTrack, playOptions?: PlayOptions): Promise<void> {
 		if (typeof optionsOrTrack !== 'undefined' && TrackUtils.validate(optionsOrTrack)) {
-			if (this.queue.current) this.queue.previous = this.queue.current;
+			if (this.queue.current) this.queue.pushHistory(this.queue.current);
 			this.queue.current = optionsOrTrack as Track;
 		}
 		if (!this.queue.current) throw new RangeError('No current track.');
@@ -417,18 +417,7 @@ export class LithiumXPlayer {
 	 */
 	public setTrackRepeat(repeat: boolean): this {
 		if (typeof repeat !== 'boolean') throw new TypeError('Repeat can only be "true" or "false".');
-		const oldPlayer = { ...this };
-		if (repeat) {
-			this.trackRepeat = true;
-			this.queueRepeat = false;
-			this.dynamicRepeat = false;
-		} else {
-			this.trackRepeat = false;
-			this.queueRepeat = false;
-			this.dynamicRepeat = false;
-		}
-		this.manager.emit('PlayerStateUpdate', oldPlayer, this);
-		return this;
+		return this.setRepeatMode(repeat ? RepeatMode.Track : RepeatMode.None);
 	}
 
 	/**
@@ -437,19 +426,20 @@ export class LithiumXPlayer {
 	 */
 	public setQueueRepeat(repeat: boolean): this {
 		if (typeof repeat !== 'boolean') throw new TypeError('Repeat can only be "true" or "false".');
+		return this.setRepeatMode(repeat ? RepeatMode.Queue : RepeatMode.None);
+	}
 
+	/**
+	 * Sets the repeat mode for the queue.
+	 * @param mode The RepeatMode to apply.
+	 */
+	public setRepeatMode(mode: RepeatMode): this {
 		const oldPlayer = { ...this };
-
-		if (repeat) {
-			this.trackRepeat = false;
-			this.queueRepeat = true;
-			this.dynamicRepeat = false;
-		} else {
-			this.trackRepeat = false;
-			this.queueRepeat = false;
-			this.dynamicRepeat = false;
-		}
-
+		this.queue.repeatMode = mode;
+		this.trackRepeat  = mode === RepeatMode.Track;
+		this.queueRepeat  = mode === RepeatMode.Queue;
+		this.dynamicRepeat = false;
+		if (this.dynamicLoopInterval) clearInterval(this.dynamicLoopInterval);
 		this.manager.emit('PlayerStateUpdate', oldPlayer, this);
 		return this;
 	}
@@ -474,6 +464,7 @@ export class LithiumXPlayer {
 			this.trackRepeat = false;
 			this.queueRepeat = false;
 			this.dynamicRepeat = true;
+			this.queue.repeatMode = RepeatMode.None;
 
 			this.dynamicLoopInterval = setInterval(() => {
 				if (!this.dynamicRepeat) return;
@@ -488,6 +479,7 @@ export class LithiumXPlayer {
 			this.trackRepeat = false;
 			this.queueRepeat = false;
 			this.dynamicRepeat = false;
+			this.queue.repeatMode = RepeatMode.None;
 		}
 
 		this.manager.emit('PlayerStateUpdate', oldPlayer, this);
@@ -552,11 +544,9 @@ export class LithiumXPlayer {
 
 	/** Go back to the previous song. */
 	public previous(): this {
-		if (this.queue.previous) {
-			this.queue.unshift(this.queue.previous);
-		}
+		const prev = this.queue.popHistory();
+		if (prev) this.queue.unshift(prev);
 		this.stop();
-
 		return this;
 	}
 

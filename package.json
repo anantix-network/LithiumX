@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.16",
-		"@biomejs/biome": "^1.9.4",
 		"@types/node": "^22.13.10",
 		"@types/ws": "^8.18.0",
 		"discord.js": "^14.18.0",

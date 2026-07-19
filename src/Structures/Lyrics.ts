@@ -62,8 +62,12 @@ export class LyricsManager {
 	private cache: Map<string, LyricsData> = new Map();
 	/** Cache duration in ms */
 	private cacheDuration: number;
+	/** Max number of entries in the lyrics cache */
+	private maxCacheSize: number;
 	/** Reference to the LithiumX manager */
 	private manager: LithiumXManager;
+	/** Periodic cache cleanup timer */
+	private cleanupTimer: NodeJS.Timeout | undefined;
 
 	/**
 	 * Create a new lyrics manager
@@ -73,6 +77,7 @@ export class LyricsManager {
 	constructor(manager: LithiumXManager, options: LyricsManagerOptions = {}) {
 		this.manager = manager;
 		this.cacheDuration = options.cacheDuration || 3600000; // Default: 1 hour
+		this.maxCacheSize = options.maxCacheSize ?? 200;
 
 		// Register default providers
 		this.registerProvider(new DefaultLyricsProvider());
@@ -90,7 +95,7 @@ export class LyricsManager {
 
 		// Clean cache periodically
 		if (this.cacheDuration > 0) {
-			setInterval(() => this.cleanCache(), this.cacheDuration);
+			this.cleanupTimer = setInterval(() => this.cleanCache(), this.cacheDuration);
 		}
 	}
 
@@ -135,7 +140,7 @@ export class LyricsManager {
 			try {
 				const lyrics = await provider.fetch(track, options);
 				if (lyrics?.lyrics) {
-					// Cache the result
+					this.evictIfNeeded();
 					this.cache.set(cacheKey, lyrics);
 					return lyrics;
 				}
@@ -167,6 +172,7 @@ export class LyricsManager {
 		try {
 			const lyrics = await provider.fetch(track, options);
 			if (lyrics?.lyrics) {
+				this.evictIfNeeded();
 				this.cache.set(cacheKey, lyrics);
 				return lyrics;
 			}
@@ -188,8 +194,19 @@ export class LyricsManager {
 	 * Remove expired cache entries
 	 */
 	private cleanCache(): void {
-		// Simple implementation - just clear all cache
-		this.clearCache();
+		this.cache.clear();
+	}
+
+	/**
+	 * Evict oldest entry when cache exceeds max size
+	 */
+	private evictIfNeeded(): void {
+		if (this.cache.size >= this.maxCacheSize) {
+			const oldestKey = this.cache.keys().next();
+			if (!oldestKey.done && oldestKey.value !== undefined) {
+				this.cache.delete(oldestKey.value);
+			}
+		}
 	}
 }
 
@@ -199,6 +216,8 @@ export class LyricsManager {
 export interface LyricsManagerOptions {
 	/** How long to cache lyrics (in milliseconds) */
 	cacheDuration?: number;
+	/** Max number of entries in the lyrics cache. Default: 200 */
+	maxCacheSize?: number;
 	/** Genius API key for using the Genius lyrics provider */
 	geniusApiKey?: string;
 	/** Additional lyrics providers to register */

@@ -144,6 +144,8 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 			...options,
 		};
 
+		this.options.caches.maxSize ??= 100;
+
 		if (this.options.plugins) {
 			for (const [index, plugin] of this.options.plugins.entries()) {
 				if (!(plugin instanceof Plugin)) throw new RangeError(`Plugin at index ${index} does not extend Plugin.`);
@@ -305,6 +307,10 @@ class LithiumXManager extends TypedEmitter<ManagerEvents> {
 				}
 			}
 			if (this.options.caches.enabled && this.options.caches.time > 0) {
+				if (this.caches.size >= (this.options.caches.maxSize ?? 100)) {
+					const oldestKey = this.caches.firstKey();
+					if (oldestKey) this.caches.delete(oldestKey);
+				}
 				this.caches.set(search, { result, expiresAt: Date.now() + this.options.caches.time });
 			}
 			return result;
@@ -493,8 +499,10 @@ interface ManagerOptions {
 	caches: {
 		/** Whether to cache the search results. */
 		enabled: boolean;
-		/** The time to cache the search results. */
+		/** The time to cache the search results (in ms). */
 		time: number;
+		/** Max number of entries in the search cache. Default: 100 */
+		maxSize?: number;
 	};
 	/** Lyrics configuration */
 	lyrics?: {
