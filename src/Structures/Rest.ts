@@ -107,8 +107,8 @@ class LithiumXRest {
 interface playOptions {
 	guildId: string;
 	data: {
-		/** The base64 encoded track. */
-		encodedTrack?: string;
+		/** The base64 encoded track. `null` stops the currently playing track. */
+		encodedTrack?: string | null;
 		/** The track ID. */
 		identifier?: string;
 		/** The track time to start at. */

@@ -509,9 +509,15 @@ export class LithiumXPlayer {
 			this.queue.splice(0, amount - 1);
 		}
 
+		// Setting encodedTrack to null tells Lavalink to end the current track,
+		// which fires a TrackEndEvent (reason "stopped"). Node#trackEnd then plays
+		// the next queued track (skip) or ends the queue (full stop). Sending an
+		// empty payload did nothing, so stop()/skip never advanced.
 		this.node.rest.updatePlayer({
 			guildId: this.guild,
-			data: {},
+			data: {
+				encodedTrack: null,
+			},
 		});
 
 		return this;
